@@ -1,6 +1,6 @@
 # Today · Day 10 of 66: Read the failures, not the averages
 
-**Ship by Sun 1 Nov, 05:00** · **morning 1 of 2** · folder: [1-measure-before-you-believe/10-read-the-failures](../1-measure-before-you-believe/10-read-the-failures/README.md)
+**Ship by Sun 1 Nov, 05:00** · **morning 2 of 2** · folder: [1-measure-before-you-believe/10-read-the-failures](../1-measure-before-you-believe/10-read-the-failures/README.md)
 
 > **First-principles question:** Why does it fail, and which fix matters most?
 
