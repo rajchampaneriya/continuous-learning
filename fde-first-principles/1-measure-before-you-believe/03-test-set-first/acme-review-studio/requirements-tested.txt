@@ -51,7 +51,7 @@ packaging==26.3
 pandas==3.0.6
 parse==1.22.3
 parse_type==0.6.6
-pillow==12.3.0
+pillow==13.0.0
 platformdirs==4.13.3
 pluggy==1.7.0
 prompt_toolkit==3.0.53
