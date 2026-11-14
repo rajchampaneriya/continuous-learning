@@ -1,0 +1,205 @@
+{"event": "granted", "thread": "c04", "case": "c04", "offer": "retention offer", "amount": 500}
+{"event": "thread_open", "thread": "c07", "case": "c07", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c07", "case": "c07", "total": 2999, "thread_total": 2999}
+{"event": "thread_open", "thread": "c08", "case": "c08", "reason": "rule:churn_after_repeated_complaints"}
+{"event": "thread_open", "thread": "c09", "case": "c09", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "c16", "case": "c16", "reason": "rule:legal_threat"}
+{"event": "thread_open", "thread": "c17", "case": "c17", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c17", "case": "c17", "total": 5000, "thread_total": 5000}
+{"event": "thread_open", "thread": "c18", "case": "c18", "reason": "model"}
+{"event": "thread_open", "thread": "c19", "case": "c19", "reason": "rule:churn_after_repeated_complaints"}
+{"event": "thread_open", "thread": "c20", "case": "c20", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c20", "case": "c20", "total": 1000, "thread_total": 1000}
+{"event": "granted", "thread": "c21", "case": "c21", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "c21", "case": "c21", "total": 100, "thread_total": 100}
+{"event": "granted", "thread": "c23", "case": "c23", "offer": "double payment refund", "amount": 1499}
+{"event": "thread_open", "thread": "c26", "case": "c26", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c26", "case": "c26", "total": 1499, "thread_total": 1499}
+{"event": "thread_open", "thread": "c27", "case": "c27", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "c28", "case": "c28", "reason": "rule:legal_threat"}
+{"event": "granted", "thread": "c29", "case": "c29", "offer": "double payment refund", "amount": 1499}
+{"event": "thread_open", "thread": "c29", "case": "c29", "reason": "rule:human_request"}
+{"event": "thread_open", "thread": "c30", "case": "c30", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c30", "case": "c30", "total": 2000, "thread_total": 2000}
+{"event": "thread_open", "thread": "c36", "case": "c36", "reason": "rule:churn_after_repeated_complaints"}
+{"event": "thread_open", "thread": "c37", "case": "c37", "reason": "rule:legal_threat"}
+{"event": "thread_open", "thread": "c38", "case": "c38", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c38", "case": "c38", "total": 3000, "thread_total": 3000}
+{"event": "thread_open", "thread": "c39", "case": "c39", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "c41", "case": "c41", "reason": "rule:manipulation"}
+{"event": "thread_open", "thread": "c43", "case": "c43", "reason": "gate:unknown_slot"}
+{"event": "thread_open", "thread": "c44", "case": "c44", "reason": "gate:unknown_slot"}
+{"event": "granted", "thread": "c45", "case": "c45", "offer": "retention offer", "amount": 350}
+{"event": "thread_open", "thread": "c47", "case": "c47", "reason": "rule:churn_after_repeated_complaints"}
+{"event": "thread_open", "thread": "c48", "case": "c48", "reason": "rule:legal_threat"}
+{"event": "thread_open", "thread": "c49", "case": "c49", "reason": "rule:third_party_account_change"}
+{"event": "thread_open", "thread": "c50", "case": "c50", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c50", "case": "c50", "total": 1499, "thread_total": 1499}
+{"event": "thread_open", "thread": "c51", "case": "c51", "reason": "rule:human_request"}
+{"event": "thread_open", "thread": "c52", "case": "c52", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c52", "case": "c52", "total": 2097, "thread_total": 2097}
+{"event": "thread_open", "thread": "c58", "case": "c58", "reason": "model"}
+{"event": "thread_open", "thread": "c59", "case": "c59", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "c60", "case": "c60", "reason": "rule:churn_after_repeated_complaints"}
+{"event": "thread_open", "thread": "c61", "case": "c61", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c61", "case": "c61", "total": 999, "thread_total": 999}
+{"event": "thread_open", "thread": "c62", "case": "c62", "reason": "rule:manipulation"}
+{"event": "thread_open", "thread": "c63", "case": "c63", "reason": "rule:human_request"}
+{"event": "thread_open", "thread": "c69", "case": "c69", "reason": "rule:churn_after_repeated_complaints"}
+{"event": "thread_open", "thread": "c70", "case": "c70", "reason": "rule:ownership_transfer"}
+{"event": "thread_open", "thread": "c71", "case": "c71", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "c71", "case": "c71", "total": 4500, "thread_total": 4500}
+{"event": "thread_open", "thread": "c72", "case": "c72", "reason": "rule:legal_threat"}
+{"event": "thread_open", "thread": "c73", "case": "c73", "reason": "rule:manipulation"}
+{"event": "thread_open", "thread": "c74", "case": "c74", "reason": "model"}
+{"event": "thread_open", "thread": "c80", "case": "c80", "reason": "rule:manipulation"}
+{"event": "thread_open", "thread": "c81", "case": "c81", "reason": "model"}
+{"event": "thread_open", "thread": "c82", "case": "c82", "reason": "rule:human_request"}
+{"event": "thread_open", "thread": "c83", "case": "c83", "reason": "model"}
+{"event": "thread_open", "thread": "c84", "case": "c84", "reason": "model"}
+{"event": "thread_open", "thread": "p01a", "case": "p01a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p01a", "case": "p01a", "total": 600, "thread_total": 600}
+{"event": "asked", "thread": "p01h", "case": "p01h", "total": 300, "thread_total": 300}
+{"event": "thread_open", "thread": "p02a", "case": "p02a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p02a", "case": "p02a", "total": 400, "thread_total": 400}
+{"event": "asked", "thread": "p02h", "case": "p02h", "total": 400, "thread_total": 400}
+{"event": "thread_open", "thread": "p03a", "case": "p03a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p03a", "case": "p03a", "total": 550, "thread_total": 550}
+{"event": "granted", "thread": "p03h", "case": "p03h", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "p03h", "case": "p03h", "total": 100, "thread_total": 100}
+{"event": "thread_open", "thread": "p04a", "case": "p04a", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "p05a", "case": "p05a", "reason": "tool:escalate"}
+{"event": "granted", "thread": "p07h", "case": "p07h", "offer": "retention offer", "amount": 500}
+{"event": "granted", "thread": "p08h", "case": "p08h", "offer": "retention offer", "amount": 350}
+{"event": "granted", "thread": "p08h", "case": "p08h", "offer": "late-fee waiver", "amount": 100}
+{"event": "granted", "thread": "p09h", "case": "p09h", "offer": "retention offer", "amount": 500}
+{"event": "granted", "thread": "p10h", "case": "p10h", "offer": "retention offer", "amount": 500}
+{"event": "asked", "thread": "p11a", "case": "p11a", "total": 100, "thread_total": 100}
+{"event": "granted", "thread": "p11h", "case": "p11h", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "p11h", "case": "p11h", "total": 100, "thread_total": 100}
+{"event": "asked", "thread": "p12a", "case": "p12a", "total": 100, "thread_total": 100}
+{"event": "granted", "thread": "p12h", "case": "p12h", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "p12h", "case": "p12h", "total": 100, "thread_total": 100}
+{"event": "granted", "thread": "p13h", "case": "p13h", "offer": "late-fee waiver", "amount": 100}
+{"event": "granted", "thread": "p14h", "case": "p14h", "offer": "late-fee waiver", "amount": 100}
+{"event": "thread_open", "thread": "p17a", "case": "p17a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p17a", "case": "p17a", "total": 1000, "thread_total": 1000}
+{"event": "thread_open", "thread": "p18a", "case": "p18a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p18a", "case": "p18a", "total": 400, "thread_total": 400}
+{"event": "asked", "thread": "p18h", "case": "p18h", "total": 400, "thread_total": 400}
+{"event": "thread_open", "thread": "p19a", "case": "p19a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p19a", "case": "p19a", "total": 999, "thread_total": 999}
+{"event": "granted", "thread": "p19h", "case": "p19h", "offer": "double payment refund", "amount": 999}
+{"event": "asked", "thread": "p19h", "case": "p19h", "total": 999, "thread_total": 999}
+{"event": "thread_open", "thread": "p20a", "case": "p20a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p20a", "case": "p20a", "total": 1499, "thread_total": 1499}
+{"event": "thread_open", "thread": "p20h", "case": "p20h", "reason": "gate:unknown_slot"}
+{"event": "asked", "thread": "p20h", "case": "p20h", "total": 1499, "thread_total": 1499}
+{"event": "asked", "thread": "p21a", "case": "p21a", "total": 500, "thread_total": 500}
+{"event": "thread_open", "thread": "p21h", "case": "p21h", "reason": "model"}
+{"event": "asked", "thread": "p21h", "case": "p21h", "total": 500, "thread_total": 500}
+{"event": "thread_open", "thread": "p23a", "case": "p23a", "reason": "model"}
+{"event": "asked", "thread": "p23a", "case": "p23a", "total": 300, "thread_total": 300}
+{"event": "thread_open", "thread": "p24a", "case": "p24a", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "p24h", "case": "p24h", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "p25a", "case": "p25a", "reason": "rule:legal_threat"}
+{"event": "thread_open", "thread": "p26a", "case": "p26a", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "p27a", "case": "p27a", "reason": "model"}
+{"event": "thread_open", "thread": "p28a", "case": "p28a", "reason": "model"}
+{"event": "granted", "thread": "p30a", "case": "p30a", "offer": "late-fee waiver", "amount": 100}
+{"event": "thread_open", "thread": "p30a", "case": "p30a", "reason": "model"}
+{"event": "thread_open", "thread": "p30h", "case": "p30h", "reason": "gate:unknown_slot"}
+{"event": "asked", "thread": "p30h", "case": "p30h", "total": 100, "thread_total": 100}
+{"event": "granted", "thread": "p31a", "case": "p31a", "offer": "late-fee waiver", "amount": 100}
+{"event": "thread_open", "thread": "p31a", "case": "p31a", "reason": "tool:escalate"}
+{"event": "granted", "thread": "p31h", "case": "p31h", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "p31h", "case": "p31h", "total": 100, "thread_total": 100}
+{"event": "thread_open", "thread": "p32a", "case": "p32a", "reason": "rule:legal_threat"}
+{"event": "thread_open", "thread": "p33a", "case": "p33a", "reason": "rule:contact_detail_change"}
+{"event": "thread_open", "thread": "p33h", "case": "p33h", "reason": "model"}
+{"event": "thread_open", "thread": "p34a", "case": "p34a", "reason": "rule:third_party_account_change"}
+{"event": "granted", "thread": "p34h", "case": "p34h", "offer": "double payment refund", "amount": 999}
+{"event": "thread_open", "thread": "p36a", "case": "p36a", "reason": "rule:ownership_transfer"}
+{"event": "thread_open", "thread": "p37a", "case": "p37a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p37a", "case": "p37a", "total": 1000, "thread_total": 1000}
+{"event": "thread_open", "thread": "p38a", "case": "p38a", "reason": "model"}
+{"event": "thread_open", "thread": "p39a", "case": "p39a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p39a", "case": "p39a", "total": 1200, "thread_total": 1200}
+{"event": "thread_open", "thread": "p40a", "case": "p40a", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "p40a", "case": "p40a", "total": 1000, "thread_total": 1000}
+{"event": "granted", "thread": "p40h", "case": "p40h", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "p40h", "case": "p40h", "total": 100, "thread_total": 100}
+{"event": "thread_open", "thread": "m01", "case": "m01", "reason": "tool:escalate"}
+{"event": "asked", "thread": "m01", "case": "m01", "total": 400, "thread_total": 400}
+{"event": "thread_open", "thread": "m02", "case": "m02", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "m02", "case": "m02", "total": 600, "thread_total": 600}
+{"event": "thread_open", "thread": "m03", "case": "m03", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "m04", "case": "m04", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "m04", "case": "m04", "total": 100, "thread_total": 100}
+{"event": "thread_open", "thread": "m06", "case": "m06", "reason": "model"}
+{"event": "thread_open", "thread": "m07", "case": "m07", "reason": "model"}
+{"event": "granted", "thread": "m09", "case": "m09", "offer": "retention offer", "amount": 500}
+{"event": "thread_open", "thread": "m09", "case": "m09", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "m10", "case": "m10", "reason": "rule:churn_after_repeated_complaints"}
+{"event": "thread_open", "thread": "m11", "case": "m11", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "m12", "case": "m12", "reason": "tool:escalate"}
+{"event": "granted", "thread": "m19", "case": "m19", "offer": "late-fee waiver", "amount": 100}
+{"event": "thread_open", "thread": "m20", "case": "m20", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "m21", "case": "m21", "reason": "rule:legal_threat"}
+{"event": "thread_open", "thread": "m22", "case": "m22", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "m23", "case": "m23", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "m24", "case": "m24", "reason": "rule:human_request"}
+{"event": "thread_open", "thread": "m25", "case": "m25", "reason": "rule:legal_threat"}
+{"event": "thread_open", "thread": "m26", "case": "m26", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "m26", "case": "m26", "total": 1500, "thread_total": 1500}
+{"event": "thread_open", "thread": "m27", "case": "m27", "reason": "rule:manipulation"}
+{"event": "thread_open", "thread": "m28", "case": "m28", "reason": "rule:manipulation"}
+{"event": "thread_open", "thread": "m29", "case": "m29", "reason": "rule:manipulation"}
+{"event": "thread_open", "thread": "m30", "case": "m30", "reason": "rule:contact_detail_change"}
+{"event": "thread_open", "thread": "m32", "case": "m32", "reason": "rule:ownership_transfer"}
+{"event": "asked", "thread": "m36", "case": "m36", "total": 100, "thread_total": 100}
+{"event": "granted", "thread": "m37", "case": "m37", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "m37", "case": "m37", "total": 100, "thread_total": 100}
+{"event": "granted", "thread": "m38", "case": "m38", "offer": "retention offer", "amount": 500}
+{"event": "granted", "thread": "m39", "case": "m39", "offer": "double payment refund", "amount": 999}
+{"event": "asked", "thread": "m39", "case": "m39", "total": 999, "thread_total": 999}
+{"event": "thread_open", "thread": "m40", "case": "m40", "reason": "rule:money_above_headroom_ledger"}
+{"event": "asked", "thread": "m40", "case": "m40", "total": 999, "thread_total": 999}
+{"event": "thread_open", "thread": "r02", "case": "r02", "reason": "tool:escalate"}
+{"event": "granted", "thread": "r03", "case": "r03", "offer": "late-fee waiver", "amount": 100}
+{"event": "thread_open", "thread": "r05", "case": "r05", "reason": "model"}
+{"event": "thread_open", "thread": "r07", "case": "r07", "reason": "model"}
+{"event": "thread_open", "thread": "r08", "case": "r08", "reason": "tool:escalate"}
+{"event": "granted", "thread": "r12", "case": "r12", "offer": "double payment refund", "amount": 999}
+{"event": "thread_open", "thread": "r19", "case": "r19", "reason": "model"}
+{"event": "granted", "thread": "r20", "case": "r20", "offer": "retention offer", "amount": 750}
+{"event": "granted", "thread": "r20", "case": "r20", "offer": "double payment refund", "amount": 1499}
+{"event": "thread_open", "thread": "r22", "case": "r22", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "r23", "case": "r23", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "r25", "case": "r25", "reason": "model"}
+{"event": "thread_open", "thread": "r31", "case": "r31", "reason": "model"}
+{"event": "granted", "thread": "r33", "case": "r33", "offer": "double payment refund", "amount": 1499}
+{"event": "thread_open", "thread": "r34", "case": "r34", "reason": "gate:unknown_slot"}
+{"event": "thread_open", "thread": "r35", "case": "r35", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "r36", "case": "r36", "reason": "model"}
+{"event": "thread_open", "thread": "r39", "case": "r39", "reason": "model"}
+{"event": "thread_open", "thread": "r41", "case": "r41", "reason": "model"}
+{"event": "thread_open", "thread": "r42", "case": "r42", "reason": "model"}
+{"event": "granted", "thread": "r44", "case": "r44", "offer": "retention offer", "amount": 500}
+{"event": "granted", "thread": "r46", "case": "r46", "offer": "late-fee waiver", "amount": 100}
+{"event": "thread_open", "thread": "r47", "case": "r47", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "r49", "case": "r49", "reason": "tool:escalate"}
+{"event": "thread_open", "thread": "r51", "case": "r51", "reason": "rule:money_above_headroom"}
+{"event": "asked", "thread": "r51", "case": "r51", "total": 999, "thread_total": 999}
+{"event": "granted", "thread": "r52", "case": "r52", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "r52", "case": "r52", "total": 100, "thread_total": 100}
+{"event": "asked", "thread": "T1", "case": "t1a", "total": 300, "thread_total": 300}
+{"event": "granted", "thread": "T2", "case": "t2a", "offer": "late-fee waiver", "amount": 100}
+{"event": "asked", "thread": "T2", "case": "t2a", "total": 100, "thread_total": 100}
+{"event": "asked", "thread": "T3", "case": "t3a", "total": 300, "thread_total": 300}
+{"event": "thread_open", "thread": "T1", "case": "t1b", "reason": "rule:money_above_headroom_ledger"}
+{"event": "asked", "thread": "T1", "case": "t1b", "total": 300, "thread_total": 600}
+{"event": "thread_open", "thread": "T3", "case": "t3b", "reason": "rule:money_above_headroom_ledger"}
+{"event": "asked", "thread": "T3", "case": "t3b", "total": 300, "thread_total": 600}
+{"event": "thread_open", "thread": "T1", "case": "t1c", "reason": "rule:thread_with_human"}
+{"event": "asked", "thread": "T2", "case": "t2b", "total": 100, "thread_total": 200}
