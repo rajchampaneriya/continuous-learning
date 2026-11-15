@@ -44,6 +44,9 @@ def test_seeds_and_scripts_load():
 
 
 def test_registry_and_budgets_cover_the_cli():
-    assert "D-glm53flash" in rt.AGENTS and callable(rt.AGENTS["D-glm53flash"])
-    assert set(rt.BUDGETS) == {"smoke", "a", "b", "d"}
+    assert "D5-glm53flash" in rt.AGENTS and callable(rt.AGENTS["D5-glm53flash"])
+    assert "C4-glm53flash-r2" in rt.AGENTS  # R6's baseline side by side
+    assert set(rt.BUDGETS) == {"smoke", "a", "b", "d", "c"}
     assert rt.BUDGETS["smoke"] == 40
+    for obj, personas in rt.C_PERSONAS.items():
+        assert len(personas) == 4 and set(personas) <= set(rt.PERSONAS)
