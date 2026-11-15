@@ -71,6 +71,23 @@ TOOLS_D = [t for t in TOOLS_C3 if t["function"]["name"] in WORKER_TOOLS]
 
 OFFER_NAMES = ("late-fee waiver", "retention offer", "double payment refund", "outage credit")
 
+# The brief prints "- retention offer (KB11): OFFER"; the model copies that label back.
+_TRAILING_PARENTHETICAL = re.compile(r"\s*\([^)]*\)\s*$")
+
+
+def _slot_norm(name: str) -> str:
+    return re.sub(r"[\s-]+", " ", name.casefold().strip())
+
+
+_CANONICAL_BY_NORM = {_slot_norm(n): n for n in OFFER_NAMES}
+
+
+def canonical_offer(name: str) -> Optional[str]:
+    """A slot name the model wrote, mapped back to the catalogue entry: casefolded, trimmed,
+    a trailing "(KB11)" dropped, spaces and hyphens collapsed ("late fee" = "late-fee")."""
+    cleaned = _TRAILING_PARENTHETICAL.sub("", str(name or ""))
+    return _CANONICAL_BY_NORM.get(_slot_norm(cleaned))
+
 DISCRETIONARY_OFFERS = ("late-fee waiver", "retention offer")
 # A double-payment claim: money the customer says Acme took twice. m40's claim ("I think I was
 # charged twice." / "Two payments of ₹999.") carries no money-request verb, so
@@ -260,10 +277,14 @@ def fill_offers(reply: str,
 
     if isinstance(slots, str):
         slots = [slots]
+    canonical: List[str] = []
     for name in slots or []:
-        if name not in OFFER_NAMES:
+        matched = canonical_offer(name)
+        if matched is None:
             sources.append("gate:unknown_slot")
-            continue
+        elif matched not in canonical:
+            canonical.append(matched)
+    for name in canonical:
         already = store is not None and store.already_granted(thread_of(case), name)
         status = "already_granted" if already else envelope["offer_decisions"].get(name, {}).get("status")
         offer = envelope["offers"].get(name, {})
@@ -325,9 +346,12 @@ def run_agent(case: Dict[str, Any],
 
     def _gate(output: Dict[str, Any]) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
         slots = output.pop("offers", []) or []
-        reply, gate_sources = fill_offers(output.get("reply") or "", slots, envelope, case, store)
+        raw = [slots] if isinstance(slots, str) else list(slots)
+        reply, gate_sources = fill_offers(output.get("reply") or "", raw, envelope, case, store)
         output["reply"] = reply
-        output["offers_filled"] = slots
+        output["offers_filled"] = list(dict.fromkeys(
+            c for c in (canonical_offer(s) for s in raw) if c))
+        output["offers_raw"] = raw
         sources.extend(gate_sources)
         violations = policy_violations(reply, customer_id=case.get("customer_id"), rules=rules,
                                        asked=customer_text(case))
