@@ -37,7 +37,7 @@ from .acme import (DATA, RESULTS, INTENTS, conversation, customer_text, data_roo
 from .acme_tools import escalate, get_article
 from .business_rules import load_business_rules
 from .escalation import SENTENCES, amounts_asked_for, percent_asks_in_rupees
-from .evals import amounts, policy_violations, score
+from .evals import SENTENCE_END, amounts, policy_violations, score
 from .llm import chat, extract_json
 from .ontology import extract_concepts
 from .version_c3 import (
@@ -315,6 +315,72 @@ def _user_content(case: Dict[str, Any], envelope: Dict[str, Any], whole_kb: bool
     )
 
 
+# The Gate's draft check: the model may not grant money or claim an action was done — code
+# writes grants, code performs actions. Own patterns, deliberately not the grader's.
+_DRAFT_CLAUSE = re.compile(r"[,;:—]|\bbut\b", re.IGNORECASE)
+_DRAFT_NEGATION = re.compile(r"\b(?:not|never|no|cannot|unable|won't|won’t|can't|can’t|n't|n’t)\b",
+                             re.IGNORECASE)
+_DRAFT_GRANT_VERB = re.compile(
+    r"\b(?:waive[ds]?|waiving|refund\w*|credit(?:ed|s|ing)?|discount\w*|approv\w*|revers\w*"
+    r"|reimburs\w*|appl(?:y|ies|ied)|add(?:ed|s)?)\b", re.IGNORECASE)
+_DRAFT_MONEY = re.compile(r"₹\s?\d|\brs\.?\s?\d|\b\d+\s?(?:%|percent)\b", re.IGNORECASE)
+_DRAFT_ACTION_CLAIM = re.compile(
+    r"\b(?:i|we)\s+(?:have\s+|'ve\s+)(?:processed|updated|changed|upgraded|downgraded|cancelled"
+    r"|canceled|booked|scheduled|applied|activated|refunded|waived)\b"
+    r"|\b(?:has|have)\s+been\s+(?:processed|updated|changed|upgraded|downgraded|cancelled|canceled"
+    r"|booked|scheduled|applied|activated|refunded|waived)\b"
+    r"|\bis now active\b", re.IGNORECASE)
+# A hand-off that restates the ask promises nothing, and neither does a conditional rule.
+_DRAFT_HAND_OFF = re.compile(
+    r"\b(?:customer representative|representative|our team|support team|billing team)\b"
+    r"[^.!?\n]{0,80}\b(?:will (?:call|review|look|contact)|has (?:your|the))\b", re.IGNORECASE)
+_DRAFT_RESTATED = re.compile(
+    r"\b(?:you (?:asked|requested)|asked for|requested)\b|your\s[^.!?\n]{0,40}\b(?:request|ask)\b",
+    re.IGNORECASE)
+_DRAFT_CONDITIONAL = re.compile(r"\b(?:if|when|unless)\b", re.IGNORECASE)
+# Plan pricing and a fee the bill itself added are facts, not concessions.
+_DRAFT_PLAN_PRICE = re.compile(r"price of\s+₹|₹\s?\d[\d,]*\s+per month|\bplan price\b", re.IGNORECASE)
+_DRAFT_FEE_ADDED = re.compile(
+    r"\b(?:fee|charge)\b[^.!?\n]{0,30}\b(?:was|is|has been|been)\s+add\w*"
+    r"|\badd\w*\s+(?:to|on)\s+(?:your|the)\s+(?:bill|invoice)", re.IGNORECASE)
+
+
+def check_draft(draft: str, case: Dict[str, Any], envelope: Dict[str, Any]) -> List[Dict[str, str]]:
+    """Sentences where the model's draft grants money (a grant verb plus a rupee or percent amount
+    in the same clause) or claims an action was already done. [] when the draft is clean.
+
+    Not flagged: negations ("cannot waive"), conditional rules ("if the outage lasts more than
+    24 hours, ... credited automatically"), plan pricing ("the Plus price of ₹999 applies"), a
+    fee the bill itself added ("the ₹100 late fee was added") and a hand-off that restates the
+    ask. Called in _gate() BEFORE fill_offers appends the code-written grant sentences."""
+    hits: List[Dict[str, str]] = []
+    for sentence in SENTENCE_END.split(draft or ""):
+        conditional = bool(_DRAFT_CONDITIONAL.search(sentence))
+        if not conditional and _DRAFT_ACTION_CLAIM.search(sentence):
+            hits.append({"detector": "action_claim", "sentence": sentence.strip()})
+            continue
+        if conditional or (_DRAFT_RESTATED.search(sentence) and _DRAFT_HAND_OFF.search(sentence)):
+            continue
+        for clause in _DRAFT_CLAUSE.split(sentence):
+            if (_DRAFT_GRANT_VERB.search(clause) and _DRAFT_MONEY.search(clause)
+                    and not _DRAFT_NEGATION.search(clause)
+                    and not _DRAFT_PLAN_PRICE.search(clause)
+                    and not _DRAFT_FEE_ADDED.search(clause)):
+                hits.append({"detector": "draft_grant", "sentence": clause.strip()})
+                break
+    return hits
+
+
+REPAIR_INSTRUCTION = (
+    "Your draft reply grants money or claims an action was already done; only the system may do "
+    "either. Write the reply again, the same in every other way, but remove those sentences: "
+    "state the rule that applies, or say a customer representative will look at it. Do not write "
+    "any rupee amount or percentage as given to the customer, and do not say an action has been "
+    "performed. "
+    'Answer ONLY with JSON: {"intent": str, "reply": str, "needs_human": bool, "offers": [str]}.'
+)
+
+
 def fill_offers(reply: str,
                 slots: Any,
                 envelope: Dict[str, Any],
@@ -398,7 +464,27 @@ def run_agent(case: Dict[str, Any],
         return chat(msgs, tools=tools, temperature=temperature, run=run, model=model,
                     timeout=remaining, **options)
 
+    def _repair(output: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """One repair call for a draft the Gate flagged; None keeps the original output."""
+        r = _call(messages + [{"role": "assistant", "content": output.get("reply") or ""},
+                              {"role": "user", "content": REPAIR_INSTRUCTION}])
+        trace.append({"step": len(trace), "tokens_in": r["tokens_in"], "tokens_out": r["tokens_out"],
+                      "seconds": r["seconds"], "stop_reason": r.get("stop_reason"),
+                      "tool_calls": [], "draft_repair": True})
+        fixed = _parse(r)
+        if fixed.get("parse_error") or not str(fixed.get("reply") or "").strip():
+            return None
+        return fixed
+
     def _gate(output: Dict[str, Any]) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
+        hits = check_draft(output.get("reply") or "", case, envelope)
+        if hits:
+            repaired = _repair(output)
+            if repaired is not None:
+                output = repaired
+                output["draft_repaired"] = True
+                hits = check_draft(output.get("reply") or "", case, envelope)
+        sources.extend(f"gate:{h['detector']}" for h in hits)  # still flagged -> escalate
         slots = output.pop("offers", []) or []
         raw = [slots] if isinstance(slots, str) else list(slots)
         reply, gate_sources = fill_offers(output.get("reply") or "", raw, envelope, case, store)

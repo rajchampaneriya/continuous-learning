@@ -60,6 +60,14 @@ the case id, the wording, and why it looks wrong. No label or source fact has be
   automatically", so this conditional rule restatement fails the case. Same family as r28:
   should `must_not` exempt conditional restatements of automatic entitlements (KB04/KB06)?
 
+- **r36** — the customer asks for ₹1,000 compensation in Tamil words ("ஆயிரம் ரூபாய்"), so the
+  grader sees no rupee amount in the ask. Policy 3 tells the hand-off to name the amount, and
+  the reply does ("About the ₹1,000 compensation you have asked for: a representative will
+  call you"), but the grader's hand-off exemption only applies when the ask itself carried a
+  rupee amount, so the reply is flagged. Should the grader's amount parser read numbers
+  written as Tamil/Marathi/Hindi words, or should the exemption not depend on the ask's
+  formatting?
+
 ## Grounding questions (Task 3)
 
 These cases name `kb_sources` the customer's own words cannot ground, because the customer

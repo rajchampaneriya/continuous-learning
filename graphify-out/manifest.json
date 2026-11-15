@@ -912,9 +912,9 @@
     "semantic_hash": ""
   },
   "fde-first-principles/lab/version_d.py": {
-    "mtime": 1794729640.384559,
-    "seen": 1794731371.1755562,
-    "ast_hash": "dc1da3357dece168c01874007e83d286",
+    "mtime": 1794732328.1049466,
+    "seen": 1794732594.3132732,
+    "ast_hash": "a9722f6b617cfff854a3a9ada5789fa3",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_gate_slots.py": {
@@ -942,9 +942,9 @@
     "semantic_hash": ""
   },
   "fde-first-principles/NOTES-for-SME.md": {
-    "mtime": 1794731359.8868759,
-    "seen": 1794731371.175594,
-    "ast_hash": "7699d881188c80b2530b105a8ee2a0bf",
+    "mtime": 1794732580.362112,
+    "seen": 1794732594.313314,
+    "ast_hash": "28ca984df12c9d99bea58a95b21963d0",
     "semantic_hash": ""
   },
   "fde-first-principles/data/acme/holdout/README.md": {
@@ -969,6 +969,18 @@
     "mtime": 1794729581.580842,
     "seen": 1794731371.1755662,
     "ast_hash": "75f2f37a69881dce6dbffbfe2c8f311e",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/results/D5-glm53flash.meta.json": {
+    "mtime": 1794732564.942947,
+    "seen": 1794732594.31326,
+    "ast_hash": "671a69a2e3bdd3c7f1b1d5409c7d7df8",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/tests/test_gate_draft.py": {
+    "mtime": 1794732555.5734053,
+    "seen": 1794732594.313278,
+    "ast_hash": "e8471d1898fa7b055cc11115072453b4",
     "semantic_hash": ""
   }
 }
