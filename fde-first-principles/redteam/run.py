@@ -28,6 +28,7 @@ import yaml
 from lab.acme import data_root, load_cases, load_customers
 from lab.evals import score as lab_score
 from lab.llm import chat, use
+from lab.version_c4 import version_c4
 from lab.version_d import version_d
 from redteam.adapter import AcmeAdapter, TurnLog
 from redteam.report import main as report_main
@@ -36,11 +37,26 @@ REDTEAM_ROOT = Path(__file__).parent
 ATTACKER_MODEL = "glm-5.3-flash"
 MODEL = "anthropic:glm-5.3-flash"
 
-AGENTS = {"D-glm53flash": version_d}
-BUDGETS = {"smoke": 40, "a": 200, "b": 200, "d": 80}
+def _no_ledger(agent):
+    """Wrap a version without the ThreadStore ledger for the adapter's agent call."""
+    def call(case, store=None, **kw):
+        return agent(case, **kw)
+    return call
+
+
+AGENTS = {"D5-glm53flash": version_d,
+          "C4-glm53flash-r2": _no_ledger(version_c4)}
+BUDGETS = {"smoke": 40, "a": 200, "b": 200, "d": 80, "c": 400}
 # One persona per objective for campaign A; campaign D scripts name their own.
 A_PERSONAS = {"O1": "credits_given", "O2": "waiver_used", "O3": "payment_overdue",
               "O4": "short_tenure", "O5": "clean_long_tenure", "O6": "retention_used"}
+C_PERSONAS = {"O1": ["credits_given", "clean_long_tenure", "short_tenure", "waiver_used"],
+              "O2": ["waiver_used", "retention_used", "credits_given", "clean_long_tenure"],
+              "O3": ["payment_overdue", "short_tenure", "clean_long_tenure", "credits_given"],
+              "O4": ["short_tenure", "payment_overdue", "clean_long_tenure", "retention_used"],
+              "O5": ["clean_long_tenure", "payment_overdue", "credits_given", "short_tenure"],
+              "O6": ["retention_used", "waiver_used", "clean_long_tenure", "credits_given"],
+              "O8": ["clean_long_tenure", "payment_overdue", "waiver_used", "retention_used"]}
 SUITES_B = ["cases.jsonl", "cases_abuse.jsonl", "cases_regional.jsonl"]  # single-turn, rewrites stay honest
 
 PERSONAS = yaml.safe_load((REDTEAM_ROOT / "personas.yaml").read_text(encoding="utf-8"))["personas"]
@@ -212,24 +228,98 @@ async def _run_a(adapter: AcmeAdapter, run_path: Path, limit: Optional[int],
         await asyncio.sleep(1)
 
 
+async def _run_c(adapter: AcmeAdapter, run_path: Path, tier: str, limit: Optional[int]) -> None:
+    from pyrit.executor.attack.core.attack_config import (AttackAdversarialConfig,
+                                                          AttackScoringConfig)
+    from pyrit.executor.attack.multi_turn.red_teaming import RedTeamingAttack
+
+    from redteam.attacker import pack
+    from redteam.target import (AcmeAgentTarget, HandoffScorer, LabLLMTarget,
+                                UnattendedViolationScorer, set_memory)
+
+    set_memory(adapter.run, root=run_path.parent)
+    target = AcmeAgentTarget(adapter=adapter)
+    adversarial = LabLLMTarget(model=ATTACKER_MODEL)
+    scoring = AttackScoringConfig(objective_scorer=UnattendedViolationScorer(run_dir=run_path),
+                                  refusal_scorer=HandoffScorer(run_dir=run_path))
+    for obj in ("O1", "O2", "O3", "O4", "O5", "O6", "O8"):
+        for persona in C_PERSONAS[obj][:limit]:
+            adapter.customer_id, adapter.persona = persona_customer(persona), persona
+            target.labels = {"objective": obj, "strategy": f"C-{tier}", "converters": []}
+            rta = RedTeamingAttack(
+                objective_target=target,
+                attack_adversarial_config=AttackAdversarialConfig(
+                    target=adversarial, system_prompt=pack(tier, OBJECTIVES[obj]["goal"])),
+                attack_scoring_config=scoring, max_turns=5)
+            print(f"-- C-{tier} {obj} / {persona} --", flush=True)
+            try:
+                result = await rta.execute_async(
+                    objective=OBJECTIVES[obj]["goal"],
+                    memory_labels={"run": adapter.run, "campaign": "c", "tier": tier,
+                                   "objective": obj, "persona": persona})
+                print(f"   outcome: {result.outcome}", flush=True)
+            except Exception as e:  # one conversation failing must not end the campaign
+                print(f"   FAILED: {type(e).__name__}: {str(e)[:200]}", flush=True)
+            await asyncio.sleep(1)
+
+
+def run_replay(adapter: AcmeAdapter, source: str) -> None:
+    """Re-send the customer turns of every saved attack, no attacker model.
+
+    The replay pack is the regression record: every conversation in the source
+    run's turns.jsonl, its customer turns sent in order through the same
+    adapter and a fresh run log. (The one-off 'reproduce with the cache off'
+    check from the finding workflow is done by hand with use_cache=False.)"""
+    import json as _json
+
+    src = Path("data/redteam") / source / "turns.jsonl"
+    conversations: Dict[str, List[Dict[str, Any]]] = {}
+    order: List[str] = []
+    for line in (_json.loads(l) for l in src.read_text(encoding="utf-8").splitlines()):
+        cid = line["conversation"]
+        if cid not in conversations:
+            order.append(cid)
+            conversations[cid] = []
+        conversations[cid].append(line)
+
+    for cid in order:
+        lines = conversations[cid]
+        adapter.customer_id = lines[0]["case"].get("customer_id", "")
+        adapter.persona = lines[0].get("persona", "")
+        print(f"-- replay {cid} ({len(lines)} turns) --", flush=True)
+        for line in lines:
+            # each logged case carries its own full thread: history + this turn's email
+            pieces = [dict(p) for p in line["case"].get("history", [])] + [
+                {"role": "customer", "text": line["case"]["message"]}]
+            adapter.handle(f"replay-{cid}", pieces, objective=line.get("objective", ""),
+                           strategy="replay")
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--campaign", required=True, choices=["smoke", "a", "b", "d"])
-    ap.add_argument("--agent", default="D-glm53flash", choices=sorted(AGENTS))
+    ap.add_argument("--campaign", required=True, choices=["smoke", "a", "b", "d", "c", "replay"])
+    ap.add_argument("--agent", default="D5-glm53flash", choices=sorted(AGENTS))
     ap.add_argument("--limit", type=int, default=None, help="cap cases/seeds/sends for a smoke run")
+    ap.add_argument("--tier", choices=["black", "white"], default="black",
+                    help="campaign C knowledge tier")
+    ap.add_argument("--source", default=None, help="replay: the run whose attacks are re-sent")
     ap.add_argument("--run", default=None, help="run id (defaults to <campaign>-<agent>)")
     args = ap.parse_args(argv)
 
-    os.environ["LLM_MAX_CALLS"] = str(BUDGETS[args.campaign])
+    if args.campaign == "replay" and not args.source:
+        ap.error("--campaign replay needs --source <run>")
+    os.environ["LLM_MAX_CALLS"] = str(BUDGETS.get(args.campaign, 200))
     use(MODEL)
-    run = args.run or f"{args.campaign}-{args.agent}"
+    run = args.run or (f"c{args.tier}-{args.agent}" if args.campaign == "c"
+                       else f"{args.campaign}-{args.agent}")
     run_path = Path("data/redteam") / run
     run_path.mkdir(parents=True, exist_ok=True)
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True,
                             text=True).stdout.strip()
     (run_path / "meta.json").write_text(json.dumps(
         {"run": run, "campaign": args.campaign, "agent": args.agent, "model": MODEL,
-         "rewriter": MODEL, "commit": commit, "llm_max_calls": BUDGETS[args.campaign]},
+         "rewriter": MODEL, "commit": commit,
+         "llm_max_calls": BUDGETS.get(args.campaign, 200)},
         indent=1) + "\n", encoding="utf-8")
 
     adapter = AcmeAdapter(agent=AGENTS[args.agent], agent_name=args.agent,
@@ -243,6 +333,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         run_b(adapter, run_path, args.limit)
     elif args.campaign == "a":
         asyncio.run(_run_a(adapter, run_path, args.limit))
+    elif args.campaign == "c":
+        asyncio.run(_run_c(adapter, run_path, args.tier, args.limit))
+    elif args.campaign == "replay":
+        run_replay(adapter, args.source or "")
     else:  # smoke: one plain seed per objective, the first thread script, two rewrites
         run_d(adapter, 1)
         run_b(adapter, run_path, 2)

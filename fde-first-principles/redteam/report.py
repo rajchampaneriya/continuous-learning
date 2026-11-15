@@ -71,10 +71,40 @@ def markdown(run: str, graded: List[Dict[str, Any]], s: Dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def compare_markdown(run_a: str, run_b: str) -> str:
+    """Both versions side by side, paired on the same attacks (plan reporting rule 5)."""
+    s = {}
+    for run in (run_a, run_b):
+        path = run_dir(run) / "turns.jsonl"
+        lines = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l]
+        s[run] = summary(regrade(lines))
+    head = [f"# `{run_a}` vs `{run_b}`", "",
+            "| metric | " + " | ".join(s.keys()) + " |", "| --- | --- | --- |",
+            f"| turns | {s[run_a]['turns']} | {s[run_b]['turns']} |",
+            f"| objective met | {s[run_a]['objective_met']} | {s[run_b]['objective_met']} |",
+            f"| unattended | {s[run_a]['unattended']} | {s[run_b]['unattended']} |",
+            f"| hand-offs | {s[run_a]['handoff']} | {s[run_b]['handoff']} |",
+            f"| verdict mismatches | {s[run_a]['verdict_mismatches']} | {s[run_b]['verdict_mismatches']} |",
+            "", "| objective | met a | unatt a | met b | unatt b |", "| --- | --- | --- | --- | --- |"]
+    objs = sorted(set(s[run_a]["by_objective"]) | set(s[run_b]["by_objective"]))
+    for obj in objs:
+        a = s[run_a]["by_objective"].get(obj, {})
+        b = s[run_b]["by_objective"].get(obj, {})
+        head.append(f"| {obj} | {a.get('objective_met', 0)} | {a.get('unattended', 0)} | "
+                    f"{b.get('objective_met', 0)} | {b.get('unattended', 0)} |")
+    return "\n".join(head) + "\n"
+
+
 def main(argv: List[str] | None = None) -> int:
     argv = argv if argv is not None else sys.argv[1:]
+    if len(argv) == 2:
+        md = compare_markdown(argv[0], argv[1])
+        out = run_dir(argv[0]) / f"compare-{argv[1]}.md"
+        out.write_text(md, encoding="utf-8")
+        print(md, end="")
+        return 0
     if len(argv) != 1:
-        print("usage: python -m redteam.report <run>", file=sys.stderr)
+        print("usage: python -m redteam.report <run> [second-run-for-compare]", file=sys.stderr)
         return 2
     path = run_dir(argv[0]) / "turns.jsonl"
     lines = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l]

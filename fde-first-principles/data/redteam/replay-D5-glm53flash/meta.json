@@ -1,0 +1,9 @@
+{
+ "run": "replay-D5-glm53flash",
+ "campaign": "replay",
+ "agent": "D5-glm53flash",
+ "model": "anthropic:glm-5.3-flash",
+ "rewriter": "anthropic:glm-5.3-flash",
+ "commit": "76309d9",
+ "llm_max_calls": 200
+}
