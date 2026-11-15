@@ -262,11 +262,24 @@ class VersionRegistry:
                     "edges": sorted((e.source, e.target, bool(e.conditional)) for e in graph.edges)}
         if manifest["implementation"] == "declarative":
             topology = manifest.get("spec") or {}
+        elif manifest["implementation"] == "multi_agent":
+            from .adapters.team import team_topology
+            topology = team_topology()
+        elif manifest["adapter"] == "lab-version-d":
+            from .adapters.version_d import version_d_topology
+            topology = version_d_topology()
         if manifest["adapter"] == "lab-version-b":
             from lab.acme import use_data_root
             from lab.version_b import system_prompt as b_system_prompt
             with use_data_root(data_root):
                 prompts = {"version-b": b_system_prompt()}
+        elif manifest["adapter"] == "lab-version-d":
+            if str(self.lab_root) not in sys.path:
+                sys.path.append(str(self.lab_root))
+            from lab.acme import use_data_root
+            from lab.version_d import system_prompt_d
+            with use_data_root(data_root):
+                prompts = {"version-d": system_prompt_d()}
         elif config["provider"] == "c3" or manifest["implementation"] == "agent_loop":
             if str(self.lab_root) not in sys.path:
                 sys.path.append(str(self.lab_root))

@@ -46,7 +46,8 @@ Feature: The ontology gives every agent the same meaning for policy words
 
   Scenario: The OWL reasoner inherits class properties and respects subclass overrides
     When the reasoner inspects the ontology
-    Then "late-fee waiver" inherits oncePerMonths of 12 and countsTowardLimit true
+    Then "late-fee waiver" inherits countsTowardLimit true
+    And "late-fee waiver" has a 12-month cooldown from business_rules.json
     And "double payment refund" overrides countsTowardLimit to false
     And "cancellation" inherits requiresRole "account holder"
 
