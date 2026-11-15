@@ -32,7 +32,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from .acme import DATA, RESULTS, INTENTS, conversation, customer_text, data_root, intent_guide, load_customers
+from .acme import (DATA, RESULTS, INTENTS, conversation, customer_text, data_root, intent_guide,
+                   kb_by_id, load_customers)
 from .acme_tools import escalate, get_article
 from .business_rules import load_business_rules
 from .escalation import amounts_asked_for
@@ -49,7 +50,6 @@ from .version_c3 import (
     offers_not_allowed,
     search_kb_c3,
 )
-from .version_c4 import _envelope_brief_c4
 
 FINAL_DRAFT_INSTRUCTION_D = (
     "The tools are no longer available. Using only what you already know from the record, "
@@ -253,10 +253,24 @@ def _record_block(envelope: Dict[str, Any]) -> str:
                                                                              indent=1)
 
 
-def _user_content(case: Dict[str, Any], envelope: Dict[str, Any]) -> str:
+def _envelope_brief_d(envelope: Dict[str, Any], whole_kb: bool = False) -> str:
+    """C3's brief plus the FULL text of every grounded article (id and title, deduplicated,
+    at most six), so the fast path can answer in one call without tools. `whole_kb` swaps in
+    the entire KB as a control run."""
+    brief = _envelope_brief(envelope)
+    articles = kb_by_id()
+    kids = list(articles) if whole_kb else list(dict.fromkeys(envelope.get("grounded_kb_ids") or []))[:6]
+    lines = [f"{kid} · {articles[kid]['title']}\n{articles[kid]['text']}" for kid in kids if kid in articles]
+    if lines:
+        brief += ("\nHelp articles (quote the concrete steps or terms from these in your reply):\n\n"
+                  + "\n\n".join(lines))
+    return brief
+
+
+def _user_content(case: Dict[str, Any], envelope: Dict[str, Any], whole_kb: bool = False) -> str:
     return (
         f"Customer id: {case['customer_id']}\n\n"
-        f"{_envelope_brief_c4(envelope)}\n\n"
+        f"{_envelope_brief_d(envelope, whole_kb=whole_kb)}\n\n"
         f"{_record_block(envelope)}\n\n"
         f"Email:\n{conversation(case)}"
     )
@@ -326,14 +340,15 @@ def run_agent(case: Dict[str, Any],
               max_steps: int = 6,
               timeout: Optional[float] = None,
               persist_cache: bool = True,
-              store: Optional[ThreadStore] = None) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
+              store: Optional[ThreadStore] = None,
+              whole_kb: bool = False) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """Version D: Router -> worker (or fast path) -> Gate. Same output shape as C3/C4 plus
     "path" and "offers_filled"."""
     routed = route(case, rules=rules, store=store)
     envelope, path, sources = routed["envelope"], routed["path"], routed["sources"]
     messages: List[Dict[str, Any]] = [
         {"role": "system", "content": system_prompt_d()},
-        {"role": "user", "content": _user_content(case, envelope)},
+        {"role": "user", "content": _user_content(case, envelope, whole_kb=whole_kb)},
     ]
     trace: List[Dict[str, Any]] = []
     active_rules = load_business_rules(overrides=rules) if rules else load_business_rules()
@@ -457,9 +472,11 @@ def version_d(case: Dict[str, Any],
               run: int = 0,
               *,
               rules: Optional[Dict[str, Any]] = None,
-              store: Optional[ThreadStore] = None) -> Dict[str, Any]:
+              store: Optional[ThreadStore] = None,
+              whole_kb: bool = False) -> Dict[str, Any]:
     """Run Version D on one case and return one result row with token and latency totals."""
-    output, trace = run_agent(case, temperature=temperature, run=run, rules=rules, store=store)
+    output, trace = run_agent(case, temperature=temperature, run=run, rules=rules, store=store,
+                              whole_kb=whole_kb)
     if store is not None:
         store.record_asked(case, sum(claim_amounts(customer_text(case))))
     return {

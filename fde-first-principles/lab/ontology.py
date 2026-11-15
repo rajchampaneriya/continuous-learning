@@ -486,6 +486,17 @@ def policy_rules() -> Dict[int, str]:
     }
 
 
+@lru_cache(maxsize=None)
+def _alias_pattern(alias: str) -> "re.Pattern[str]":
+    """Word-boundary pattern for an ASCII alias; multi-word aliases allow up to two
+    filler words between their words ("cancel connection" hits "cancel my connection")."""
+    words = [re.escape(w) for w in alias.split()]
+    body = r"\W+(?:\w+\W+){0,2}?".join(words) if len(words) > 1 else words[0]
+    lookbehind = r"(?<!\w)" if alias[0].isalnum() else ""
+    lookahead = r"(?!\w)" if alias[-1].isalnum() else ""
+    return re.compile(rf"{lookbehind}{body}{lookahead}", re.IGNORECASE)
+
+
 def extract_concepts(text: str) -> List[Dict[str, Any]]:
     """Scan English, Hinglish or regional text and return matched ontology concepts."""
     if not text:
@@ -497,7 +508,7 @@ def extract_concepts(text: str) -> List[Dict[str, Any]]:
         if len(alias) < 3:
             continue
         if alias.isascii():
-            if not re.search(rf"(?<!\w){re.escape(alias)}(?!\w)", lowered):
+            if not _alias_pattern(alias).search(lowered):
                 continue
         elif alias not in lowered:
             continue

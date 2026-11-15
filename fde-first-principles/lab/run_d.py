@@ -74,6 +74,8 @@ def main() -> None:
     ap.add_argument("--baseline", type=str, default=BASELINE, help="C4 run to pair against")
     ap.add_argument("--holdout", action="store_true",
                     help="run only the person-written holdout file; prints the aggregate summary only")
+    ap.add_argument("--whole-kb", action="store_true",
+                    help="control run: put the entire KB in the brief instead of the grounded articles")
     args = ap.parse_args()
 
     holdout_path = data_root() / HOLDOUT_FILE
@@ -99,7 +101,7 @@ def main() -> None:
     started = time.time()
     for i, case in enumerate(cases, 1):
         t0 = time.time()
-        row = version_d(case, temperature=0.0, run=0, store=store)
+        row = version_d(case, temperature=0.0, run=0, store=store, whole_kb=args.whole_kb)
         s = score(case, row)
         rows.append({"case": case["id"], "source_file": case["source_file"],
                      "customer_id": case["customer_id"], **row})

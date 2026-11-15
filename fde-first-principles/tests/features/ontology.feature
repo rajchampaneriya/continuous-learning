@@ -75,3 +75,19 @@ Feature: The ontology gives every agent the same meaning for policy words
   Scenario: Business rules evolve commercially without changing the ontology
     When business operations raises the concession limit to 800 rupees and lowers minimum tenure to 6 months
     Then customer "AC1032" has 600 rupees of headroom and is eligible for "retention offer"
+
+  Scenario Outline: A label still matches when the customer adds small words or writes in another language
+    When the engine extracts concepts from "<text>"
+    Then "<concept>" is matched
+
+    Examples:
+      | text                                 | concept               |
+      | Please cancel my connection today    | cancellation          |
+      | I want to shift the connection       | connection shift      |
+      | Give me a credit for the long outage | outage credit         |
+      | 50% off next month                   | discount              |
+      | Please cancel the connection now     | cancellation          |
+      | तिसरी तक्रार आहे                     | complaint fatigue     |
+      | இரண்டு முறை செலுத்திவிட்டேன்         | double payment refund |
+      | എനിക്ക് ഒരു മനുഷ്യനുമായി സംസാരിക്കണം | human request         |
+      | Why is my bill late                  | late fee              |
