@@ -535,7 +535,8 @@ def run_agent(case: Dict[str, Any],
         r = _call(messages + [{"role": "user", "content": FINAL_DRAFT_INSTRUCTION_D}])
         trace.append({"step": len(trace), "tokens_in": r["tokens_in"], "tokens_out": r["tokens_out"],
                       "seconds": r["seconds"], "stop_reason": r.get("stop_reason"),
-                      "tool_calls": [], "draft_only": True})
+                      "tool_calls": [], "draft_only": True,
+                      "system_prompt": messages[0]["content"], "user_prompt": messages[1]["content"]})
         return _parse(r)
 
     deadline = time.monotonic() + timeout if timeout is not None else None

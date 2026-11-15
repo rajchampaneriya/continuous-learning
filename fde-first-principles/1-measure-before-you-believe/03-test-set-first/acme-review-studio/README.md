@@ -101,8 +101,11 @@ Working-copy model and guard edits are also reported as drift against an older w
 snapshot. A changed label is marked as an earlier label on saved review evidence.
 
 Example manifests in `workflows/` cover the orchestrated studio, an allowlisted declarative graph,
-standalone C3, Version B, the offline callable, a remote HTTP agent and a multi-agent team. In the
-team, a triage agent routes the message by keyword to a Billing, Network, Account or General
+standalone C3, Versions B and D, the offline callable, a remote HTTP agent and a multi-agent team.
+Version D uses the lab's rule-first router, tool-using worker and code-enforced offer gate. Its
+thread ledger is kept in memory per Studio process and sample. The default model is
+`anthropic:glm-5.3-flash`, which requires `LLM_ANTHROPIC_KEY` in `fde-first-principles/.env`.
+In the team, a triage agent routes the message by keyword to a Billing, Network, Account or General
 specialist. The specialist drafts with the offline rules (`team-offline`) or the C3 agent loop
 (`team-c3`), and a reviewer agent applies the guards and claim checks before sending or escalating. The Studio freezes new
 manifest name/label combinations on startup; change the label when introducing a revised manifest.

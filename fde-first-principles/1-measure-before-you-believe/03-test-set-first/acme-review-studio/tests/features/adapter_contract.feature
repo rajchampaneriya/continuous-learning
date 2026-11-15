@@ -11,6 +11,7 @@ Feature: Every registered simulator adapter honors the run contract
       | spec-langgraph    |
       | lab-c3            |
       | lab-version-b     |
+      | lab-version-d     |
       | offline           |
       | http-json         |
       | team              |

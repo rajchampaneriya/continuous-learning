@@ -75,6 +75,7 @@ VERSION_DESCRIPTIONS = {
     "studio-declarative": "Studio workflow built from the spec (declarative graph), full checks + human review",
     "c3-agent": "C3 agent loop run directly — no studio graph, no step checks",
     "version-b": "Version B — one LLM call, no tools, no loop",
+    "version-d": "Version D — rule-first router, agent worker and guarded offers",
     "offline-direct": "Offline rules run directly — no model, no graph",
     "remote-agent": "Agent behind an HTTP endpoint (remote deployment)",
 }

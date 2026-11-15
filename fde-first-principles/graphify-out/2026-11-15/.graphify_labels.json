@@ -1,6 +1,5 @@
 {
   "8": "Review Studio server",
-  "12": "test_policy_rules.py",
   "16": "test_review_flow.py",
   "17": "import_cases.py",
   "20": "Studio evidence frame",
@@ -10,12 +9,10 @@
   "36": "test_simulator_http.py",
   "38": "Day 8: agent loop and failures",
   "41": "Path",
-  "42": "version_b",
   "46": "Evaluation report (release decision)",
   "47": "fixture",
   "48": "given",
   "49": "then",
-  "56": "Dataset card (Acme test set)",
   "57": "studio-c3.yaml",
   "58": "ReviewStore",
   "60": "config",
@@ -30,7 +27,6 @@
   "73": "version-b.yaml",
   "76": "when",
   "79": "offline-direct.yaml",
-  "80": "Load customer card and outages",
   "93": "sim/__init__.py",
   "94": "when"
 }
