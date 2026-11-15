@@ -163,3 +163,39 @@ def test_c3_nested_turns_and_no_unused_studio_prompt(service, monkeypatch):
     fetch = next(span for span in result.spans if span.id == "step-4")
     assert "user_prompt" not in fetch.attrs
     assert next(span for span in result.spans if span.id == "step-5").attrs["envelope"]
+
+
+def test_version_d_runs_worker_tools_and_freezes_its_prompt(service, monkeypatch):
+    calls = []
+
+    def fake_chat(messages, **kwargs):
+        calls.append(kwargs)
+        if len(calls) == 1:
+            tool = {"function": {"name": "search_kb", "arguments": {"query": "Wi-Fi password"}}}
+            return {"content": "", "tool_calls": [tool],
+                    "message": {"role": "assistant", "content": "", "tool_calls": [tool]},
+                    "tokens_in": 10, "tokens_out": 4, "seconds": 0.1}
+        content = json.dumps({"intent": "other",
+                              "reply": "Hi, change your Wi-Fi password in the app settings.",
+                              "needs_human": False, "offers": []})
+        return {"content": content, "tool_calls": [],
+                "message": {"role": "assistant", "content": content},
+                "tokens_in": 12, "tokens_out": 5, "seconds": 0.1}
+
+    monkeypatch.setattr("lab.version_d.chat", fake_chat)
+    monkeypatch.setenv("LLM_ANTHROPIC_KEY", "scripted-key")
+    manifest = service.registry.load_manifest(ROOT / "workflows" / "version-d.yaml")
+    version = service.registry.freeze(manifest)
+    customer_id = next(iter(service.lab.customers))
+    result = service.run(version.id, RunInput(customer_id=customer_id,
+                                               message="How can I change my Wi-Fi password?"))
+
+    assert result.state == "completed"
+    assert result.output["path"] == "worker"
+    assert result.output["reply"].startswith("Hi, change your Wi-Fi password")
+    assert "CRM" in result.output["cited_sources"]
+    assert result.pins["prompt:system"]
+    assert calls[0]["model"] == "anthropic:glm-5.3-flash"
+    assert any(span.kind == "tool_call" and span.name == "search_kb" for span in result.spans)
+    prompt = next(span for span in result.spans if span.kind == "model_call").attrs["system_prompt"]
+    assert "decision envelope" in prompt

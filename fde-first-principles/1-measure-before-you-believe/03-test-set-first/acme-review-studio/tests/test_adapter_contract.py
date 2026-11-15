@@ -21,6 +21,8 @@ MANIFESTS = {
     "lab-version-b": "version-b.yaml",
     "offline": "offline-direct.yaml",
     "http-json": "remote-agent.yaml",
+    "team": "team-offline.yaml",
+    "lab-version-d": "version-d.yaml",
 }
 scenarios("features/adapter_contract.feature")
 
@@ -59,7 +61,7 @@ class ScriptedSession:
 def world(tmp_path, monkeypatch):
     lab = load_lab(ROOT / "data" / "Acme_Fibre_Grounded_Draft_Eval.xlsx")
     service = SimulationService(ROOT, lab, AppSettings(tmp_path / "settings.json"), runs_dir=tmp_path / "runs")
-    from lab import version_b, version_c3
+    from lab import version_b, version_c3, version_d
 
     def chat(messages, **kwargs):
         content = json.dumps({"intent": "billing", "reply": "Hi Vikram, the team will check.",
@@ -69,6 +71,7 @@ def world(tmp_path, monkeypatch):
 
     monkeypatch.setattr(version_b, "chat", chat)
     monkeypatch.setattr(version_c3, "chat", chat)
+    monkeypatch.setattr(version_d, "chat", chat)
     monkeypatch.setattr(VersionBAdapter, "status", lambda self, version: (True, "Scripted"))
     monkeypatch.setattr("acme.sim.adapters.http.requests.Session", ScriptedSession)
     monkeypatch.setenv("LLM_ANTHROPIC_KEY", "scripted-key")
@@ -97,6 +100,11 @@ def valid_contract(world):
     assert isinstance(result.output["needs_human"], bool)
     assert result.output["decision"] in {"send", "escalate"}
     assert result.spans and all(span.kind in SPAN_KINDS and span.status in SPAN_STATUSES for span in result.spans)
+    if world["version"].adapter == "lab-version-d":
+        agent = next(span for span in result.spans if span.id == "agent")
+        draft = next(span for span in result.spans if span.kind == "model_call")
+        assert agent.attrs["path"] == "fast"
+        assert draft.attrs["user_prompt"]
 
 
 @then("its run retains the frozen version and pins")

@@ -27,12 +27,15 @@ from acme.checks import eval_checks, guard_hits  # noqa: E402
 from acme.lab import INTENTS, export_to_excel, load_lab, read_review_log  # noqa: E402
 from acme.providers import make_provider  # noqa: E402
 from acme.review import initial_mode, suggest_mode, validate_verdict  # noqa: E402
-from acme.sim.render import render_comparison, render_detail, render_result  # noqa: E402
+from acme.sim.otel import to_otlp  # noqa: E402
+from acme.sim.render import (  # noqa: E402
+    pin_status, render_comparison, render_detail, render_grade, render_result, version_heading,
+)
 from acme.sim.service import SimulationService, compare_reviews, review_record, sample_spread  # noqa: E402
 from acme.sim.trace import RunInput  # noqa: E402
 from acme.sim.versions import label_hash  # noqa: E402
 from acme.store import AppSettings, ReviewStore  # noqa: E402
-from acme.ui_bits import CSS, JS, chip, highlight, icon  # noqa: E402
+from acme.ui_bits import CSS, JS, chip, highlight, icon, meaning_card  # noqa: E402
 from acme.workflow import PORTALS  # noqa: E402
 
 ROOT = Path(__file__).parent
@@ -72,6 +75,7 @@ VERSION_DESCRIPTIONS = {
     "studio-declarative": "Studio workflow built from the spec (declarative graph), full checks + human review",
     "c3-agent": "C3 agent loop run directly — no studio graph, no step checks",
     "version-b": "Version B — one LLM call, no tools, no loop",
+    "version-d": "Version D — rule-first router, agent worker and guarded offers",
     "offline-direct": "Offline rules run directly — no model, no graph",
     "remote-agent": "Agent behind an HTTP endpoint (remote deployment)",
 }
@@ -241,6 +245,9 @@ def knowledge_page():
                          ui.input_text_area("kb_text", "Text", rows=6, width="100%"),
                          ui.input_action_button("kb_save", "Save article", class_="btn-primary")),
             ui.nav_panel("Meaning",
+                         ui.div("Read-only semantic source: fde-first-principles/data/acme. "
+                                "The Help articles & policy tab edits the workbook, not these files.",
+                                class_="hint"),
                          ui.div("A concept lists its governing rules. A rule lists affected concepts; select one to open its card.",
                                 class_="hint"),
                          ui.layout_columns(
@@ -881,8 +888,11 @@ def server(input, output, session):
                 if recorded and not replay_sources(version):
                     ready, message = False, "No recorded model response is available for this version."
                 drift = [] if version.status == "legacy" else SIM.drift(version)
+            pins = pin_status(version, drift) if version is not None else None
             return ui.div(ui.HTML(chip("ready" if ready else "not ready", "ok" if ready else "bad")),
                           ui.span(message, class_="muted"),
+                          ui.div(version_heading(version), class_="muted") if version is not None else None,
+                          ui.div(f"Pins: {pins[0]} of {pins[1]} current", class_="muted") if pins else None,
                           ui.div("Changed since freeze: " + ", ".join(drift), class_="sim-warning") if drift else None)
         except (ValueError, KeyError, OSError) as exc:
             return ui.div(str(exc), class_="text-danger")
@@ -1080,8 +1090,11 @@ def server(input, output, session):
             return ui.div()
         version = SIM.registry.get(result.version_id)
         drift = SIM.drift(version)
-        return ui.card(ui.card_header(f"{version.name} · {version.implementation} · {version.status} · {version.id}"),
-                       ui.div(f"Code, model, prompts, guards and {len(version.pins.get('lab_files', {}))} lab files pinned."),
+        pins = pin_status(version, drift)
+        return ui.card(ui.card_header(version_heading(version)),
+                       ui.div(f"Pins: {pins[0]} of {pins[1]} current · code, model, prompts, guards, workbook "
+                              f"and {len(version.pins.get('lab_files', {}))} lab files" if pins else
+                              "Pins unknown: imported legacy round."),
                        ui.div("Changed since freeze: " + ", ".join(drift), class_="sim-warning") if drift else
                        ui.div("Pinned files are current.", class_="muted"),
                        ui.div("This run was made as an audit.", class_="muted") if result.audit else None)
@@ -1092,7 +1105,9 @@ def server(input, output, session):
         if not result:
             return ui.div("Pick a version and a case or write an email, then run the workflow.", class_="muted")
         version = SIM.registry.get(result.version_id)
-        return ui.HTML(render_result(result, SIM.adapter(version).topology(version), version.implementation, sim_step()))
+        adapter = SIM.adapter(version)
+        return ui.HTML(render_result(result, adapter.topology(version), version.implementation, sim_step(),
+                                     capabilities=adapter.capabilities(version)))
 
     @render.ui
     def sim_step_detail():
@@ -1169,11 +1184,25 @@ def server(input, output, session):
         return ui.card(ui.card_header(f"Outcome · {label}"),
                        ui.div(review_record(result).get("error"), class_="text-danger") if result.state == "failed" else None,
                        ui.HTML(f'<div class="reply">{html.escape(final)}</div>' if final else '<div class="muted">—</div>'),
-                       ui.pre(json.dumps(result.grade, ensure_ascii=False, indent=2)) if result.grade else
-                       ui.div("Grade is available after the run completes.", class_="muted"),
+                       ui.HTML(render_grade(result.grade)),
                        ui.div(summary, class_="muted"),
                        ui.div(f"Latency: {result.usage.get('latency_s')} s · Cost: {result.usage.get('cost_usd')}",
-                              class_="muted"))
+                              class_="muted"),
+                       ui.div(ui.input_checkbox("sim_trace_content", "Include prompts, tool arguments and results",
+                                                False),
+                              ui.download_button("sim_trace", "Download OpenTelemetry trace (OTLP JSON)",
+                                                 class_="btn-sm"),
+                              class_="mt-2"))
+
+    @render.download(filename=lambda: f"trace-{sim_view().run_id[:12]}.otlp.json" if sim_view() else "trace.json")
+    def sim_trace():
+        result = sim_view()
+        if not result:
+            return
+        _, run_input = SIM.store.get(result.run_id)
+        payload = to_otlp(result, SIM.registry.get(result.version_id), started_at=SIM.store.created_at(result.run_id),
+                          case_id=run_input.case_id, include_content=bool(input.sim_trace_content()))
+        yield json.dumps(payload, ensure_ascii=False, indent=2)
 
     @render.ui
     def sim_comparison():
@@ -1181,9 +1210,10 @@ def server(input, output, session):
         if not left or not right:
             return ui.div()
         a, b = SIM.registry.get(left.version_id), SIM.registry.get(right.version_id)
-        left_view = render_result(left, SIM.adapter(a).topology(a), a.implementation, sim_step())
+        left_view = render_result(left, SIM.adapter(a).topology(a), a.implementation, sim_step(),
+                                  capabilities=SIM.adapter(a).capabilities(a))
         right_view = render_result(right, SIM.adapter(b).topology(b), b.implementation, sim_compare_step(),
-                                   target="sim_compare_step_click")
+                                   target="sim_compare_step_click", capabilities=SIM.adapter(b).capabilities(b))
         right_detail = render_detail(right, sim_compare_step(), SIM.adapter(b).capabilities(b),
                                      target="sim_compare_step_click")
         return ui.card(ui.card_header("Version comparison"),
@@ -1287,11 +1317,21 @@ def server(input, output, session):
             )
             ui.update_selectize("meaning_concept", selected="")
             return
-        current_concept = input.meaning_concept()
-        selected_concept = current_concept if current_concept in affected else next(iter(affected), "")
+        current_concept = define(input.meaning_concept())
+        current_name = current_concept["term"] if current_concept else ""
+        selected_concept = current_name if current_name in affected else next(iter(affected), "")
         ui.update_select("meaning_affected_concept", choices=affected, selected=selected_concept)
-        if selected_concept and selected_concept != current_concept:
+        if selected_concept and selected_concept != current_name:
             ui.update_selectize("meaning_concept", selected=selected_concept)
+
+    @reactive.effect
+    @reactive.event(input.meaning_card_rule)
+    def _meaning_card_rule_selected():
+        number = input.meaning_card_rule()
+        if number not in {str(rule) for rule in policy_rules()}:
+            ui.notification_show(f"Policy rule {number} is unavailable.", type="warning")
+            return
+        ui.update_select("meaning_rule", selected=number)
 
     @reactive.effect
     @reactive.event(input.meaning_concept)
@@ -1335,87 +1375,10 @@ def server(input, output, session):
         if not concept:
             return ui.div("Select a concept to inspect its meaning and sources.", class_="muted")
 
-        facts = concept_provenance(concept["term"]) or []
-        articles = lab_kb_by_id()
-        terms_by_id = {info["iri"].rsplit("#", 1)[-1]: name for name, info in ontology_terms().items()}
-        config = load_business_rules()
-        parameters = []
-        for section in ("concession_limit", "offers"):
-            entries = config.get(section, {})
-            candidates = [entries] if section == "concession_limit" else entries.values()
-            for entry in candidates:
-                if entry.get("concept") == concept["term"]:
-                    parameters.extend(
-                        f"{key.replace('_', ' ')}: {value}"
-                        for key, value in entry.items()
-                        if key not in ("concept", "policy_rules", "kb_article", "cooldown_field",
-                                       "customer_ledger_field")
-                    )
-
-        def fact_rows(property_name):
-            rows = []
-            labels = {
-                "subClassOf": "Is a",
-                "altLabel": "Also known as",
-                "countsTowardLimit": "Counts toward concession limit",
-                "oncePerMonths": "Offer cadence (months)",
-                "scopeNote": "Business note",
-                "requiresRole": "Required role",
-                "documentedIn": "Help article",
-                "ownedBy": "Business owner",
-            }
-            for fact in facts:
-                if fact["property"] != property_name:
-                    continue
-                value = fact["value"]
-                if property_name == "documentedIn":
-                    article = articles.get(value, {})
-                    value = f"{value} · {article.get('title', '')}"
-                if property_name == "subClassOf":
-                    value = terms_by_id.get(value, value)
-                if property_name == "requiresRole":
-                    value = terms_by_id.get(value, value)
-                if property_name == "ownedBy":
-                    value = concept.get("owner_team") or value
-                origin = fact["origin"]
-                if fact["inherited_from"]:
-                    origin += f" from {fact['inherited_from']}"
-                rows.append(
-                    f"<li>{html.escape(labels.get(property_name, property_name))}: "
-                    f"<strong>{html.escape(value)}</strong> "
-                    f"<span class='muted'>({html.escape(origin)}; ontology.ttl)</span></li>"
-                )
-            return "".join(rows)
-
-        rules = [fact for fact in facts if fact["property"] == "enforcesRule"]
-        rule_rows = "".join(
-            f"<li>Rule {html.escape(fact['value'].removeprefix('PolicyRule'))} "
-            f"<span class='muted'>({html.escape(fact['origin'])}" +
-            (f" from {html.escape(fact['inherited_from'])}" if fact["inherited_from"] else "") +
-            "; policy.md)</span></li>"
-            for fact in rules
-        ) or "<li class='muted'>No linked policy rules</li>"
-        definition = html.escape(concept["definition"] or "No definition recorded")
-        parameter_rows = "".join(
-            f"<li>{html.escape(item)} <span class='muted'>(business_rules.json)</span></li>"
-            for item in parameters
-        )
-        if not parameter_rows:
-            parameter_rows = "<li class='muted'>No linked parameters</li>"
-        return ui.HTML(
-            f"<section class='mt-3'><h4>{html.escape(concept['term'])}</h4>"
-            f"<p>{definition} <span class='muted'>(ontology.ttl)</span></p>"
-            "<p class='muted'>Semantic source: fde-first-principles/data/acme</p>"
-            f"<div class='row'><div class='col-md-6'><h5>Hierarchy and business facts</h5><ul>"
-            f"{fact_rows('subClassOf')}{fact_rows('altLabel')}"
-            f"{fact_rows('countsTowardLimit')}{fact_rows('oncePerMonths')}"
-            f"{fact_rows('scopeNote')}{fact_rows('requiresRole')}"
-            f"</ul><h5>Business-rule parameters</h5><ul>{parameter_rows}</ul></div>"
-            f"<div class='col-md-6'><h5>Policy rules</h5><ul>{rule_rows}</ul>"
-            f"<h5>Evidence</h5><ul>{fact_rows('documentedIn')}"
-            f"<li><span class='muted'>Article text: kb.md</span></li></ul>"
-            f"<h5>Owner</h5><ul>{fact_rows('ownedBy')}</ul></div></div></section>"
-        )
+        facts = concept_provenance(concept["term"])
+        if facts is None:
+            raise ValueError(f"No provenance found for {concept['term']!r}")
+        return ui.HTML(meaning_card(concept, facts, lab_kb_by_id(), ontology_terms(), load_business_rules()))
 
     @render.ui
     def meaning_rule_detail():
@@ -1444,11 +1407,11 @@ def server(input, output, session):
     @render.data_frame
     def meaning_checks():
         health = validate_ontology_ops()
-        rows = ([{"type": "Operational", "finding": finding} for finding in health["drift_errors"]]
-                + [{"type": "Semantic", "finding": finding} for finding in health["semantic_findings"]])
+        rows = health["findings"]
         if not rows:
-            rows = [{"type": "Status", "finding": "No cross-file findings"}]
-        return render.DataGrid(pd.DataFrame(rows), height="auto", width="100%")
+            rows = [{"type": "Status", "finding": "No cross-file findings", "file_to_fix": ""}]
+        frame = pd.DataFrame(rows).rename(columns={"type": "Type", "finding": "Finding", "file_to_fix": "File to fix"})
+        return render.DataGrid(frame, height="auto", width="100%")
 
     CUST_COLS = ["id", "name", "area", "plan", "status", "tenure_months", "balance_due", "complaints_30d",
                  "credits_30d", "late_fee_waived_on", "retention_offer_used_on", "payments_this_cycle"]

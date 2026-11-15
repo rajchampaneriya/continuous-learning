@@ -1,7 +1,7 @@
 ---
 title: Semantic explorer for the Acme model
 description: A read-only Meaning tab in Acme Review Studio that shows one business concept at a time, where each fact lives, and where the files disagree
-ms.date: 2026-11-09
+ms.date: 2026-11-15
 ---
 
 ## The problem
@@ -53,9 +53,9 @@ reuses that module instead of building a second pipeline.
 > themselves and adds noise such as `acme:RetentionOffer a acme:Concession`. `reason_owl_rl()` filters
 > that out on purpose.
 
-## Drift that exists today
+## Drift in the original model
 
-`validate_ontology_ops()` returns `ok: True` on the current files, yet these disagreements exist:
+Before the one-home cleanup, `validate_ontology_ops()` returned `ok: True` despite these disagreements:
 
 * `business_rules.json` lists rules 8 and 10 for the retention offer; `ontology.ttl` states rules 10 and 13.
 * `acme:PolicyRule` and `acme:ruleNumber` say "rules 1 to 11"; `policy.md` and the ontology have 13 rules.
@@ -69,6 +69,10 @@ reuses that module instead of building a second pipeline.
   `acme:Concession`. A view that shows only stated edges (rules 10 and 13) hides half the picture.
 
 These are the explorer's first demo, and the first checks to add.
+
+The current model derives rule and article links from ontology edges, keeps cooldowns in
+`business_rules.json`, and fixes the rule-number descriptions. The retention-offer mismatch and
+the outdated descriptions no longer appear in a clean model.
 
 ## Design: a Meaning tab in Acme Review Studio
 
@@ -107,7 +111,7 @@ Rules        10, 13 stated; 3, 8 inherited from concession                edit: 
              click a rule to read its text                                edit: policy.md
 Help         KB11 · Retention offer                                       edit: kb.md
 Owner        Customer Retention & Lifecycle                               edit: ontology.ttl
-Checks       business_rules.json lists rules 8, 10; ontology says 10, 13
+Checks       no cross-file findings
 ```
 
 Leave out lifecycle (all 27 classes are `active`), IRIs and datatypes. Put those behind a
@@ -125,34 +129,12 @@ A table from `validate_ontology_ops()`, one row per finding, each with the file 
 
 ## Code changes
 
-All changes are small additions to `lab/ontology.py`, one parser and one Shiny panel.
+The implementation extends `lab/ontology.py` and adds one Shiny panel.
 
 ### Stated versus inherited
 
-Keep an unreasoned copy of the ontology next to the reasoned one, and compare.
-
-```python
-@lru_cache(maxsize=1)
-def _asserted() -> Store:
-    store = Store()
-    store.load(path=str(ONTOLOGY), format=RdfFormat.TURTLE)
-    return store
-
-
-def provenance(word: str) -> List[Dict[str, str]]:
-    """Every fact about a concept, marked 'stated' or 'inherited'."""
-    iri = define(word)["iri"]
-    q = PREFIXES + f"SELECT ?p ?o WHERE {{ <{iri}> ?p ?o FILTER(?p != rdf:type) }}"
-    stated = {(r["p"].value, r["o"].value) for r in _asserted().query(q)}
-    return [
-        {"property": r["p"].value, "value": r["o"].value,
-         "origin": "stated" if (r["p"].value, r["o"].value) in stated else "inherited"}
-        for r in _store().query(q)
-    ]
-```
-
-To name the ancestor ("inherited from concession"), check which entry in
-`domain_edges(word)["superclasses"]` states the same property and value in `_asserted()`.
+`_asserted_store()` keeps an unreasoned copy next to the reasoned store. `concept_provenance()`
+compares the two and names the nearest ancestor that states an inherited property and value.
 
 ### Policy rule text
 
@@ -167,27 +149,30 @@ def policy_rules() -> Dict[int, str]:
 
 ### New checks in `validate_ontology_ops()`
 
-Compare stated edges (from `_asserted()`), not reasoned ones, so inherited rules don't hide a gap.
+Compare stated edges (from `_asserted_store()`), not reasoned ones, so inherited rules don't hide a gap.
+The default model no longer duplicates links in `business_rules.json`. When an older snapshot
+contains `policy_rules` or `kb_article`, compare those fields with the stated ontology edges.
 
 | Check                                                                                    | Catches today          |
 |------------------------------------------------------------------------------------------|------------------------|
-| Each `business_rules.json` entry's `policy_rules` equals its concept's stated `acme:enforcesRule` | Retention offer 8, 10 versus 10, 13 |
+| Each legacy `policy_rules` field equals its concept's stated `acme:enforcesRule`          | Retention offer 8, 10 versus 10, 13 |
 | Rule numbers in `policy.md` equal the `acme:PolicyRuleN` individuals                    | Future drift           |
 | Every `KBnn` heading in `kb.md` has an `acme:KBnn` individual, and the reverse          | Future drift           |
-| Each `kb_article` in `business_rules.json` is among its concept's `acme:documentedIn`   | Future drift           |
+| Each legacy `kb_article` is among its concept's `acme:documentedIn`                     | Future drift           |
 | A number in `business_rules.json` (tenure, cooldown, amount) appears in the concept's definition | Prose falling behind the JSON |
 
 Add a scenario per check to `tests/test_ontology.py`, so a pull request that edits one file and forgets
-another fails in CI rather than in a customer reply.
+another fails in CI rather than in a customer reply. Findings include the file or files to fix and set
+`ok` to false.
 
 ### Studio panel
 
 ```python
 from acme.providers import LAB_ROOT  # the C3 provider already puts this on sys.path
-from lab.ontology import terms, define, domain_edges, provenance, policy_rules, validate_ontology_ops
+from lab.ontology import concept_labels, define, domain_edges, concept_provenance, policy_rules, validate_ontology_ops
 
 ui.nav_panel("Meaning",
-             ui.input_selectize("concept", None, choices=sorted(terms())),
+             ui.input_selectize("concept", None, choices=sorted(concept_labels())),
              ui.output_ui("concept_card"),
              ui.output_data_frame("ontology_checks"))
 ```
@@ -231,7 +216,7 @@ suite rerun (`../.venv/bin/python -m pytest -v` from `fde-first-principles/`) be
 
 ## Plan
 
-1. Add `_asserted()`, `provenance()`, `policy_rules()` and the five checks to `lab/ontology.py`, with tests.
+1. Add `_asserted_store()`, `concept_provenance()`, `policy_rules()` and the five checks to `lab/ontology.py`, with tests.
 2. Add the Meaning tab with the concept card, rule view and checks table.
 3. Agree the one-home table with the policy owner, fix the drift found, and remove the duplicates.
 
@@ -240,7 +225,7 @@ suite rerun (`../.venv/bin/python -m pytest -v` from `fde-first-principles/`) be
 1. Open **Meaning** and type "छूट" (Hindi for discount). The card resolves it to *discount* and shows
    that its rupee value counts toward the limit, inherited from *concession*.
 2. Switch to *retention offer*. Show the override ("doesn't count"), the inherited rules 3 and 8, and
-   the check that `business_rules.json` disagrees with the ontology on its rules.
+   the checks table. A legacy snapshot with mismatched links identifies the files to fix.
 3. Open rule 10 and show the four concepts it touches: "Before changing this rule, here is everything
    it affects, and here is the file to edit."
 
@@ -249,5 +234,5 @@ suite rerun (`../.venv/bin/python -m pytest -v` from `fde-first-principles/`) be
 * Any concept can be found by an English or regional label
 * Each fact on the card shows whether it is stated or inherited, and the file to edit
 * A rule shows its `policy.md` text and every concept it touches
-* The checks report the retention-offer rule mismatch and the "rules 1 to 11" text until they are fixed
+* The checks report legacy rule mismatches and stale rule-number descriptions; a clean model has no findings
 * The card shows the same facts that C3 receives, because both read `lab/ontology.py`

@@ -17,6 +17,42 @@ from ..versions import Version, VersionRegistry
 from .common import direct_output
 
 
+def raw_response(result: dict[str, Any]) -> dict[str, Any]:
+    """The provider's raw evidence as a dict, whatever form the provider returned it in."""
+    raw = result.get("raw") or {}
+    if isinstance(raw, str):
+        try:
+            raw = json.loads(raw) if raw else {}
+        except json.JSONDecodeError:
+            raw = {"text": raw}
+    return raw if isinstance(raw, dict) else {}
+
+
+def usage_of(raw: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
+    return {"latency_s": result.get("latency_s"), "cost_usd": result.get("cost_usd"),
+            "tokens_in": raw.get("tokens_in"), "tokens_out": raw.get("tokens_out")}
+
+
+def turn_spans(raw: dict[str, Any], parent: str, prefix: str = "") -> list[Span]:
+    """C3 turns as model_call spans with tool_call children, then escalation sources as guard spans."""
+    spans = []
+    for index, turn in enumerate(raw.get("turns") or []):
+        turn_id = f"{prefix}turn-{index}"
+        attrs = {key: turn[key] for key in ("tokens_in", "tokens_out", "stop_reason",
+                                            "system_prompt", "user_prompt") if turn.get(key) is not None}
+        spans.append(Span(id=turn_id, parent=parent, kind="model_call", name=f"Turn {index + 1}",
+                          status="ok", ms=int(float(turn.get("seconds") or 0) * 1000), attrs=attrs))
+        for number, call in enumerate(turn.get("tool_calls") or []):
+            name, args, value = call
+            spans.append(Span(id=f"{turn_id}:tool-{number}", parent=turn_id, kind="tool_call", name=str(name),
+                              status="error" if isinstance(value, dict) and value.get("error") else "ok",
+                              ms=0, attrs={"arguments": args, "result": value}))
+    for number, source in enumerate(raw.get("escalation_sources") or []):
+        spans.append(Span(id=f"{prefix}guard-{number}", parent=parent, kind="guard", name=str(source),
+                          status="escalate", ms=0))
+    return spans
+
+
 class DirectAdapter:
     implementation = "custom"
 
@@ -66,18 +102,10 @@ class DirectAdapter:
             raise RuntimeError(result["error"])
         output = direct_output(lab, config, run_input, result["output"], provider=provider.name,
                                model=getattr(provider, "model", ""))
-        raw = result.get("raw") or {}
-        if isinstance(raw, str):
-            try:
-                raw = json.loads(raw) if raw else {}
-            except json.JSONDecodeError:
-                raw = {"text": raw}
-        raw = raw if isinstance(raw, dict) else {}
+        raw = raw_response(result)
         spans = self._spans(raw, result)
-        usage = {"latency_s": result.get("latency_s"), "cost_usd": result.get("cost_usd"),
-                 "tokens_in": raw.get("tokens_in"), "tokens_out": raw.get("tokens_out")}
         return RunResult(run_id=run_id, version_id=version.id, state="completed",
-                         output=output, spans=spans, usage=usage)
+                         output=output, spans=spans, usage=usage_of(raw, result))
 
     def _spans(self, raw: dict[str, Any], result: dict[str, Any]) -> list[Span]:
         return [Span(id="draft", parent=None, kind="step", name="Offline draft", status="ok",
@@ -101,24 +129,9 @@ class AgentLoopAdapter(DirectAdapter):
         return Capabilities(prompts=True, tool_calls=True, envelope=True)
 
     def _spans(self, raw: dict[str, Any], result: dict[str, Any]) -> list[Span]:
-        spans = [Span(id="agent", parent=None, kind="agent", name="C3 agent loop", status="ok",
-                      ms=int(float(result.get("latency_s") or 0) * 1000),
-                      attrs={"envelope": raw.get("envelope")})]
-        for index, turn in enumerate(raw.get("turns") or []):
-            turn_id = f"turn-{index}"
-            attrs = {key: turn[key] for key in ("tokens_in", "tokens_out", "stop_reason",
-                                                "system_prompt", "user_prompt") if turn.get(key) is not None}
-            spans.append(Span(id=turn_id, parent="agent", kind="model_call", name=f"Turn {index + 1}",
-                              status="ok", ms=int(float(turn.get("seconds") or 0) * 1000), attrs=attrs))
-            for number, call in enumerate(turn.get("tool_calls") or []):
-                name, args, value = call
-                spans.append(Span(id=f"{turn_id}:tool-{number}", parent=turn_id, kind="tool_call", name=str(name),
-                                  status="error" if isinstance(value, dict) and value.get("error") else "ok",
-                                  ms=0, attrs={"arguments": args, "result": value}))
-        for number, source in enumerate(raw.get("escalation_sources") or []):
-            spans.append(Span(id=f"guard-{number}", parent="agent", kind="guard", name=str(source),
-                              status="escalate", ms=0))
-        return spans
+        return [Span(id="agent", parent=None, kind="agent", name="C3 agent loop", status="ok",
+                     ms=int(float(result.get("latency_s") or 0) * 1000),
+                     attrs={"envelope": raw.get("envelope")}), *turn_spans(raw, "agent")]
 
 
 class VersionBAdapter(DirectAdapter):

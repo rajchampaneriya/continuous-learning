@@ -11,7 +11,7 @@ single-customer subgraphs at request time.
     )
     glossary()                    # "- account holder: The customer named on the account. ..." for a prompt
     excluded_from_limit()         # ['double payment refund', 'outage credit']
-    define("paisa wapas")         # {'term': 'refund', 'definition': ..., 'source': 'KB04', ...}
+    define("paisa wapas")         # {'term': 'refund', 'definition': ..., 'source': 'KB04, policy 3, ...'}
     compute_entitlements("AC1009")
 """
 from __future__ import annotations
@@ -153,11 +153,10 @@ WHERE {
 """
 
 TERMS = PREFIXES + """
-SELECT ?term ?label ?definition ?note ?source ?counts ?once WHERE {
+SELECT ?term ?label ?definition ?note ?counts ?once WHERE {
   ?term a owl:Class ; skos:prefLabel ?label ; skos:definition ?definition .
   FILTER(LANG(?label) = "en" || LANG(?label) = "")
   OPTIONAL { ?term skos:scopeNote ?note }
-  OPTIONAL { ?term acme:source ?source }
   OPTIONAL { ?term acme:countsTowardLimit ?counts }
   OPTIONAL { ?term acme:oncePerMonths ?once }
 } ORDER BY ?label
@@ -305,19 +304,19 @@ def _edge_metadata() -> Dict[str, Dict[str, Any]]:
 
 
 @_data_cache
-def terms() -> Dict[str, Dict[str, Any]]:
-    """Every defined class term by its canonical English label, enriched with reasoned edges."""
+def _ontology_terms() -> Dict[str, Dict[str, Any]]:
     edges = _edge_metadata()
     out: Dict[str, Dict[str, Any]] = {}
     for row in _store().query(TERMS):
         label = row["label"].value
         e = edges.get(label, {})
+        sources = list(e.get("kb_articles", [])) + [f"policy {number}" for number in e.get("policy_rules", [])]
         out[label] = {
             "term": label,
             "iri": row["term"].value,
             "definition": row["definition"].value,
             "note": _value(row["note"]),
-            "source": _value(row["source"]),
+            "source": ", ".join(sources) or None,
             "counts_toward_limit": _bool_value(row["counts"]),
             "once_per_months": _int_value(row["once"]),
             "kb_articles": list(e.get("kb_articles", [])),
@@ -326,6 +325,20 @@ def terms() -> Dict[str, Dict[str, Any]]:
             "requires_role": e.get("requires_role"),
         }
     return out
+
+
+def terms() -> Dict[str, Dict[str, Any]]:
+    """Every defined class term with reasoned edges and its current business-rule cooldown."""
+    catalog = _ontology_terms()
+    cooldowns = {
+        config["concept"]: config["cooldown_months"]
+        for config in load_business_rules().get("offers", {}).values()
+        if "concept" in config and "cooldown_months" in config
+    }
+    return {
+        name: {**info, "once_per_months": cooldowns.get(name, info["once_per_months"])}
+        for name, info in catalog.items()
+    }
 
 
 @_data_cache
@@ -631,15 +644,32 @@ def compute_entitlements(customer: Union[str, Dict[str, Any]],
     used_30d = int(record.get(ledger_field) or 0)
     headroom_rupees = max(0, limit_rupees - used_30d)
 
+    def cooldown(config: Dict[str, Any]) -> int:
+        if "cooldown_months" in config:
+            return int(config["cooldown_months"])
+        legacy_value = all_terms[config["concept"]]["once_per_months"]
+        if legacy_value is None:
+            raise ValueError(f"Missing cooldown_months for {config['concept']!r} in business_rules.json")
+        return int(legacy_value)
+
+    def offer_article(config: Dict[str, Any]) -> str:
+        if "kb_article" in config:
+            article = config["kb_article"]
+            if not isinstance(article, str) or not article:
+                raise ValueError(f"Invalid kb_article for {config['concept']!r} in business_rules.json")
+            return article
+        concept = config["concept"]
+        articles = all_terms[concept]["kb_articles"]
+        if not articles:
+            raise ValueError(f"Offer concept {concept!r} has no linked help article")
+        # Preserve the singular entitlement field when a concept has several articles.
+        return articles[0]
+
     # 1. Late-fee waiver (KB02, Policy 10)
     lfw_cfg = active_rules["offers"]["late-fee waiver"]
     lfw_amount = int(lfw_cfg["fixed_amount_rupees"])
     lfw_min_tenure = int(lfw_cfg["min_tenure_months"])
-    lfw_cooldown = int(
-        lfw_cfg.get("cooldown_months")
-        or all_terms.get("late-fee waiver", {}).get("once_per_months")
-        or 12
-    )
+    lfw_cooldown = cooldown(lfw_cfg)
     lfw_used_on = record.get(lfw_cfg["cooldown_field"])
     lfw_months_ago = months_since(lfw_used_on, as_of=as_of)
     lfw_tenure_ok = tenure >= lfw_min_tenure
@@ -661,11 +691,7 @@ def compute_entitlements(customer: Union[str, Dict[str, Any]],
     ro_pct = int(ro_cfg["discount_percent"])
     ro_amount = int(round((ro_pct / 100.0) * plan_price))
     ro_min_tenure = int(ro_cfg["min_tenure_months"])
-    ro_cooldown = int(
-        ro_cfg.get("cooldown_months")
-        or all_terms.get("retention offer", {}).get("once_per_months")
-        or 12
-    )
+    ro_cooldown = cooldown(ro_cfg)
     ro_used_on = record.get(ro_cfg["cooldown_field"])
     ro_months_ago = months_since(ro_used_on, as_of=as_of)
     ro_tenure_ok = tenure >= ro_min_tenure
@@ -734,7 +760,7 @@ def compute_entitlements(customer: Union[str, Dict[str, Any]],
                 "tenure_ok": lfw_tenure_ok,
                 "cooldown_ok": lfw_cooldown_ok,
                 "last_used_on": lfw_used_on,
-                "kb_article": lfw_cfg["kb_article"],
+                "kb_article": offer_article(lfw_cfg),
                 "reason": lfw_reason,
             },
             "retention offer": {
@@ -747,7 +773,7 @@ def compute_entitlements(customer: Union[str, Dict[str, Any]],
                 "tenure_ok": ro_tenure_ok,
                 "cooldown_ok": ro_cooldown_ok,
                 "last_used_on": ro_used_on,
-                "kb_article": ro_cfg["kb_article"],
+                "kb_article": offer_article(ro_cfg),
                 "reason": ro_reason,
             },
             "double payment refund": {
@@ -757,7 +783,7 @@ def compute_entitlements(customer: Union[str, Dict[str, Any]],
                 "amount_rupees": dup_amt or 0,
                 "counts_toward_limit": dpr_counts,
                 "sla_working_days": dpr_cfg["sla_working_days"],
-                "kb_article": dpr_cfg["kb_article"],
+                "kb_article": offer_article(dpr_cfg),
                 "reason": dpr_reason,
             },
             "outage credit": {
@@ -766,67 +792,82 @@ def compute_entitlements(customer: Union[str, Dict[str, Any]],
                 "needs_human": False,
                 "counts_toward_limit": oc_counts,
                 "active_outage_ticket": active_outage["ticket"] if active_outage else None,
-                "kb_article": oc_cfg["kb_article"],
+                "kb_article": offer_article(oc_cfg),
                 "reason": oc_reason,
             },
         },
     }
 
 
-def _semantic_model_findings(rules: Dict[str, Any]) -> List[str]:
-    findings: List[str] = []
+def _semantic_model_findings(rules: Dict[str, Any]) -> List[Dict[str, str]]:
+    findings: List[Dict[str, str]] = []
+
+    def add(finding: str, file_to_fix: str) -> None:
+        findings.append({"type": "Semantic", "finding": finding, "file_to_fix": file_to_fix})
+
     asserted = _asserted_store()
     all_terms = terms()
     policy_numbers = set(policy_rules())
-    ontology_rule_numbers = {
-        int(row["number"].value)
-        for row in asserted.query(PREFIXES + """
-            SELECT ?number WHERE { ?rule a acme:PolicyRule ; acme:ruleNumber ?number }
-        """)
-    }
+    ontology_rules = list(asserted.query(PREFIXES + """
+        SELECT ?rule ?number WHERE { ?rule a acme:PolicyRule ; acme:ruleNumber ?number }
+    """))
+    ontology_rule_numbers = {int(row["number"].value) for row in ontology_rules}
+    for row in ontology_rules:
+        name = row["rule"].value.rsplit("#", 1)[-1]
+        number = int(row["number"].value)
+        if name != f"PolicyRule{number}":
+            add(f"{name} has rule number {number} in ontology.ttl", "ontology.ttl")
     if policy_numbers != ontology_rule_numbers:
-        findings.append(
+        add(
             "Policy rule numbers differ: policy.md has "
-            f"{sorted(policy_numbers)}, ontology.ttl has {sorted(ontology_rule_numbers)}"
+            f"{sorted(policy_numbers)}, ontology.ttl has {sorted(ontology_rule_numbers)}",
+            "policy.md or ontology.ttl",
         )
 
     kb_ids = set(kb_by_id())
-    ontology_kb_ids = {
-        row["id"].value
-        for row in asserted.query(PREFIXES + """
-            SELECT ?id WHERE { ?article a acme:KnowledgeArticle ; acme:articleId ?id }
-        """)
-    }
+    ontology_articles = list(asserted.query(PREFIXES + """
+        SELECT ?article ?id WHERE { ?article a acme:KnowledgeArticle ; acme:articleId ?id }
+    """))
+    ontology_kb_ids = {row["id"].value for row in ontology_articles}
+    for row in ontology_articles:
+        name = row["article"].value.rsplit("#", 1)[-1]
+        article_id = row["id"].value
+        if name != article_id:
+            add(f"{name} has article ID {article_id} in ontology.ttl", "ontology.ttl")
     if kb_ids != ontology_kb_ids:
-        findings.append(
+        add(
             f"Knowledge article IDs differ: kb.md has {sorted(kb_ids)}, "
-            f"ontology.ttl has {sorted(ontology_kb_ids)}"
+            f"ontology.ttl has {sorted(ontology_kb_ids)}",
+            "kb.md or ontology.ttl",
         )
 
-    for offer_name, config in rules.get("offers", {}).items():
+    entries = [("concession limit", rules.get("concession_limit", {})), *rules.get("offers", {}).items()]
+    for entry_name, config in entries:
         concept_name = config.get("concept")
         concept = all_terms.get(concept_name)
         if not concept:
             continue
         concept_iri = f"<{concept['iri']}>"
-        direct_rules = {
-            int(row["number"].value)
-            for row in asserted.query(PREFIXES + f"""
-                SELECT ?number WHERE {{
-                  {concept_iri} acme:enforcesRule ?rule .
-                  ?rule acme:ruleNumber ?number
-                }}
-            """)
-        }
-        configured_rules = set(config.get("policy_rules", []))
-        if direct_rules != configured_rules:
-            findings.append(
-                f"{offer_name} policy rules differ: business_rules.json has "
-                f"{sorted(configured_rules)}, ontology.ttl has {sorted(direct_rules)}"
-            )
+        if "policy_rules" in config:
+            direct_rules = {
+                int(row["number"].value)
+                for row in asserted.query(PREFIXES + f"""
+                    SELECT ?number WHERE {{
+                      {concept_iri} acme:enforcesRule ?rule .
+                      ?rule acme:ruleNumber ?number
+                    }}
+                """)
+            }
+            configured_rules = set(config["policy_rules"])
+            if direct_rules != configured_rules:
+                add(
+                    f"{entry_name} policy rules differ: business_rules.json has "
+                    f"{sorted(configured_rules)}, ontology.ttl has {sorted(direct_rules)}",
+                    "business_rules.json or ontology.ttl",
+                )
 
-        article = config.get("kb_article")
-        if article:
+        if "kb_article" in config:
+            article = config["kb_article"]
             linked_articles = {
                 row["id"].value
                 for row in asserted.query(PREFIXES + f"""
@@ -837,109 +878,108 @@ def _semantic_model_findings(rules: Dict[str, Any]) -> List[str]:
                 """)
             }
             if article not in linked_articles:
-                findings.append(
-                    f"{offer_name} links {article} in business_rules.json, "
-                    f"but ontology.ttl links {sorted(linked_articles)}"
+                add(
+                    f"{entry_name} links {article} in business_rules.json, "
+                    f"but ontology.ttl links {sorted(linked_articles)}",
+                    "business_rules.json or ontology.ttl",
                 )
 
         definition = concept["definition"]
         for key in ("discount_percent", "duration_months", "min_tenure_months",
-                    "cooldown_months", "fixed_amount_rupees", "min_outage_hours"):
+                    "cooldown_months", "fixed_amount_rupees", "min_outage_hours",
+                    "max_rupees_30_days", "window_days"):
             value = config.get(key)
             if isinstance(value, (int, float)) and not re.search(rf"(?<!\d){re.escape(str(value))}(?!\d)", definition):
-                findings.append(
-                    f"{offer_name} {key} is {value} in business_rules.json, "
-                    "but that number is absent from the ontology definition"
+                add(
+                    f"{entry_name} {key} is {value} in business_rules.json, "
+                    "but that number is absent from the ontology definition",
+                    "business_rules.json or ontology.ttl",
                 )
 
-    limit = rules.get("concession_limit", {})
-    limit_concept = all_terms.get(limit.get("concept"))
-    if limit_concept:
-        for key in ("max_rupees_30_days", "window_days"):
-            value = limit.get(key)
-            if isinstance(value, (int, float)) and not re.search(
-                rf"(?<!\d){re.escape(str(value))}(?!\d)", limit_concept["definition"]
-            ):
-                findings.append(
-                    f"Concession limit {key} is {value} in business_rules.json, "
-                    "but that number is absent from the ontology definition"
-                )
-
-    definitions = " ".join(
-        row["definition"].value
-        for row in asserted.query(PREFIXES + """
-            SELECT ?definition WHERE {
-              VALUES ?subject { acme:PolicyRule acme:ruleNumber }
-              ?subject skos:definition ?definition
-            }
-        """)
-    )
-    declared_range = re.search(r"rules?\s+(\d+)\s+to\s+(\d+)", definitions, re.IGNORECASE)
-    if declared_range:
+    for row in asserted.query(PREFIXES + """
+        SELECT ?subject ?definition WHERE {
+          VALUES ?subject { acme:PolicyRule acme:ruleNumber }
+          ?subject skos:definition ?definition
+        }
+    """):
+        declared_range = re.search(r"\b(\d+)\s+to\s+(\d+)\b", row["definition"].value)
+        if not declared_range:
+            continue
         declared_numbers = set(range(int(declared_range.group(1)), int(declared_range.group(2)) + 1))
         if declared_numbers != ontology_rule_numbers:
-            findings.append(
+            add(
                 "Ontology rule description says "
                 f"{declared_range.group(1)} to {declared_range.group(2)}, "
-                f"but rule instances are {sorted(ontology_rule_numbers)}"
+                f"but rule instances are {sorted(ontology_rule_numbers)} "
+                f"({row['subject'].value.rsplit('#', 1)[-1]})",
+                "ontology.ttl",
             )
     return findings
 
 
 def validate_ontology_ops(rules_path: Optional[Path] = None) -> Dict[str, Any]:
-    """Operational governance check: verify zero schema drift across ontology.ttl,
-    business_rules.json, customers.json, outages.json, and kb.md.
-    """
+    """Check operational and semantic consistency across the Acme model files."""
     all_terms = terms()
     ont_plans = plans()
     ont_areas = set(pune_service_areas())
     kb_ids = set(kb_by_id().keys())
     rules = load_business_rules(path=rules_path)
-    drift_errors: List[str] = []
+    operational: List[Dict[str, str]] = []
+
+    def add(finding: str, file_to_fix: str) -> None:
+        operational.append({"type": "Operational", "finding": finding, "file_to_fix": file_to_fix})
 
     # 1. Stewardship & lifecycle check on all OWL classes
     unowned = [t["term"] for t in all_terms.values() if t["term"] != "operational owner" and not t.get("owner_team")]
     if unowned:
-        drift_errors.append(f"Classes missing operational owner (acme:ownedBy): {unowned}")
+        add(f"Classes missing operational owner (acme:ownedBy): {unowned}", "ontology.ttl")
 
     # 2. KB reference integrity
     for t in all_terms.values():
         for kb_id in t.get("kb_articles", []):
             if kb_id not in kb_ids:
-                drift_errors.append(f"Concept {t['term']!r} links to missing article {kb_id!r}")
+                add(f"Concept {t['term']!r} links to missing article {kb_id!r}", "ontology.ttl or kb.md")
 
     # 3. Customer & outage catalog sync
     for cid, cust in load_customers().items():
         if cust["plan"] not in ont_plans:
-            drift_errors.append(f"Customer {cid} has plan {cust['plan']!r} not in ontology acme:Plan")
+            add(f"Customer {cid} has plan {cust['plan']!r} not in ontology acme:Plan",
+                "customers.json or ontology.ttl")
         if cust["area"] not in ont_areas:
-            drift_errors.append(f"Customer {cid} has area {cust['area']!r} not in ontology acme:PuneServiceArea")
+            add(f"Customer {cid} has area {cust['area']!r} not in ontology acme:PuneServiceArea",
+                "customers.json or ontology.ttl")
     for area, out in load_outages().items():
         if area not in ont_areas:
-            drift_errors.append(f"Outage {out['ticket']} area {area!r} not in ontology acme:PuneServiceArea")
+            add(f"Outage {out['ticket']} area {area!r} not in ontology acme:PuneServiceArea",
+                "outages.json or ontology.ttl")
 
     # 4. Business rules -> Ontology concept binding integrity
     limit_concept = rules.get("concession_limit", {}).get("concept")
     if limit_concept not in all_terms:
-        drift_errors.append(f"business_rules.json concession_limit concept {limit_concept!r} missing from ontology")
+        add(f"business_rules.json concession_limit concept {limit_concept!r} missing from ontology",
+            "business_rules.json or ontology.ttl")
     for offer_key, offer_cfg in rules.get("offers", {}).items():
         concept = offer_cfg.get("concept")
         if concept not in all_terms:
-            drift_errors.append(f"business_rules.json offer {offer_key!r} concept {concept!r} missing from ontology")
+            add(f"business_rules.json offer {offer_key!r} concept {concept!r} missing from ontology",
+                "business_rules.json or ontology.ttl")
 
     # 5. Policy rule 5 PII guardrail
     glossary_text = glossary()
     if re.search(r"\bAC\d{4}\b", glossary_text):
-        drift_errors.append("Policy rule 5 violation: customer ID found in static ontology glossary")
+        add("Policy rule 5 violation: customer ID found in static ontology glossary", "ontology.ttl")
 
+    semantic = _semantic_model_findings(rules)
+    findings = operational + semantic
     return {
-        "ok": len(drift_errors) == 0,
+        "ok": not findings,
         "class_count": len(all_terms),
         "plan_count": len(ont_plans),
         "service_area_count": len(ont_areas),
         "stewardship_coverage": round(
             (len(all_terms) - len(unowned)) / max(1, len(all_terms)), 3
         ),
-        "drift_errors": drift_errors,
-        "semantic_findings": _semantic_model_findings(rules),
+        "drift_errors": [finding["finding"] for finding in operational],
+        "semantic_findings": [finding["finding"] for finding in semantic],
+        "findings": findings,
     }
