@@ -1,81 +1,80 @@
-# Graph Report - fde-first-principles  (2026-11-14)
+# Graph Report - fde-first-principles  (2026-11-15)
 
 ## Corpus Check
-- 85 files · ~84,882 words
+- 99 files · ~91,191 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 61 file(s) not represented in the graph (top: .feature 15, .jsonl 14, .drawio 12)
-- WARNING: 61 of 180 files seen (34%) have no supported extractor and are missing from this graph entirely. It may look complete while representing only part of the codebase.
+- Unclassified: 77 file(s) not represented in the graph (top: .jsonl 27, .feature 18, .drawio 12)
+- WARNING: 77 of 212 files seen (36%) have no supported extractor and are missing from this graph entirely. It may look complete while representing only part of the codebase.
 
 ## Summary
-- 1890 nodes · 5357 edges · 107 communities (87 shown, 20 thin omitted)
-- Extraction: 83% EXTRACTED · 17% INFERRED · 0% AMBIGUOUS · INFERRED: 896 edges (avg confidence: 0.89)
+- 2007 nodes · 5687 edges · 103 communities (82 shown, 21 thin omitted)
+- Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 904 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ecdf2131`
+- Built from commit: `50535690`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - llm.py
 - Version
-- test_ontology.py
-- Domain expert (SME) review
+- ontology.py
+- RunResult
 - test_escalation_metrics.py
-- app.py
-- version_c3.py
-- compute_entitlements
+- version_choices
+- build_decision_envelope
+- excluded_from_limit
 - Review Studio server
 - summary
 - test_c3_provider.py
 - version_c3
 - test_policy_rules.py
 - test_escalation_rules.py
-- test_report_metrics.py
-- refresh_versions
+- version_c4.py
+- Acme Review Studio architecture/UX review (16 Oct 2026)
 - test_review_flow.py
 - import_cases.py
-- Capabilities
+- load_meta
 - Day 9 · Run all three: success, cost, latency
 - Studio evidence frame
 - RunResult
 - Review dashboard (when do humans help?)
-- RunStore
+- define
 - test_guardrails.py
 - Build a workflow, not an agent: B + safety router + policy verifier
 - acme_metrics.py
 - Rule 8 · ₹500 limit is per customer over 30 days
-- lab.py
-- Day 1 · One model call: tokens, time and randomness
-- test_adapter_contract.py
+- app.py
+- FDE First Principles learning log
+- ScriptedResponse
 - test_version_d.py
-- acme.py
-- load_business_rules
+- version_d.py
+- compute_entitlements
 - load_cases
-- Acme Fibre (fictional Pune broadband ISP)
+- Day 3 · Write the test set before the system
 - test_simulator_http.py
 - Grader mutation tests
 - Day 8: agent loop and failures
-- suggest_mode
+- acme.py
 - Day 7 · Why 30 test cases can lie: error bars
 - version_b
 - service.py
 - load_cases
-- Acme labelled test set (cases.jsonl)
+- ScriptedModel
 - Evaluation report (release decision)
-- RedactingSerializer
-- then
+- test_gate_draft.py
+- test_report_metrics.py
 - Rate
-- Day 06 notebook (one-llm-call)
 - test_expert_review.py
-- workflow.py
+- run_agent
 - Dataset card (Acme test set)
 - studio-c3.yaml
 - ReviewStore
-- policy_violations
 - config
 - Safety router
 - KB slow speed and technician
+- test_holdout_run.py
 - KB new installation
 - KB search queries
 - Project config
@@ -85,57 +84,51 @@
 - judge_round1.py
 - studio-offline.yaml
 - version-b.yaml
+- test_ontology.py
+- ._build
 - eval_checks
-- embed
 - offline-direct.yaml
 - Load customer card and outages
-- Step 6 · check claims and facts
-- Expert reviews data and errors are fixed
-- Day 09 notebook (success-cost-latency)
-- Version parameter and legacy round alias
-- _sim_run
+- Round 1 Principal Engineer review of the Acme Fibre email drafting solution
+- test_gate_slots.py
 - test_cases_data.py
 - pytest
-- Evaluation evidence Quarto site
-- Adapter
+- world
 - score
-- test_simulator_persistence.py
-- review_record
-- common.py
+- app.py
+- test_router_rules.py
 - studio-declarative.yaml
-- define_term
-- scored
-- when
-- Scenario: OWL reasoner inherits class properties and respects overrides
-- _script
-- ScriptedModel
-- costs_inr
-- fixture
+- Day 8 · Version C: an agent loop from scratch
+- rescore.py
+- reason_owl_rl
+- Rule 5 · Never share another customer's details
+- Failure analysis
+- price_discount_rupees
 - Day 08 notebook (agent-loop-from-scratch)
 
 ## God Nodes (most connected - your core abstractions)
-1. `server()` - 129 edges
-2. `policy_violations()` - 63 edges
+1. `server()` - 131 edges
+2. `policy_violations()` - 66 edges
 3. `Version` - 61 edges
-4. `score()` - 58 edges
+4. `score()` - 60 edges
 5. `RunInput` - 50 edges
 6. `RunResult` - 46 edges
-7. `VersionRegistry` - 42 edges
-8. `build_decision_envelope()` - 39 edges
-9. `SimulationService` - 36 edges
-10. `compute_entitlements()` - 35 edges
+7. `build_decision_envelope()` - 46 edges
+8. `VersionRegistry` - 42 edges
+9. `compute_entitlements()` - 41 edges
+10. `load_cases()` - 41 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Similarity search (cosine, top 3)` --semantically_similar_to--> `search_kb()`  [AMBIGUOUS] [semantically similar]
   1-measure-before-you-believe/06-one-llm-call/day6-embedding-compatibility.drawio → lab/acme_tools.py
-- `run_agent()` --semantically_similar_to--> `run_agent()`  [INFERRED] [semantically similar]
-  1-measure-before-you-believe/08-agent-loop-from-scratch/notebook.ipynb → lab/version_c3.py
 - `version_b()` --semantically_similar_to--> `version_b()`  [INFERRED] [semantically similar]
   1-measure-before-you-believe/06-one-llm-call/notebook.ipynb → lab/version_b.py
 - `ask()` --semantically_similar_to--> `chat()`  [INFERRED] [semantically similar]
   1-measure-before-you-believe/01-an-llm-call-is-http/notebook.ipynb → lab/llm.py
 - `run_agent()` --semantically_similar_to--> `run_agent()`  [INFERRED] [semantically similar]
   1-measure-before-you-believe/08-agent-loop-from-scratch/notebook.ipynb → lab/agent.py
+- `run_agent()` --semantically_similar_to--> `run_agent()`  [INFERRED] [semantically similar]
+  1-measure-before-you-believe/09-success-cost-latency/notebook.ipynb → lab/agent.py
 
 ## Import Cycles
 - None detected.
@@ -165,247 +158,247 @@
 - **ADR-001 options: chosen guarded B vs rejected A, plain B and C** — 1_measure_before_you_believe_11_recommendation_first_draft_decision_recommendation, 1_measure_before_you_believe_11_recommendation_first_draft_decision_rejected_option_a_rules, 1_measure_before_you_believe_11_recommendation_first_draft_decision_rejected_plain_b, 1_measure_before_you_believe_11_recommendation_first_draft_decision_rejected_option_c_agent [INFERRED 0.85]
 - **Version C3 escalation sources (rule, guard, offer, model)** — lab_escalation_escalation_triggers, lab_version_c3_offers_not_allowed, lab_evals_not_english, lab_version_c3_run_agent, tests_features_escalation_rules_every_escalation_records_source [INFERRED 0.85]
 
-## Communities (107 total, 20 thin omitted)
+## Communities (103 total, 21 thin omitted)
 
 ### Community 0 - "llm.py"
-Cohesion: 0.19
-Nodes (12): Tool result appended as a 'tool' message, _cache_file(), chat(), _chat_anthropic(), _chat_api(), _env(), _key(), _load() (+4 more)
+Cohesion: 0.14
+Nodes (16): Tool result appended as a 'tool' message, run_agent(), _cache_file(), chat(), _chat_anthropic(), _chat_api(), embed(), _env() (+8 more)
 
 ### Community 1 - "Version"
-Cohesion: 0.11
-Nodes (8): OfflineProvider, DirectAdapter, VersionBAdapter, OrchestratedAdapter, RecordedProvider, manifest_diff(), Version, Deps
+Cohesion: 0.08
+Nodes (26): AgentLoopAdapter, DirectAdapter, VersionBAdapter, HttpAdapter, OrchestratedAdapter, RecordedProvider, _button(), render_comparison() (+18 more)
 
-### Community 2 - "test_ontology.py"
-Cohesion: 0.07
-Nodes (44): knowledge_page(), meaning_concept_card(), meaning_rule_detail(), KnowledgeArticle and PolicyRule IRIs (documentedIn, enforcesRule), _alias_index(), _asserted_store(), _bool_value(), concept_labels() (+36 more)
+### Community 2 - "ontology.py"
+Cohesion: 0.10
+Nodes (26): KnowledgeArticle and PolicyRule IRIs (documentedIn, enforcesRule), Multilingual lexical layer (SKOS labels), acme:PuneServiceArea (8 areas), KB12 · Shifting your connection, _alias_index(), _alias_pattern(), _asserted_store(), _bool_value() (+18 more)
 
-### Community 3 - "Domain expert (SME) review"
-Cohesion: 0.17
-Nodes (14): Examples from the expert's review (worst fails, what good looks like), draft_cases(), Engine audits the test set: c44 vs r20/p06a, Domain expert (SME) review, Acme Fibre reply policy (policy.md), cases_multiturn.jsonl (40 conversations), outages.json (current outages by area), unasked_outage() (+6 more)
+### Community 3 - "RunResult"
+Cohesion: 0.15
+Nodes (6): _json(), _now(), RunStore, Adapter, RunResult, Feature: Every registered simulator adapter honors the run contract
 
 ### Community 4 - "test_escalation_metrics.py"
-Cohesion: 0.23
+Cohesion: 0.22
 Nodes (12): Scenario Outline: The grader summary reports escalation recall and precision, bot_escalates(), cases(), _graded(), human_ok_is(), human_rate_is(), _percent(), precision_is() (+4 more)
 
-### Community 5 - "app.py"
-Cohesion: 0.15
-Nodes (8): highlight(), pipeline(), case_choices(), score_page(), _refresh_case_choices(), simulator_page(), version_choices(), Simulator page
+### Community 5 - "version_choices"
+Cohesion: 0.12
+Nodes (14): case_choices(), review_page(), score_page(), _refresh_case_choices(), score_boxes(), score_confusion(), score_modes(), score_plot() (+6 more)
 
-### Community 6 - "version_c3.py"
-Cohesion: 0.07
-Nodes (33): run_agent(), conversation(), customer_text(), intent_guide(), amounts_asked_for(), extract_json(), build_decision_envelope(), _envelope_brief() (+25 more)
+### Community 6 - "build_decision_envelope"
+Cohesion: 0.11
+Nodes (15): Phase 2 · Graph engine core, Phase 3 · Wire grader and router, build_decision_envelope(), check_entitlement(), define_term(), offer_decisions(), _offer_mention(), run_agent() (+7 more)
 
-### Community 7 - "compute_entitlements"
-Cohesion: 0.08
-Nodes (28): Ephemeral per-case ABox (one customer), Static TBox (shared meaning, zero PII), Varun's ₹300 credit: three agents, three meanings, data/acme/ontology.ttl, data/acme/business_rules.json (commercial thresholds), Concession (refund, credit, waiver, discount value), Credit, Discount (also: सूट, छूट, ರಿಯಾಯಿತಿ) (+20 more)
+### Community 7 - "excluded_from_limit"
+Cohesion: 0.12
+Nodes (21): Ephemeral per-case ABox (one customer), Varun's ₹300 credit: three agents, three meanings, Concession (refund, credit, waiver, discount value), Credit, Discount (also: सूट, छूट, ರಿಯಾಯಿತಿ), Double payment refund, Late-fee waiver, Outage credit (+13 more)
 
 ### Community 8 - "Review Studio server"
-Cohesion: 0.07
-Nodes (19): server(), batch_rev(), batch_status(), case_editor(), _ed_save(), edit_case(), _export(), _keys() (+11 more)
+Cohesion: 0.06
+Nodes (42): server(), _apply_retention(), batch_rev(), batch_status(), case_editor(), case_list(), case_of(), _ed_save() (+34 more)
 
 ### Community 9 - "summary"
-Cohesion: 0.11
-Nodes (15): Day 05 notebook (a-grader-you-can-trust), Day 10 notebook (read-the-failures), passed(), Run provenance (.meta.json: model, prompt fingerprint, settings), scoreboard(), show(), Safety scoreboard (safe, missed escalations, human intervention, passed), Day 11 notebook (recommendation-first-draft) (+7 more)
+Cohesion: 0.13
+Nodes (12): Day 05 notebook (a-grader-you-can-trust), Day 07 notebook (error-bars), Day 09 notebook (success-cost-latency), cost_inr(), percentile(), row(), Day 10 notebook (read-the-failures), passed() (+4 more)
 
 ### Community 10 - "test_c3_provider.py"
-Cohesion: 0.05
-Nodes (34): ClaudeCodeProvider, make_provider(), _result(), _trace(), user_prompt(), Workflow, draft(), fetch() (+26 more)
+Cohesion: 0.14
+Nodes (17): c3_fails(), c3_given_case(), c3_given_history(), c3_replies(), draft_cites(), draft_needs_human(), draft_reason(), draft_says() (+9 more)
 
 ### Community 11 - "version_c3"
-Cohesion: 0.13
-Nodes (13): version_c3(), Scenario Outline: The envelope shows the outage only when the customer reports one, Scenario: The customer-record tools show the outage when the customer reports one, Scenario: The customer-record tools withhold the outage when it is out of scope, test_blank_or_cut_off_reply_is_never_sendable(), agent_finishes(), customer_writes(), envelope_is_built() (+5 more)
+Cohesion: 0.10
+Nodes (18): _envelope_brief(), lookup_customer_c3(), scoped_functions(), _without_outage(), _envelope_brief_d(), _record_block(), _user_content(), Scenario Outline: The envelope shows the outage only when the customer reports one (+10 more)
 
 ### Community 12 - "test_policy_rules.py"
-Cohesion: 0.12
-Nodes (18): @known_gap scenarios as strict xfail, other_customer_details(), Feature: The grader enforces the Acme Fibre reply policy, @known_gap Scenario Outline: Known gaps the grader does not handle yet, @known_gap Scenario Outline: Known gaps in the concession check, @known_gap Scenario Outline: Known gaps in the restated-request check, Scenario Outline: A reply must not give away another customer's details, Scenario Outline: An amount the customer asked for, restated in a hand-off, is not granted (+10 more)
+Cohesion: 0.09
+Nodes (26): Examples from the expert's review (worst fails, what good looks like), draft_cases(), KB03 · Payment methods, KB13 · Router and Wi-Fi password, @known_gap scenarios as strict xfail, _approved(), _negated(), not_english() (+18 more)
 
 ### Community 13 - "test_escalation_rules.py"
-Cohesion: 0.13
-Nodes (20): Failure category: unapproved offer, Scenario: An amount the agent wrote in an earlier turn is not the customer's ask, Scenario: No rule fires on any case the experts labelled "no human needed", Scenario Outline: A draft that offers more than its decision allows goes to a person, agent_finishes(), agent_replied(), customer_earlier_wrote(), customer_now_writes() (+12 more)
+Cohesion: 0.14
+Nodes (19): Scenario: An amount the agent wrote in an earlier turn is not the customer's ask, Scenario: No rule fires on any case the experts labelled "no human needed", Scenario Outline: A draft that offers more than its decision allows goes to a person, agent_finishes(), agent_replied(), customer_earlier_wrote(), customer_now_writes(), envelope_decides() (+11 more)
 
-### Community 14 - "test_report_metrics.py"
-Cohesion: 0.18
-Nodes (14): banner(), demo(), escalated(), escalated_by_code(), layer_fired(), no_gate(), nothing(), save() (+6 more)
+### Community 14 - "version_c4.py"
+Cohesion: 0.26
+Nodes (5): system_prompt(), _envelope_brief_c4(), _excerpt(), run_agent(), version_c4()
 
-### Community 15 - "refresh_versions"
-Cohesion: 0.17
-Nodes (16): case_list(), _fail(), _keep_current_visible(), _name_candidate(), _pass(), _prefill_key(), progress(), refresh_versions() (+8 more)
+### Community 15 - "Acme Review Studio architecture/UX review (16 Oct 2026)"
+Cohesion: 0.25
+Nodes (5): _ha(), _he(), _hh(), resume(), Acme Review Studio architecture/UX review (16 Oct 2026)
 
 ### Community 16 - "test_review_flow.py"
-Cohesion: 0.15
-Nodes (14): validate_verdict(), check_fired(), ctx(), fail_no_critique(), fail_no_mode(), hint(), none_selected(), not_yet_grouped() (+6 more)
+Cohesion: 0.13
+Nodes (17): initial_mode(), suggest_mode(), validate_verdict(), _prefill(), check_fired(), ctx(), fail_no_critique(), fail_no_mode() (+9 more)
 
 ### Community 17 - "import_cases.py"
-Cohesion: 0.22
-Nodes (11): _restore_chart(), _add_headers(), _copy_style(), import_cases(), import_customers(), import_policy(), _last_row(), main() (+3 more)
+Cohesion: 0.23
+Nodes (11): _add_headers(), _copy_style(), import_cases(), import_customers(), import_policy(), _last_row(), main(), _put_note() (+3 more)
 
-### Community 18 - "Capabilities"
-Cohesion: 0.12
-Nodes (23): HttpAdapter, DeclarativeAdapter, _button(), render_comparison(), render_detail(), render_result(), _text(), _topology() (+15 more)
+### Community 18 - "load_meta"
+Cohesion: 0.32
+Nodes (6): Safety scoreboard (safe, missed escalations, human intervention, passed), Day 11 notebook (recommendation-first-draft), evidence(), percentile(), two_se(), load_meta()
 
 ### Community 19 - "Day 9 · Run all three: success, cost, latency"
 Cohesion: 0.16
-Nodes (16): version_a(), Cost levers (check each against the pass rate), ₹ per resolved email (what really drives cost), Fixed monthly costs spread over all emails, Costs hidden inside today's estimate, Latency not counted (tool time, network, queues, cold start), Cost drivers measured in the notebook, Per-email costs beyond tokens (+8 more)
+Nodes (16): classify(), version_a(), Cost levers (check each against the pass rate), ₹ per resolved email (what really drives cost), Fixed monthly costs spread over all emails, Costs hidden inside today's estimate, Latency not counted (tool time, network, queues, cold start), Cost drivers measured in the notebook (+8 more)
 
 ### Community 20 - "Studio evidence frame"
-Cohesion: 0.22
-Nodes (3): Evidence, mask(), nonempty()
+Cohesion: 0.20
+Nodes (5): Evidence, mask(), nonempty(), Papermill for report parameters, Version parameter and legacy round alias
 
 ### Community 21 - "RunResult"
-Cohesion: 0.11
-Nodes (20): SimulationService, RunInput, _apply_retention(), sim_pipe(), sim_step_detail(), sim_version_banner(), sim_version_status(), test_adapter_errors_and_timeouts_are_saved() (+12 more)
+Cohesion: 0.08
+Nodes (28): SimulationService, RunInput, replay_sources(), selected_sim_version(), sim_fields(), sim_pipe(), sim_replay_options(), _sim_run() (+20 more)
 
 ### Community 22 - "Review dashboard (when do humans help?)"
-Cohesion: 0.20
-Nodes (10): Code saves, Agent hours per 1,000 emails, Disagreement rates, What triggered the escalations (layer analysis), Escalation rate, Failure categories (expert), Review dashboard (when do humans help?), Routing by escalation rule (+2 more)
+Cohesion: 0.13
+Nodes (15): Code saves, Error cost (INR, per 1,000 emails), Agent hours per 1,000 emails, Disagreement rates, What triggered the escalations (layer analysis), Escalation rate, Failure categories (expert), Review dashboard (when do humans help?) (+7 more)
 
-### Community 23 - "RunStore"
-Cohesion: 0.27
-Nodes (3): _json(), _now(), RunStore
+### Community 23 - "define"
+Cohesion: 0.16
+Nodes (13): knowledge_page(), meaning_concept_card(), meaning_rule_detail(), concept_labels(), concept_provenance(), define(), policy_rules(), terms() (+5 more)
 
 ### Community 24 - "test_guardrails.py"
 Cohesion: 0.20
 Nodes (10): email_from(), flags(), human_chooses(), model_drafts(), not_called(), outcome(), reason(), run() (+2 more)
 
 ### Community 25 - "Build a workflow, not an agent: B + safety router + policy verifier"
-Cohesion: 0.11
-Nodes (22): Day 11 ADR-001 diagram, Open question: which failures come from model size vs prompt or grader? (P4, P5), ADR-001: How Acme Fibre should answer customer emails, Day 10: C on hosted glm-5.3-flash, held-out, Open question: how good is searched context for B? (project 2), ADR-001 diagram: B with a safety router and a policy check, Human support queue, Gates before replies go out unreviewed (+14 more)
+Cohesion: 0.18
+Nodes (9): Day 11 ADR-001 diagram, Open question: which failures come from model size vs prompt or grader? (P4, P5), ADR-001: How Acme Fibre should answer customer emails, Open question: how good is searched context for B? (project 2), ADR self-check, 5-minute CTO readout (pitch script), ADR-001 executive readout (9 slides), Documenting Architecture Decisions (Michael Nygard) (+1 more)
 
 ### Community 26 - "acme_metrics.py"
-Cohesion: 0.13
-Nodes (8): eval_checks(), label_hash(), to_record(), build_frame(), fig_html(), layer_of(), demo_verdict(), main()
+Cohesion: 0.10
+Nodes (11): banner(), build_frame(), fig_html(), html_table(), layer_of(), provenance_table(), sha256(), tiles() (+3 more)
 
 ### Community 27 - "Rule 8 · ₹500 limit is per customer over 30 days"
-Cohesion: 0.15
-Nodes (16): Round 1 Principal Engineer review of the Acme Fibre email drafting solution, Safe-send capture rate (new north-star metric), Concept → KB retrieval gain (with alias leakage caveat), Multilingual lexical layer (SKOS labels), KB02 · Late payment fee, KB04 · Refunds and credits, KB06 · Outage credit, KB11 · Retention offer (+8 more)
+Cohesion: 0.16
+Nodes (16): Failure category: unapproved offer, KB04 · Refunds and credits, KB05 · Outages and restoration updates, KB06 · Outage credit, KB10 · Cancellation and notice period, KB11 · Retention offer, ₹500 refund/credit limit, _promises_concession() (+8 more)
 
-### Community 28 - "lab.py"
-Cohesion: 0.14
-Nodes (13): _bool(), export_to_excel(), _history(), _item(), load_lab(), _payments(), _put(), read_review_log() (+5 more)
+### Community 28 - "app.py"
+Cohesion: 0.08
+Nodes (17): _bool(), export_to_excel(), _history(), _item(), load_lab(), _payments(), _put(), read_review_log() (+9 more)
 
-### Community 29 - "Day 1 · One model call: tokens, time and randomness"
+### Community 29 - "FDE First Principles learning log"
 Cohesion: 0.13
-Nodes (19): Day 01 notebook (an-llm-call-is-http), ask(), Deep Dive into LLMs like ChatGPT (Karpathy), inference chapter, Ollama /api/chat endpoint, qwen3:4b local model, Per-step agent trace, Forward Deployed Engineer (FDE) mindset, Local models on Ollama (zero cost) (+11 more)
-
-### Community 30 - "test_adapter_contract.py"
-Cohesion: 0.12
-Nodes (6): pinned(), scripted_adapter(), ScriptedResponse, ScriptedSession, valid_contract(), world()
+Nodes (18): Day 01 notebook (an-llm-call-is-http), ask(), Deep Dive into LLMs like ChatGPT (Karpathy), inference chapter, Ollama /api/chat endpoint, qwen3:4b local model, Forward Deployed Engineer (FDE) mindset, Local models on Ollama (zero cost), Project 1 · Measure before you believe (+10 more)
 
 ### Community 31 - "test_version_d.py"
 Cohesion: 0.13
-Nodes (19): claim_amounts(), fill_offers(), route(), thread_of(), ThreadStore, version_d(), watchdog(), case() (+11 more)
+Nodes (19): claim_amounts(), fill_offers(), money_asked(), route(), thread_of(), ThreadStore, version_d(), case() (+11 more)
 
-### Community 32 - "acme.py"
+### Community 32 - "version_d.py"
+Cohesion: 0.09
+Nodes (20): Tool dispatch FUNCTIONS[name](**args), Concept → KB retrieval gain (with alias leakage caveat), Failure category: wrong tool, KB01 · Billing cycle and due dates, Acme help articles (kb.md), first_name(), intent_guide(), kb_by_id() (+12 more)
+
+### Community 33 - "compute_entitlements"
 Cohesion: 0.10
-Nodes (22): Customer card context (name, area, plan), Tool dispatch FUNCTIONS[name](**args), Load customer card and outages (code, no model), KB01 · Billing cycle and due dates, Acme help articles (kb.md), customer_card(), data_root(), first_name() (+14 more)
-
-### Community 33 - "load_business_rules"
-Cohesion: 0.36
-Nodes (4): _deep_update(), _default_rules(), load_business_rules(), _rules_at()
+Nodes (19): data/acme/business_rules.json (commercial thresholds), outage_for(), _deep_update(), _default_rules(), duplicate_payment_amount(), load_business_rules(), months_since(), outage_exceeds_hours() (+11 more)
 
 ### Community 34 - "load_cases"
-Cohesion: 0.20
-Nodes (4): Scenario: Every intent has a definition, every_intent_defined(), labelled_cases(), world()
+Cohesion: 0.14
+Nodes (11): Engine audits the test set: c44 vs r20/p06a, Domain expert (SME) review, Acme Fibre reply policy (policy.md), Scenario Outline: The guide's edge cases match the expert labels, Scenario: Every intent has a definition, Feature: One written convention decides the intent label, Scenario Outline (@known_gap): Labels that disagree with the guide, case_is_labelled() (+3 more)
 
-### Community 35 - "Acme Fibre (fictional Pune broadband ISP)"
-Cohesion: 0.10
-Nodes (18): Proposed controlled workflow (deterministic routing + one drafting step), Five discoveries, five architecture pivots, Building effective agents (Anthropic), Email-to-reply decision map, Workflow patterns: prompt chaining, routing, agent, Business Graph Engine (graph computes, LLM verbalizes), Today: passive prompt glossary (LLM does the joins), acme:Plan catalog (Basic ₹699, Plus ₹999, Pro ₹1,499) (+10 more)
+### Community 35 - "Day 3 · Write the test set before the system"
+Cohesion: 0.12
+Nodes (17): Proposed controlled workflow (deterministic routing + one drafting step), Five discoveries, five architecture pivots, Building effective agents (Anthropic), Email-to-reply decision map, Workflow patterns: prompt chaining, routing, agent, Day 03 notebook (test-set-first), Seven intents, problems() (+9 more)
 
 ### Community 36 - "test_simulator_http.py"
-Cohesion: 0.15
-Nodes (11): Response, run(), Session, test_endpoints_reject_untrusted_urls(), test_http_rejects_oversized_and_invalid_drafts(), test_http_sends_auth_without_persisting_secrets(), test_http_stream_stops_after_timeout(), test_loopback_http_is_allowed_only_when_explicitly_allowlisted() (+3 more)
+Cohesion: 0.14
+Nodes (12): _endpoint(), Response, run(), Session, test_endpoints_reject_untrusted_urls(), test_http_rejects_oversized_and_invalid_drafts(), test_http_sends_auth_without_persisting_secrets(), test_http_stream_stops_after_timeout() (+4 more)
 
 ### Community 37 - "Grader mutation tests"
-Cohesion: 0.12
-Nodes (20): Mutation testing of the grader, Scenario Outline: The grader catches a reply that was broken on purpose, Feature: Mutation tests for the grader, Scenario Outline: The grader ignores changes that keep the reply correct, @known_gap Scenario Outline: Known gaps: correct replies the grader still fails, _add_each_banned(), _append(), _cases_where() (+12 more)
+Cohesion: 0.15
+Nodes (18): Scenario Outline: The grader catches a reply that was broken on purpose, Scenario Outline: The grader ignores changes that keep the reply correct, _add_each_banned(), _append(), _cases_where(), _change_intent(), _drop_each_fact(), grader_fails() (+10 more)
 
 ### Community 38 - "Day 8: agent loop and failures"
-Cohesion: 0.13
-Nodes (16): Final answer JSON {intent, reply, needs_human}, Gave-up fallback at MAX_STEPS, Stop condition: reply has no tool_calls, MAX_STEPS = 6 step limit, qwen3:4b local model (temperature 0), Act: does it hold on emails we never looked at?, Decide: which single fix matters most?, Observe: what does a pass rate hide? (+8 more)
+Cohesion: 0.11
+Nodes (21): Final answer JSON {intent, reply, needs_human}, Gave-up fallback at MAX_STEPS, Stop condition: reply has no tool_calls, Per-step agent trace, MAX_STEPS = 6 step limit, qwen3:4b local model (temperature 0), Act: does it hold on emails we never looked at?, Decide: which single fix matters most? (+13 more)
 
-### Community 39 - "suggest_mode"
-Cohesion: 0.32
-Nodes (5): initial_mode(), suggest_mode(), review_page(), _prefill(), Review page
+### Community 39 - "acme.py"
+Cohesion: 0.13
+Nodes (14): Day 04 notebook (rules-baseline), Day 06 notebook (one-llm-call), Customer card context (name, area, plan), evaluate(), unit(), user_message(), version_b(), Load customer card and outages (code, no model) (+6 more)
 
 ### Community 40 - "Day 7 · Why 30 test cases can lie: error bars"
 Cohesion: 0.12
-Nodes (16): Stage 4 · Statistical evaluation: 'How sure are we?', Stage 5 · System-level evaluation: 'Does the whole system work?', Stage 6 · Agentic AI evaluation: 'Does the agent finish the job?', Stage 7 · Continuous production evaluation: 'Is it still working for users?', A statistical approach to model evaluations (Anthropic), Seeing Theory: basic probability and frequentist inference, Phase 4 · Empirical verdict, Version B + glossary experiment (B_glossary) (+8 more)
+Nodes (22): Stage 4 · Statistical evaluation: 'How sure are we?', A statistical approach to model evaluations (Anthropic), Seeing Theory: basic probability and frequentist inference, Phase 4 · Empirical verdict, ADR-001 evidence table (day 9 runs), Open question: do numbers hold on a stronger model and real emails? (project 6), ADR-001 diagram: B with a safety router and a policy check, Human support queue (+14 more)
 
 ### Community 42 - "version_b"
-Cohesion: 0.21
-Nodes (9): What the model sees (Version B context), Scoreboard on 84 cases: A vs B, Version A pipeline: keyword match then fill a template, KB article context (INTENT_KB by expected intent), Building block: the augmented LLM (Anthropic, Building effective agents), Context engineering (the context is the product), Oracle context (B got the expected intent's articles), Day 6 · Version B: one model call with the right context (+1 more)
+Cohesion: 0.11
+Nodes (15): What the model sees (Version B context), Scoreboard on 84 cases: A vs B, Version A pipeline: keyword match then fill a template, qwen3:4b chat model (reads text only), Similarity search (cosine, top 3), KB article context (INTENT_KB by expected intent), Building block: the augmented LLM (Anthropic, Building effective agents), Context engineering (the context is the product) (+7 more)
 
 ### Community 43 - "service.py"
-Cohesion: 0.16
-Nodes (3): redact(), secret_values(), sample_spread()
+Cohesion: 0.07
+Nodes (13): direct_output(), no_draft(), validate_draft(), DeclarativeAdapter, endpoint_origin(), redact(), RedactingSerializer, secret_values() (+5 more)
 
 ### Community 44 - "load_cases"
-Cohesion: 0.16
-Nodes (12): Day 04 notebook (rules-baseline), classify(), load_cases(), save_results(), api_usage(), use(), all_cases(), main() (+4 more)
+Cohesion: 0.11
+Nodes (20): Run provenance (.meta.json: model, prompt fingerprint, settings), data_root(), fingerprint(), git_commit(), load_cases(), save_results(), summary(), kb_only() (+12 more)
 
-### Community 45 - "Acme labelled test set (cases.jsonl)"
-Cohesion: 0.12
-Nodes (18): Acme Review Studio, tests/features/guardrails.feature (BDD guardrails), import_cases.py (lab data → workbook), runs/ versioned persistence, Critique Shadowing workflow, Day 03 notebook (test-set-first), Seven intents, problems() (+10 more)
+### Community 45 - "ScriptedModel"
+Cohesion: 0.29
+Nodes (3): lab(), ScriptedModel, world()
 
 ### Community 46 - "Evaluation report (release decision)"
-Cohesion: 0.15
-Nodes (16): Evaluation report (release decision), Step-6 check hits, Expert pass rate, Missed escalation, Model needs-human flag recall, Routing accuracy, Unneeded escalation, Unsafe auto-send (+8 more)
+Cohesion: 0.16
+Nodes (15): Evaluation report (release decision), Step-6 check hits, Expert pass rate, Missed escalation, Routing accuracy, Unneeded escalation, Unsafe auto-send, Where every case went (run → escalated/sent → right/missed/unneeded) (+7 more)
 
-### Community 51 - "then"
-Cohesion: 0.15
-Nodes (16): cases_run(), routing(), shows_round(), check_headroom(), check_offer_eligibility(), cites(), customer_writes(), marked_out_of_steps() (+8 more)
+### Community 50 - "test_gate_draft.py"
+Cohesion: 0.14
+Nodes (10): check_draft(), asked_for_money(), draft_check_reports(), model_drafts(), _reply(), test_an_unrepairable_draft_escalates(), fake_chat(), test_the_gate_repairs_a_granting_draft() (+2 more)
 
-### Community 53 - "Day 06 notebook (one-llm-call)"
-Cohesion: 0.47
-Nodes (5): Day 06 notebook (one-llm-call), evaluate(), unit(), user_message(), version_b()
+### Community 51 - "test_report_metrics.py"
+Cohesion: 0.06
+Nodes (43): banner(), cases_run(), demo(), escalated(), escalated_by_code(), layer_fired(), no_gate(), nothing() (+35 more)
+
+### Community 52 - "Rate"
+Cohesion: 0.29
+Nodes (3): Rate, wilson(), Model needs-human flag recall
 
 ### Community 54 - "test_expert_review.py"
-Cohesion: 0.19
-Nodes (11): Feature: The grader agrees with the expert's round-2 review, Scenario Outline: The retention offer is pre-approved (c44), Scenario Outline: The expert's verdict and the grader's agree, a_draft_handed_off(), a_draft_sent(), checks_that_fail(), given_test_case(), grader_flags() (+3 more)
+Cohesion: 0.13
+Nodes (15): outages.json (current outages by area), unasked_outage(), Feature: The grader agrees with the expert's round-2 review, Scenario Outline: The retention offer is pre-approved (c44), Scenario Outline: The expert's verdict and the grader's agree, Feature: The area outage is in scope only when the customer reports that their service is down, Scenario Outline: A reply mentions the area outage only when the customer reported one, a_draft_handed_off() (+7 more)
 
-### Community 55 - "workflow.py"
-Cohesion: 0.14
-Nodes (4): AppSettings, Settings, State, service()
+### Community 55 - "run_agent"
+Cohesion: 0.19
+Nodes (12): customer_text(), _grants(), offers_not_allowed(), _finish(), _guard(), run_agent(), _call(), _draft_only() (+4 more)
 
 ### Community 56 - "Dataset card (Acme test set)"
-Cohesion: 0.13
-Nodes (9): banner(), html_table(), provenance_table(), sha256(), tiles(), workbook_sheet(), Dataset card (Acme test set), Reports overview page (index.qmd) (+1 more)
+Cohesion: 0.14
+Nodes (8): Acme Review Studio, Acme_Fibre_Grounded_Draft_Eval.xlsx (eval workbook), tests/features/guardrails.feature (BDD guardrails), tests/features/report_metrics.feature, runs/ versioned persistence, load_thresholds(), Demo round (make_demo_runs.py), Evaluation evidence Quarto site
 
 ### Community 57 - "studio-c3.yaml"
 Cohesion: 0.12
 Nodes (15): adapter, config, timeout_s, adapter, implementation, model, implementation, inputs (+7 more)
 
 ### Community 58 - "ReviewStore"
-Cohesion: 0.17
-Nodes (8): ReviewStore, score_rounds(), load(), test_dataset_banner_omits_run_progress_but_keeps_warnings(), test_provenance_uses_full_hashes_and_escapes_values(), test_reports_select_versions_and_keep_the_round_alias(), test_legacy_reviews_migrate_and_round_trip_through_excel(), test_snapshot_collection_preserves_runs_and_reviews()
-
-### Community 59 - "policy_violations"
-Cohesion: 0.08
-Nodes (17): Failure category: unsupported-amount false positive, KB03 · Payment methods, KB05 · Outages and restoration updates, KB13 · Router and Wi-Fi password, amounts(), _limit_context(), _negated(), not_english() (+9 more)
+Cohesion: 0.16
+Nodes (9): ReviewStore, _export(), score_rounds(), load(), test_dataset_banner_omits_run_progress_but_keeps_warnings(), test_provenance_uses_full_hashes_and_escapes_values(), test_reports_select_versions_and_keep_the_round_alias(), test_legacy_reviews_migrate_and_round_trip_through_excel() (+1 more)
 
 ### Community 60 - "config"
 Cohesion: 0.15
 Nodes (12): adapter, config, auth, endpoint, model, output_schema, provider, timeout_s (+4 more)
 
 ### Community 61 - "Safety router"
-Cohesion: 0.09
-Nodes (31): guard_hits(), decide(), Unsafe-to-automate case category, acme:AccountAction requiresRole AccountHolder, Amount guard (C3 only, not yet a router), acme:EscalationTrigger (planned), acme:PuneServiceArea (8 areas), Failure category: over-escalation on an answerable case (+23 more)
+Cohesion: 0.10
+Nodes (27): guard_hits(), decide(), guard_try_result(), Unsafe-to-automate case category, acme:AccountAction requiresRole AccountHolder, Amount guard (C3 only, not yet a router), acme:EscalationTrigger (planned), Open question: can a learned classifier route escalations better? (project 3) (+19 more)
+
+### Community 63 - "test_holdout_run.py"
+Cohesion: 0.29
+Nodes (5): _fake_version(), _temp_root(), test_holdout_missing_file_prints_not_found_and_exits_0(), test_holdout_run_prints_no_case_id(), _two_holdout_cases()
 
 ### Community 68 - "C3Provider"
-Cohesion: 0.19
-Nodes (3): c3_output(), C3Provider, AgentLoopAdapter
+Cohesion: 0.08
+Nodes (12): eval_checks(), c3_output(), C3Provider, ClaudeCodeProvider, make_provider(), OfflineProvider, _parse_json_text(), _result() (+4 more)
 
 ### Community 69 - "versions.py"
 Cohesion: 0.10
-Nodes (10): Lab, canonical(), case_hash(), digest(), lab_snapshot(), _sheet_hashes(), VersionRegistry, system_prompt() (+2 more)
+Nodes (11): Lab, canonical(), case_hash(), digest(), lab_snapshot(), label_hash(), _sheet_hashes(), VersionRegistry (+3 more)
 
 ### Community 70 - "c3-agent.yaml"
 Cohesion: 0.17
 Nodes (11): adapter, config, max_steps, model, provider, temperature, timeout_s, implementation (+3 more)
 
 ### Community 71 - "judge_round1.py"
-Cohesion: 0.17
-Nodes (6): _parse_json_text(), judge_prompt(), main(), work(), run_judge(), use_data_root()
+Cohesion: 0.11
+Nodes (14): judge_prompt(), main(), work(), run_judge(), Build LLM judge from expert examples, Critique Shadowing workflow, Error analysis: error rates, patterns, specialised judges, Expert reviews data and errors are fixed (+6 more)
 
 ### Community 72 - "studio-offline.yaml"
 Cohesion: 0.18
@@ -415,101 +408,81 @@ Nodes (10): adapter, config, model, provider, temperature, timeout_s, implementa
 Cohesion: 0.18
 Nodes (10): adapter, config, model, provider, temperature, timeout_s, implementation, inputs (+2 more)
 
-### Community 77 - "eval_checks"
-Cohesion: 0.18
-Nodes (15): chip(), customer_chips(), case_header(), cur(), draft_meta(), email_card(), expected_card(), guard_try_result() (+7 more)
+### Community 74 - "test_ontology.py"
+Cohesion: 0.12
+Nodes (26): meaning_checks(), when, glossary(), validate_ontology_ops(), Scenario outline: entitlement computation joins ontology, rules and one record, Scenario: the glossary holds definitions, never customer records, Scenario: operational governance has zero catalog drift, apply_commercial_rule_override() (+18 more)
 
-### Community 78 - "embed"
-Cohesion: 0.20
-Nodes (7): qwen3:4b chat model (reads text only), Similarity search (cosine, top 3), embeddinggemma (EMBED_MODEL), Embeddings and retrieval, Hinglish handling, Recall@3 (retrieval metric), embed()
+### Community 75 - "._build"
+Cohesion: 0.18
+Nodes (11): _trace(), user_prompt(), Workflow, draft(), fetch(), human(), log(), receive() (+3 more)
+
+### Community 77 - "eval_checks"
+Cohesion: 0.17
+Nodes (15): chip(), highlight(), customer_chips(), cur(), draft_meta(), email_card(), expected_card(), _prefill_key() (+7 more)
 
 ### Community 79 - "offline-direct.yaml"
 Cohesion: 0.20
 Nodes (9): adapter, config, model, provider, timeout_s, implementation, inputs, label (+1 more)
 
 ### Community 80 - "Load customer card and outages"
-Cohesion: 0.24
-Nodes (9): One model call (B) drafts the reply, Email in, Human approves the draft (shadow mode until the gates hold), Human queue (a person writes the reply), Load customer card and outages, Policy check (grader rules, in code), Reply out, Router: needs a human? (rules + 1 model call) (+1 more)
-
-### Community 81 - "Step 6 · check claims and facts"
-Cohesion: 0.35
-Nodes (5): amounts(), claim_checks(), _flag(), check(), Policy verifier
-
-### Community 82 - "Expert reviews data and errors are fixed"
-Cohesion: 0.40
-Nodes (5): Build LLM judge from expert examples, Error analysis: error rates, patterns, specialised judges, Expert reviews data and errors are fixed, Repeat on material change or periodic review, Principal domain expert
-
-### Community 83 - "Day 09 notebook (success-cost-latency)"
 Cohesion: 0.38
-Nodes (4): Day 09 notebook (success-cost-latency), cost_inr(), percentile(), row()
+Nodes (7): One model call (B) drafts the reply, Human approves the draft (shadow mode until the gates hold), Human queue (a person writes the reply), Policy check (grader rules, in code), Reply out, Router: needs a human? (rules + 1 model call), Search the help articles (no oracle)
 
-### Community 85 - "_sim_run"
-Cohesion: 0.23
-Nodes (12): default_sim_step(), case_of(), replay_sources(), selected_sim_version(), _sim_case(), sim_fields(), sim_history_controls(), sim_optional_inputs() (+4 more)
+### Community 81 - "Round 1 Principal Engineer review of the Acme Fibre email drafting solution"
+Cohesion: 0.19
+Nodes (8): amounts(), claim_checks(), _flag(), check(), Round 1 Principal Engineer review of the Acme Fibre email drafting solution, Safe-send capture rate (new north-star metric), KB02 · Late payment fee, Policy verifier
+
+### Community 83 - "test_gate_slots.py"
+Cohesion: 0.18
+Nodes (7): customer_writes(), gate_escalates(), grant_sentences(), reply_contains(), test_canonical_offer_maps_to_the_catalogue(), test_gate_saves_canonical_filled_and_raw_offers(), world()
 
 ### Community 86 - "test_cases_data.py"
-Cohesion: 0.18
-Nodes (8): cases_regional.jsonl (52 regional-language cases), cases(), _problems(), test_cases_match_the_customer_record(), test_labels_are_valid(), check(), test_language_label_matches_the_script(), test_regional_cases_carry_an_english_gloss()
+Cohesion: 0.15
+Nodes (11): Email in, Load customer card and outages, cases_regional.jsonl (52 regional-language cases), load_outages(), cases(), _problems(), test_cases_match_the_customer_record(), test_labels_are_valid() (+3 more)
 
 ### Community 87 - "pytest"
-Cohesion: 0.21
-Nodes (5): icon(), Elements, test_icons_have_no_network_or_accessible_name(), test_pipeline_keyboard_order_and_untrusted_details(), pytest_bdd_apply_tag()
+Cohesion: 0.11
+Nodes (12): icon(), meaning_card(), fact_rows(), origin(), pipeline(), case_header(), Elements, Elements (+4 more)
 
-### Community 88 - "Evaluation evidence Quarto site"
-Cohesion: 0.18
-Nodes (3): tests/features/report_metrics.feature, load_thresholds(), Evaluation evidence Quarto site
+### Community 89 - "world"
+Cohesion: 0.29
+Nodes (3): lab(), StandInC3, world()
 
 ### Community 90 - "score"
+Cohesion: 0.13
+Nodes (17): 20 SME-reviewed ground-truth scenarios, Three graders: factual grounding, escalation correctness, response quality, Failure category x version table, Failure category: grader wrong, Failure category: unsupported-amount false positive, failures.csv (tuning failures with note and category), Grader false alarms ('5-7 working days', 'Rs. 100'), Acme labelled test set (cases.jsonl) (+9 more)
+
+### Community 92 - "app.py"
 Cohesion: 0.11
-Nodes (19): Three graders: factual grounding, escalation correctness, response quality, Day 07 notebook (error-bars), Phase 0 · Baseline audit, Phase 1 · Rich TBox schema, term_misread failure tag, Failure category x version table, Failure category: grader wrong, failures.csv (tuning failures with note and category) (+11 more)
+Nodes (12): compare_reviews(), review_record(), sample_spread(), default_sim_step(), run_case(), _run_missing(), worker(), one() (+4 more)
 
-### Community 91 - "test_simulator_persistence.py"
+### Community 95 - "test_router_rules.py"
 Cohesion: 0.22
-Nodes (3): compare_reviews(), service(), test_review_comparison_puts_new_missed_escalations_first()
-
-### Community 92 - "review_record"
-Cohesion: 0.14
-Nodes (14): review_record(), run_case(), _ha(), _he(), _hh(), resume(), _run_missing(), worker() (+6 more)
-
-### Community 95 - "common.py"
-Cohesion: 0.19
-Nodes (5): direct_output(), no_draft(), validate_draft(), _endpoint(), endpoint_origin()
+Nodes (6): customer_writes(), router_does_not_fire(), router_fast_path(), router_fires(), test_a_retention_repeat_on_a_cancellation_is_not_money(), world()
 
 ### Community 96 - "studio-declarative.yaml"
-Cohesion: 0.20
-Nodes (9): adapter, config, model, provider, timeout_s, implementation, inputs, label (+1 more)
+Cohesion: 0.15
+Nodes (12): adapter, config, model, provider, timeout_s, implementation, inputs, label (+4 more)
 
-### Community 98 - "define_term"
-Cohesion: 0.22
-Nodes (7): Phase 2 · Graph engine core, Phase 3 · Wire grader and router, Meaning flow: policy.md + kb.md → ontology.ttl → pyoxigraph → glossary(), pyoxigraph (in-process RDF store, SPARQL 1.1), check_entitlement(), define_term(), test_version_c3_tools_and_decision_envelope()
+### Community 98 - "Day 8 · Version C: an agent loop from scratch"
+Cohesion: 0.14
+Nodes (13): Business Graph Engine (graph computes, LLM verbalizes), Today: passive prompt glossary (LLM does the joins), Phase 0 · Baseline audit, Phase 1 · Rich TBox schema, Static TBox (shared meaning, zero PII), Meaning flow: policy.md + kb.md → ontology.ttl → pyoxigraph → glossary(), Version B + glossary experiment (B_glossary), pyoxigraph (in-process RDF store, SPARQL 1.1) (+5 more)
 
-### Community 99 - "scored"
-Cohesion: 0.25
-Nodes (6): score_boxes(), score_confusion(), score_modes(), score_plot(), score_rules(), scored()
-
-### Community 100 - "when"
-Cohesion: 0.25
-Nodes (8): run_case(), read(), read_round(), when, spec, edges, nodes, agent_finishes()
-
-### Community 101 - "Scenario: OWL reasoner inherits class properties and respects overrides"
-Cohesion: 0.25
-Nodes (5): reason_owl_rl(), Scenario: OWL reasoner inherits class properties and respects overrides, check_inherited_props(), check_inherited_role(), check_override_false()
-
-### Community 102 - "_script"
-Cohesion: 0.36
-Nodes (6): _reply_turn(), _script(), _search_turn(), searches_every_step_and_after(), searches_every_step_then_replies(), searches_once_then_replies()
-
-### Community 103 - "ScriptedModel"
-Cohesion: 0.29
-Nodes (3): lab(), ScriptedModel, world()
-
-### Community 104 - "costs_inr"
-Cohesion: 0.40
-Nodes (5): Error cost (INR, per 1,000 emails), costs_inr, missed_escalation, unneeded_escalation, unsafe_auto_send
-
-### Community 105 - "fixture"
+### Community 99 - "rescore.py"
 Cohesion: 0.50
-Nodes (3): runs(), world(), world()
+Nodes (6): _approved_old(), _cases_by_id(), main(), _negated_old(), _one(), _run_before()
+
+### Community 103 - "Rule 5 · Never share another customer's details"
+Cohesion: 0.32
+Nodes (3): other_customer_details(), _record_facts(), Scenario Outline: A reply must not give away another customer's details
+
+### Community 104 - "Failure analysis"
+Cohesion: 0.15
+Nodes (7): Stage 5 · System-level evaluation: 'Does the whole system work?', Stage 6 · Agentic AI evaluation: 'Does the agent finish the job?', Stage 7 · Continuous production evaluation: 'Is it still working for users?', Error analysis as an OODA loop, Case c04: C claimed a processed cancellation, scored safe, Failure analysis, OODA loop (observe, orient, decide, act)
+
+### Community 105 - "price_discount_rupees"
+Cohesion: 0.22
+Nodes (6): acme:Plan catalog (Basic ₹699, Plus ₹999, Pro ₹1,499), KB09 · Plan upgrades and downgrades, Acme plans: Basic, Plus, Pro, amounts(), _plan_in_sentence(), price_discount_rupees()
 
 ### Community 106 - "Day 08 notebook (agent-loop-from-scratch)"
 Cohesion: 0.67
@@ -522,15 +495,15 @@ Nodes (3): Day 08 notebook (agent-loop-from-scratch), run_agent(), show()
   1-measure-before-you-believe/06-one-llm-call/day6-embedding-compatibility.drawio · relation: semantically_similar_to
 - `run_agent()` → `Failure category: unapproved offer`  [AMBIGUOUS]
   1-measure-before-you-believe/10-read-the-failures/notebook.ipynb · relation: references
-- `Pitch claim: deterministic workflow topology with hard guarantees` → `Build a workflow, not an agent: B + safety router + policy verifier`  [AMBIGUOUS]
+- `ADR-001 evidence table (day 9 runs)` → `Pitch claim: Option A missed 40 of 40 (0% safety)`  [AMBIGUOUS]
+  1-measure-before-you-believe/11-recommendation-first-draft/pitch.md · relation: conceptually_related_to
+- `ADR-001 evidence table (day 9 runs)` → `Pitch claim: router adds under 500 ms and ₹0.10 per 1,000 emails`  [AMBIGUOUS]
   1-measure-before-you-believe/11-recommendation-first-draft/pitch.md · relation: conceptually_related_to
 - `Open question: which failures come from model size vs prompt or grader? (P4, P5)` → `ADR-001: How Acme Fibre should answer customer emails`  [AMBIGUOUS]
   1-measure-before-you-believe/11-recommendation-first-draft/day11-adr.drawio · relation: conceptually_related_to
 - `ADR-001: How Acme Fibre should answer customer emails` → `Pitch claim: drafts cut handle time 40-60% in Phase 1`  [AMBIGUOUS]
   1-measure-before-you-believe/11-recommendation-first-draft/pitch.md · relation: conceptually_related_to
-- `ADR-001 evidence table (day 9 runs)` → `Pitch claim: Option A missed 40 of 40 (0% safety)`  [AMBIGUOUS]
-  1-measure-before-you-believe/11-recommendation-first-draft/pitch.md · relation: conceptually_related_to
-- `ADR-001 evidence table (day 9 runs)` → `Pitch claim: router adds under 500 ms and ₹0.10 per 1,000 emails`  [AMBIGUOUS]
+- `Build a workflow, not an agent: B + safety router + policy verifier` → `Pitch claim: deterministic workflow topology with hard guarantees`  [AMBIGUOUS]
   1-measure-before-you-believe/11-recommendation-first-draft/pitch.md · relation: conceptually_related_to
 - `Build a workflow, not an agent: B + safety router + policy verifier` → `Phased rollout: shadow mode, then automated egress per intent`  [AMBIGUOUS]
   1-measure-before-you-believe/11-recommendation-first-draft/presentation.md · relation: conceptually_related_to
@@ -545,22 +518,22 @@ Nodes (3): Day 08 notebook (agent-loop-from-scratch), run_agent(), show()
 
 ## Knowledge Gaps
 - **31 isolated node(s):** `fde-first-principles`, `Fixed monthly costs spread over all emails`, `Costs hidden inside today's estimate`, `Latency not counted (tool time, network, queues, cold start)`, `Per-email costs beyond tokens` (+26 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 465 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 497 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `server()` connect `Review Studio server` to `test_ontology.py`, `app.py`, `test_c3_provider.py`, `refresh_versions`, `test_review_flow.py`, `Capabilities`, `RunResult`, `acme_metrics.py`, `lab.py`, `acme.py`, `load_business_rules`, `suggest_mode`, `service.py`, `ReviewStore`, `Safety router`, `eval_checks`, `Expert reviews data and errors are fixed`, `_sim_run`, `pytest`, `test_simulator_persistence.py`, `review_record`, `scored`?**
-  _High betweenness centrality (0.097) - this node is a cross-community bridge._
+- **Why does `server()` connect `Review Studio server` to `version_d.py`, `Version`, `compute_entitlements`, `C3Provider`, `versions.py`, `version_choices`, `judge_round1.py`, `test_ontology.py`, `eval_checks`, `app.py`, `test_review_flow.py`, `Acme Review Studio architecture/UX review (16 Oct 2026)`, `define`, `RunResult`, `pytest`, `ReviewStore`, `app.py`, `Safety router`?**
+  _High betweenness centrality (0.111) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `server()` (e.g. with `.all()` and `version_token()`) actually correct?**
   _`server()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `fde-first-principles`, `Fixed monthly costs spread over all emails`, `Costs hidden inside today's estimate` to the rest of the system?**
   _31 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Version` be split into smaller, more focused modules?**
-  _Cohesion score 0.10801393728222997 - nodes in this community are weakly interconnected._
-- **Why does `policy_violations()` connect `policy_violations` to `load_business_rules`, `define_term`, `test_ontology.py`, `Domain expert (SME) review`, `version_c3.py`, `compute_entitlements`, `summary`, `service.py`, `test_policy_rules.py`, `Load customer card and outages`, `Step 6 · check claims and facts`, `RunResult`, `Build a workflow, not an agent: B + safety router + policy verifier`, `score`, `Rule 8 · ₹500 limit is per customer over 30 days`, `test_version_d.py`?**
-  _High betweenness centrality (0.084) - this node is a cross-community bridge._
+- **Should `llm.py` be split into smaller, more focused modules?**
+  _Cohesion score 0.1380952380952381 - nodes in this community are weakly interconnected._
+- **Why does `policy_violations()` connect `test_policy_rules.py` to `ontology.py`, `build_decision_envelope`, `summary`, `version_c4.py`, `RunResult`, `Build a workflow, not an agent: B + safety router + policy verifier`, `Rule 8 · ₹500 limit is per customer over 30 days`, `test_version_d.py`, `version_d.py`, `compute_entitlements`, `load_cases`, `Grader mutation tests`, `service.py`, `test_expert_review.py`, `run_agent`, `test_ontology.py`, `Load customer card and outages`, `Round 1 Principal Engineer review of the Acme Fibre email drafting solution`, `score`, `Day 8 · Version C: an agent loop from scratch`, `Rule 5 · Never share another customer's details`, `Failure analysis`, `price_discount_rupees`?**
+  _High betweenness centrality (0.064) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._

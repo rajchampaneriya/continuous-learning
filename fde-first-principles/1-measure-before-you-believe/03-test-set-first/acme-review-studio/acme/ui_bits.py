@@ -233,6 +233,8 @@ document.addEventListener('click', e => {
   if (c) Shiny.setInputValue('pick_case', c.dataset.case, {priority: 'event'});
   const s = e.target.closest('[data-step]');
   if (s) Shiny.setInputValue(s.dataset.target, s.dataset.step, {priority: 'event'});
+  const rule = e.target.closest('[data-meaning-rule]');
+  if (rule) Shiny.setInputValue('meaning_card_rule', rule.dataset.meaningRule, {priority: 'event'});
 });
 $(document).on('shiny:connected', () => {
   Shiny.addCustomMessageHandler('focus', id => setTimeout(() => document.getElementById(id)?.focus(), 50));
@@ -242,6 +244,91 @@ $(document).on('shiny:connected', () => {
 # grid positions mirror the diagram: top row left→right, bottom row right→left, human under step 7
 LAYOUT = {"1": (1, 1, "a-r"), "2": (1, 2, "a-r"), "3": (1, 3, "a-r"), "4": (1, 4, "a-r"), "5": (1, 5, "a-d"),
           "6": (2, 5, "a-l"), "7": (2, 4, "a-l a-d"), "8": (2, 3, "a-l"), "9": (2, 2, ""), "H": (3, 4, "")}
+
+
+def meaning_card(concept: dict, facts: list[dict], articles: dict, catalog: dict, config: dict) -> str:
+    terms_by_id = {info["iri"].rsplit("#", 1)[-1]: name for name, info in catalog.items()}
+    parameters = []
+    for section in ("concession_limit", "offers"):
+        entries = config.get(section, {})
+        candidates = [entries] if section == "concession_limit" else entries.values()
+        for entry in candidates:
+            if entry.get("concept") == concept["term"]:
+                parameters.extend(
+                    f"{key.replace('_', ' ')}: {value}"
+                    for key, value in entry.items()
+                    if key not in ("concept", "policy_rules", "kb_article", "cooldown_field",
+                                   "customer_ledger_field", "requires_duplicate_payment_in_field")
+                )
+
+    def origin(fact):
+        source = f" from {fact['inherited_from']}" if fact["inherited_from"] else ""
+        return f"{fact['origin']}{source}"
+
+    def fact_rows(property_name):
+        rows = []
+        seen = set()
+        labels = {
+            "subClassOf": "Is a",
+            "altLabel": "Also known as",
+            "countsTowardLimit": "Counts toward concession limit",
+            "oncePerMonths": "Offer cadence (months)",
+            "scopeNote": "Business note",
+            "requiresRole": "Required role",
+            "documentedIn": "Help article",
+            "ownedBy": "Business owner",
+        }
+        for fact in facts:
+            if fact["property"] != property_name:
+                continue
+            value = fact["value"]
+            if property_name == "documentedIn":
+                article = articles.get(value, {})
+                value = f"{value} · {article.get('title', '')}"
+            if property_name in ("subClassOf", "requiresRole"):
+                value = terms_by_id.get(value, value)
+            if property_name == "ownedBy":
+                value = concept.get("owner_team") or value
+            key = (value, origin(fact))
+            if key in seen:
+                continue
+            seen.add(key)
+            rows.append(
+                f"<li>{html.escape(labels.get(property_name, property_name))}: "
+                f"<strong>{html.escape(value)}</strong> "
+                f"<span class='muted'>({html.escape(origin(fact))}; ontology.ttl)</span></li>"
+            )
+        return "".join(rows)
+
+    rules = [fact for fact in facts if fact["property"] == "enforcesRule"]
+    rule_rows = "".join(
+        f"<li><button type='button' class='btn btn-link p-0' "
+        f"data-meaning-rule='{html.escape(fact['value'].removeprefix('PolicyRule'), quote=True)}'>"
+        f"Rule {html.escape(fact['value'].removeprefix('PolicyRule'))}</button> "
+        f"<span class='muted'>({html.escape(origin(fact))}; links: ontology.ttl; text: policy.md)</span></li>"
+        for fact in rules
+    ) or "<li class='muted'>No linked policy rules</li>"
+    definition = concept["definition"]
+    definition_fact = next(fact for fact in facts
+                           if fact["property"] == "definition" and fact["value"] == definition)
+    parameter_rows = "".join(
+        f"<li>{html.escape(item)} <span class='muted'>(stated; business_rules.json)</span></li>"
+        for item in parameters
+    ) or "<li class='muted'>No linked parameters</li>"
+    return (
+        f"<section class='mt-3'><h4>{html.escape(concept['term'])}</h4>"
+        f"<p>{html.escape(definition)} "
+        f"<span class='muted'>({html.escape(origin(definition_fact))}; ontology.ttl)</span></p>"
+        f"<div class='row'><div class='col-md-6'><h5>Hierarchy and business facts</h5><ul>"
+        f"{fact_rows('subClassOf')}{fact_rows('altLabel')}"
+        f"{fact_rows('countsTowardLimit')}{fact_rows('oncePerMonths')}"
+        f"{fact_rows('scopeNote')}{fact_rows('requiresRole')}"
+        f"</ul><h5>Business-rule parameters</h5><ul>{parameter_rows}</ul></div>"
+        f"<div class='col-md-6'><h5>Policy rules</h5><ul>{rule_rows}</ul>"
+        f"<h5>Evidence</h5><ul>{fact_rows('documentedIn')}"
+        f"<li><span class='muted'>Article text: kb.md</span></li></ul>"
+        f"<h5>Owner</h5><ul>{fact_rows('ownedBy')}</ul></div></div></section>"
+    )
 
 
 def pipeline(trace: list[dict], waiting: bool = False, selected: str | None = None, target: str = "step",

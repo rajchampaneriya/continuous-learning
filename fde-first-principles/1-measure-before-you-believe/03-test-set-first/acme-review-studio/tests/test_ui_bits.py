@@ -2,7 +2,7 @@
 from html.parser import HTMLParser
 
 import pytest
-from acme.ui_bits import icon, pipeline
+from acme.ui_bits import icon, meaning_card, pipeline
 
 
 class Elements(HTMLParser):
@@ -34,3 +34,21 @@ def test_icons_have_no_network_or_accessible_name():
         assert 'href=' not in markup
     with pytest.raises(ValueError):
         icon('../unknown')
+
+
+def test_meaning_card_shows_provenance_sources_and_clickable_rules():
+    concept = {"term": "retention offer", "definition": "<Offer>", "iri": "https://example/#RetentionOffer"}
+    facts = [
+        {"property": "definition", "value": "<Offer>", "origin": "stated", "inherited_from": ""},
+        {"property": "countsTowardLimit", "value": "true", "origin": "inherited", "inherited_from": "concession"},
+        {"property": "enforcesRule", "value": "PolicyRule8", "origin": "inherited", "inherited_from": "discount"},
+    ]
+    config = {"offers": {"retention offer": {"concept": "retention offer", "cooldown_months": 12}}}
+    markup = meaning_card(concept, facts, {}, {"retention offer": concept}, config)
+
+    assert "&lt;Offer&gt; <span class='muted'>(stated; ontology.ttl)</span>" in markup
+    assert "(inherited from concession; ontology.ttl)" in markup
+    assert "cooldown months: 12 <span class='muted'>(stated; business_rules.json)</span>" in markup
+    assert "(inherited from discount; links: ontology.ttl; text: policy.md)" in markup
+    buttons = [attrs for tag, attrs in Elements(markup).elements if tag == "button"]
+    assert buttons == [{"type": "button", "class": "btn btn-link p-0", "data-meaning-rule": "8"}]

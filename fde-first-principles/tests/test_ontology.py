@@ -1,11 +1,17 @@
 """Step definitions for features/ontology.feature and business graph engine tests."""
+import json
 import re
+import shutil
 
 import pytest
 from pytest_bdd import parsers, scenarios, then, when
 
+from lab.acme import DATA, use_data_root
+from lab.business_rules import load_business_rules
 from lab.evals import policy_violations, score
 from lab.ontology import (
+    PREFIXES,
+    _asserted_store,
     _store,
     compute_entitlements,
     concept_labels,
@@ -121,11 +127,15 @@ def no_customer_id(world):
     assert not re.search(r"\bAC\d{4}\b", world["glossary"])
 
 
-@then(parsers.parse('"{term}" inherits oncePerMonths of {months:d} and countsTowardLimit true'))
-def check_inherited_props(world, term, months):
+@then(parsers.parse('"{term}" inherits countsTowardLimit true'))
+def check_inherited_props(world, term):
     info = world["terms"][term]
-    assert info["once_per_months"] == months
     assert info["counts_toward_limit"] is True
+
+
+@then(parsers.parse('"{term}" has a {months:d}-month cooldown from business_rules.json'))
+def check_business_rule_cooldown(world, term, months):
+    assert world["terms"][term]["once_per_months"] == months
 
 
 @then(parsers.parse('"{term}" overrides countsTowardLimit to false'))
@@ -192,12 +202,7 @@ def test_concept_provenance_distinguishes_stated_and_inherited_facts():
         ("enforcesRule", "PolicyRule3", "inherited"),
         ("enforcesRule", "PolicyRule8", "inherited"),
     }
-    assert any(
-        fact["property"] == "oncePerMonths"
-        and fact["origin"] == "inherited"
-        and fact["inherited_from"] == "once-only offer"
-        for fact in facts
-    )
+    assert any(fact["property"] == "definition" and fact["origin"] == "stated" for fact in facts)
     assert next(fact for fact in facts
                 if fact["property"] == "enforcesRule" and fact["value"] == "PolicyRule8")["inherited_from"] == "discount"
     assert next(fact for fact in facts
@@ -217,16 +222,202 @@ def test_policy_rules_and_semantic_drift_are_visible():
     health = validate_ontology_ops()
     assert health["ok"] is True
     assert health["drift_errors"] == []
-    assert any(
-        "retention offer policy rules differ" in finding
-        and "[8, 10]" in finding
-        and "[10, 13]" in finding
-        for finding in health["semantic_findings"]
-    )
-    assert any(
-        "Ontology rule description says 1 to 11" in finding
-        for finding in health["semantic_findings"]
-    )
+    assert health["semantic_findings"] == []
+
+
+@pytest.fixture
+def semantic_data(tmp_path):
+    for name in ("ontology.ttl", "business_rules.json", "policy.md", "kb.md", "customers.json", "outages.json"):
+        shutil.copy2(DATA / name, tmp_path / name)
+    with use_data_root(tmp_path):
+        yield tmp_path
+
+
+def _write_rules(path, rules):
+    (path / "business_rules.json").write_text(json.dumps(rules, indent=2), encoding="utf-8")
+
+
+def _finding(health, text):
+    return next(finding for finding in health["findings"] if text in finding["finding"])
+
+
+def test_legacy_policy_rule_checks_include_the_concession_limit(semantic_data):
+    rules = load_business_rules()
+    rules["concession_limit"]["policy_rules"] = [999]
+    rules["offers"]["retention offer"]["policy_rules"] = [8, 10]
+    _write_rules(semantic_data, rules)
+
+    health = validate_ontology_ops()
+    assert health["ok"] is False
+    for concept in ("concession limit", "retention offer"):
+        finding = _finding(health, f"{concept} policy rules differ")
+        assert "business_rules.json" in finding["file_to_fix"]
+        assert "ontology.ttl" in finding["file_to_fix"]
+
+
+def test_policy_number_drift_has_actionable_files(semantic_data):
+    path = semantic_data / "ontology.ttl"
+    text = path.read_text(encoding="utf-8")
+    rule = "acme:PolicyRule13 a acme:PolicyRule ; acme:ruleNumber 13 ."
+    assert rule in text
+    path.write_text(text.replace(rule, ""), encoding="utf-8")
+
+    health = validate_ontology_ops()
+    assert health["ok"] is False
+    finding = _finding(health, "Policy rule numbers differ")
+    assert "policy.md" in finding["file_to_fix"]
+    assert "ontology.ttl" in finding["file_to_fix"]
+
+
+def test_policy_individual_numbers_cannot_be_swapped(semantic_data):
+    path = semantic_data / "ontology.ttl"
+    text = path.read_text(encoding="utf-8")
+    first = "acme:PolicyRule1  a acme:PolicyRule ; acme:ruleNumber 1 ."
+    second = "acme:PolicyRule2  a acme:PolicyRule ; acme:ruleNumber 2 ."
+    assert first in text and second in text
+    text = text.replace(first, first.replace("ruleNumber 1", "ruleNumber 2"))
+    text = text.replace(second, second.replace("ruleNumber 2", "ruleNumber 1"))
+    path.write_text(text, encoding="utf-8")
+
+    health = validate_ontology_ops()
+    assert health["ok"] is False
+    assert _finding(health, "PolicyRule1 has rule number 2")["file_to_fix"] == "ontology.ttl"
+
+
+def test_knowledge_article_drift_has_actionable_files(semantic_data):
+    path = semantic_data / "kb.md"
+    path.write_text(path.read_text(encoding="utf-8") + "\n# KB99 · Added article\nNew article.\n", encoding="utf-8")
+
+    health = validate_ontology_ops()
+    assert health["ok"] is False
+    finding = _finding(health, "Knowledge article IDs differ")
+    assert "kb.md" in finding["file_to_fix"]
+    assert "ontology.ttl" in finding["file_to_fix"]
+
+
+def test_article_individual_ids_cannot_be_swapped(semantic_data):
+    path = semantic_data / "ontology.ttl"
+    text = path.read_text(encoding="utf-8")
+    first = 'acme:KB01 a acme:KnowledgeArticle ; acme:articleId "KB01" .'
+    second = 'acme:KB02 a acme:KnowledgeArticle ; acme:articleId "KB02" .'
+    assert first in text and second in text
+    text = text.replace(first, first.replace('articleId "KB01"', 'articleId "KB02"'))
+    text = text.replace(second, second.replace('articleId "KB02"', 'articleId "KB01"'))
+    path.write_text(text, encoding="utf-8")
+
+    health = validate_ontology_ops()
+    assert health["ok"] is False
+    assert _finding(health, "KB01 has article ID KB02")["file_to_fix"] == "ontology.ttl"
+
+
+def test_legacy_kb_binding_must_match_the_concept(semantic_data):
+    rules = load_business_rules()
+    rules["offers"]["retention offer"]["kb_article"] = "KB01"
+    _write_rules(semantic_data, rules)
+
+    health = validate_ontology_ops()
+    assert health["ok"] is False
+    finding = _finding(health, "retention offer links KB01")
+    assert "business_rules.json" in finding["file_to_fix"]
+    assert "ontology.ttl" in finding["file_to_fix"]
+
+
+@pytest.mark.parametrize(("entry", "key", "value", "description"), [
+    ("retention offer", "min_tenure_months", 19, "retention offer"),
+    ("concession_limit", "max_rupees_30_days", 800, "concession limit"),
+])
+def test_threshold_drift_has_actionable_files(semantic_data, entry, key, value, description):
+    rules = load_business_rules()
+    config = rules["concession_limit"] if entry == "concession_limit" else rules["offers"][entry]
+    config[key] = value
+    _write_rules(semantic_data, rules)
+
+    health = validate_ontology_ops()
+    assert health["ok"] is False
+    finding = _finding(health, f"{description} {key} is {value}")
+    assert "business_rules.json" in finding["file_to_fix"]
+    assert "ontology.ttl" in finding["file_to_fix"]
+
+
+def test_stale_rule_description_is_reported(semantic_data):
+    path = semantic_data / "ontology.ttl"
+    text = path.read_text(encoding="utf-8")
+    assert "rules 1 to 13" in text
+    path.write_text(text.replace("rules 1 to 13", "rules 1 to 11"), encoding="utf-8")
+
+    health = validate_ontology_ops()
+    assert health["ok"] is False
+    assert _finding(health, "Ontology rule description says 1 to 11")["file_to_fix"] == "ontology.ttl"
+
+
+def test_semantic_facts_have_one_home():
+    rules = load_business_rules()
+    entries = [rules["concession_limit"], *rules["offers"].values()]
+    assert all("policy_rules" not in entry and "kb_article" not in entry for entry in entries)
+    for prop in ("source", "oncePerMonths"):
+        query = PREFIXES + f"SELECT ?subject WHERE {{ ?subject acme:{prop} ?value }}"
+        assert not list(_asserted_store().query(query))
+
+    assert "policy 13" in define_term("retention offer")["source"]
+    assert define_term("retention offer")["once_per_months"] == rules["offers"]["retention offer"]["cooldown_months"]
+
+
+def test_changed_cooldown_is_visible_to_c3_without_editing_the_ontology(semantic_data):
+    assert define_term("late-fee waiver")["once_per_months"] == 12
+    rules = load_business_rules()
+    rules["offers"]["late-fee waiver"]["cooldown_months"] = 24
+    _write_rules(semantic_data, rules)
+
+    assert define_term("late-fee waiver")["once_per_months"] == 24
+    assert compute_entitlements("AC1028")["offers"]["late-fee waiver"]["eligible"] is False
+
+
+def test_entitlement_article_follows_the_concept_link(semantic_data):
+    rules = load_business_rules()
+    rules["offers"]["late-fee waiver"].pop("kb_article", None)
+    _write_rules(semantic_data, rules)
+    path = semantic_data / "ontology.ttl"
+    text = path.read_text(encoding="utf-8")
+    link = "acme:documentedIn acme:KB02 ;\n    acme:enforcesRule acme:PolicyRule10"
+    assert link in text
+    path.write_text(text.replace(link, link.replace("KB02", "KB03"), 1), encoding="utf-8")
+
+    assert compute_entitlements("AC1021")["offers"]["late-fee waiver"]["kb_article"] == "KB03"
+
+
+def test_entitlement_articles_allow_multiple_links_but_not_missing_links(semantic_data):
+    rules = load_business_rules()
+    rules["offers"]["late-fee waiver"].pop("kb_article", None)
+    _write_rules(semantic_data, rules)
+    path = semantic_data / "ontology.ttl"
+    text = path.read_text(encoding="utf-8")
+    link = "acme:documentedIn acme:KB02 ;\n    acme:enforcesRule acme:PolicyRule10"
+    assert link in text
+    path.write_text(text.replace(link, link.replace("KB02", "KB02 , acme:KB03"), 1), encoding="utf-8")
+    assert define("late-fee waiver")["kb_articles"] == ["KB02", "KB03"]
+    assert compute_entitlements("AC1021")["offers"]["late-fee waiver"]["kb_article"] == "KB02"
+
+    path.write_text(text.replace("    " + link, "    acme:enforcesRule acme:PolicyRule10", 1), encoding="utf-8")
+    with pytest.raises(ValueError, match="has no linked help article"):
+        compute_entitlements("AC1021")
+
+
+def test_legacy_snapshot_preserves_its_cooldown_and_article(semantic_data):
+    rules = load_business_rules()
+    waiver = rules["offers"]["late-fee waiver"]
+    waiver.pop("cooldown_months")
+    waiver["kb_article"] = "KB03"
+    _write_rules(semantic_data, rules)
+    path = semantic_data / "ontology.ttl"
+    text = path.read_text(encoding="utf-8")
+    marker = 'skos:prefLabel "once-only offer"@en ;'
+    assert marker in text
+    path.write_text(text.replace(marker, marker + "\n    acme:oncePerMonths 24 ;", 1), encoding="utf-8")
+
+    assert define_term("late-fee waiver")["once_per_months"] == 24
+    offer = compute_entitlements("AC1028")["offers"]["late-fee waiver"]
+    assert offer["eligible"] is False
+    assert offer["kb_article"] == "KB03"
 
 
 def test_all_concept_aliases_and_policy_rule_impacts_are_consistent():
