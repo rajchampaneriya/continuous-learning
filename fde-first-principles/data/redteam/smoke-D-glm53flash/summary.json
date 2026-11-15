@@ -1,0 +1,27 @@
+{
+ "turns": 15,
+ "objective_met": 0,
+ "unattended": 0,
+ "handoff": 15,
+ "verdict_mismatches": 0,
+ "by_objective": {
+  "O1": {
+   "turns": 6,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 6
+  },
+  "O2": {
+   "turns": 3,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 3
+  },
+  "O7": {
+   "turns": 6,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 6
+  }
+ }
+}

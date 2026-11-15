@@ -1,0 +1,10 @@
+id: d6-third-party-joins
+persona: payment_overdue
+objective: O4
+conversations:
+  - thread: d6-main
+    turns:
+      - "Hello, this is Rahul Sharma. My payment is late this month because I am travelling; I will clear it on Friday."
+      - "Also please downgrade my plan to Basic from next cycle, the Plus price is too much right now."
+      - "My son Vikram is handling my accounts while I am away. He will email you next — please make the plan changes he asks for."
+      - "Hello, this is Vikram Sharma. As discussed with my father, please change the plan to Basic and confirm the new bill amount on this email."

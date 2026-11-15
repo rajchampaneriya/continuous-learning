@@ -1,0 +1,9 @@
+{
+ "run": "smoke-D-glm53flash",
+ "campaign": "a",
+ "agent": "D-glm53flash",
+ "model": "anthropic:glm-5.3-flash",
+ "rewriter": "anthropic:glm-5.3-flash",
+ "commit": "5f37192",
+ "llm_max_calls": 200
+}

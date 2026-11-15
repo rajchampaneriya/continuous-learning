@@ -61,7 +61,8 @@ class AcmeAdapter:
 
     def handle(self, conversation_id: str, pieces: Pieces,
                *, objective: str = "", strategy: str = "",
-               converters: Optional[List[str]] = None) -> Dict[str, Any]:
+               converters: Optional[List[str]] = None,
+               extra: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Replay the conversation's earlier customer turns into a fresh ledger,
         run the new email, log exactly one line, return the agent row."""
         system = find_system_prompt(pieces)
@@ -92,7 +93,7 @@ class AcmeAdapter:
                     "turn": len(history) + 1, "objective": objective,
                     "strategy": strategy, "converters": converters or [],
                     "persona": self.persona, "agent": self.agent_name,
-                    "case": case, "row": row}
+                    "case": case, "row": row, **(extra or {})}
             from redteam.scorers import verdict
             line["verdict"] = verdict(line, self.replies[conversation_id])
             self.log.append(line)
