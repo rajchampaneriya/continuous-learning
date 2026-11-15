@@ -64,9 +64,22 @@ Changing working-copy settings never changes an in-flight batch or a held run.
 
 On **Simulator**, select a version and a dataset case or enter a free-form message. Only fields
 supported by that version are shown. Select spans to inspect the evidence actually produced: the
-step graph for the studio workflows, C3's envelope and tool-call timeline, the HTTP exchange, or
-a fallback span tree. C3's nested trace appears under step 5; it does not show the studio prompt
-that C3 did not use. A held run can be sent as-is, edited or held without sending.
+step graph for the studio workflows, C3's envelope and tool-call timeline, swimlanes for a
+multi-agent team, the HTTP exchange, or a fallback span tree. C3's nested trace appears under
+step 5; it does not show the studio prompt that C3 did not use. A held run can be sent as-is,
+edited or held without sending.
+
+**Download OpenTelemetry trace** under the outcome saves the run as an OTLP/JSON trace. Model
+calls, tool calls and agents carry the GenAI semantic-convention attributes (`gen_ai.operation.name`,
+`gen_ai.request.model`, `gen_ai.usage.*`, `gen_ai.tool.name`, `gen_ai.agent.name`). Prompts, tool
+arguments and results are left out unless you select **Include prompts, tool arguments and
+results**. Adapters record durations rather than start times, so the export places child spans one
+after another from the run's start. To send a trace to a collector, Jaeger or another OTLP/HTTP
+endpoint, post the file:
+
+```bash
+curl -X POST -H 'Content-Type: application/json' --data @trace.otlp.json http://localhost:4318/v1/traces
+```
 
 Choose **Compare with** to run the same input against a second version. The comparison shows
 the manifest differences, routing, grades, usage and reply diff. **Samples** runs the selected
@@ -88,7 +101,10 @@ Working-copy model and guard edits are also reported as drift against an older w
 snapshot. A changed label is marked as an earlier label on saved review evidence.
 
 Example manifests in `workflows/` cover the orchestrated studio, an allowlisted declarative graph,
-standalone C3, Version B, the offline callable and a remote HTTP agent. The Studio freezes new
+standalone C3, Version B, the offline callable, a remote HTTP agent and a multi-agent team. In the
+team, a triage agent routes the message by keyword to a Billing, Network, Account or General
+specialist. The specialist drafts with the offline rules (`team-offline`) or the C3 agent loop
+(`team-c3`), and a reviewer agent applies the guards and claim checks before sending or escalating. The Studio freezes new
 manifest name/label combinations on startup; change the label when introducing a revised manifest.
 Version B uses the dataset's expected intent as its original oracle context, or a keyword estimate
 for a free-form message. Its default model is local Ollama `qwen3:4b`.
@@ -206,7 +222,7 @@ app.py               Shiny app (Review, Simulator, Cases, Knowledge, Scoreboard)
 acme/workflow.py     LangGraph graph: the 9 steps + human interrupt
 acme/checks.py       step 6 claim checks, step 7 guards, eval checks for the Review page
 acme/providers.py    Claude Code (claude -p), the C3 lab agent and the offline stand-in
-acme/sim/            version registry, adapters, run storage, trace rendering and comparison
+acme/sim/            version registry, adapters, run storage, trace rendering, comparison and OTLP export
 workflows/           reviewed version manifests
 acme/lab.py          load the workbook; export edits and reviews back into it
 acme/store.py        runs/reviews.json and runs/settings.json

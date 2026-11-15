@@ -262,6 +262,9 @@ class VersionRegistry:
                     "edges": sorted((e.source, e.target, bool(e.conditional)) for e in graph.edges)}
         if manifest["implementation"] == "declarative":
             topology = manifest.get("spec") or {}
+        elif manifest["implementation"] == "multi_agent":
+            from .adapters.team import team_topology
+            topology = team_topology()
         if manifest["adapter"] == "lab-version-b":
             from lab.acme import use_data_root
             from lab.version_b import system_prompt as b_system_prompt

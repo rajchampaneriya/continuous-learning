@@ -13,3 +13,4 @@ Feature: Every registered simulator adapter honors the run contract
       | lab-version-b     |
       | offline           |
       | http-json         |
+      | team              |

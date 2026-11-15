@@ -27,7 +27,10 @@ from acme.checks import eval_checks, guard_hits  # noqa: E402
 from acme.lab import INTENTS, export_to_excel, load_lab, read_review_log  # noqa: E402
 from acme.providers import make_provider  # noqa: E402
 from acme.review import initial_mode, suggest_mode, validate_verdict  # noqa: E402
-from acme.sim.render import render_comparison, render_detail, render_result  # noqa: E402
+from acme.sim.otel import to_otlp  # noqa: E402
+from acme.sim.render import (  # noqa: E402
+    pin_status, render_comparison, render_detail, render_grade, render_result, version_heading,
+)
 from acme.sim.service import SimulationService, compare_reviews, review_record, sample_spread  # noqa: E402
 from acme.sim.trace import RunInput  # noqa: E402
 from acme.sim.versions import label_hash  # noqa: E402
@@ -884,8 +887,11 @@ def server(input, output, session):
                 if recorded and not replay_sources(version):
                     ready, message = False, "No recorded model response is available for this version."
                 drift = [] if version.status == "legacy" else SIM.drift(version)
+            pins = pin_status(version, drift) if version is not None else None
             return ui.div(ui.HTML(chip("ready" if ready else "not ready", "ok" if ready else "bad")),
                           ui.span(message, class_="muted"),
+                          ui.div(version_heading(version), class_="muted") if version is not None else None,
+                          ui.div(f"Pins: {pins[0]} of {pins[1]} current", class_="muted") if pins else None,
                           ui.div("Changed since freeze: " + ", ".join(drift), class_="sim-warning") if drift else None)
         except (ValueError, KeyError, OSError) as exc:
             return ui.div(str(exc), class_="text-danger")
@@ -1083,8 +1089,11 @@ def server(input, output, session):
             return ui.div()
         version = SIM.registry.get(result.version_id)
         drift = SIM.drift(version)
-        return ui.card(ui.card_header(f"{version.name} · {version.implementation} · {version.status} · {version.id}"),
-                       ui.div(f"Code, model, prompts, guards and {len(version.pins.get('lab_files', {}))} lab files pinned."),
+        pins = pin_status(version, drift)
+        return ui.card(ui.card_header(version_heading(version)),
+                       ui.div(f"Pins: {pins[0]} of {pins[1]} current · code, model, prompts, guards, workbook "
+                              f"and {len(version.pins.get('lab_files', {}))} lab files" if pins else
+                              "Pins unknown: imported legacy round."),
                        ui.div("Changed since freeze: " + ", ".join(drift), class_="sim-warning") if drift else
                        ui.div("Pinned files are current.", class_="muted"),
                        ui.div("This run was made as an audit.", class_="muted") if result.audit else None)
@@ -1095,7 +1104,9 @@ def server(input, output, session):
         if not result:
             return ui.div("Pick a version and a case or write an email, then run the workflow.", class_="muted")
         version = SIM.registry.get(result.version_id)
-        return ui.HTML(render_result(result, SIM.adapter(version).topology(version), version.implementation, sim_step()))
+        adapter = SIM.adapter(version)
+        return ui.HTML(render_result(result, adapter.topology(version), version.implementation, sim_step(),
+                                     capabilities=adapter.capabilities(version)))
 
     @render.ui
     def sim_step_detail():
@@ -1172,11 +1183,25 @@ def server(input, output, session):
         return ui.card(ui.card_header(f"Outcome · {label}"),
                        ui.div(review_record(result).get("error"), class_="text-danger") if result.state == "failed" else None,
                        ui.HTML(f'<div class="reply">{html.escape(final)}</div>' if final else '<div class="muted">—</div>'),
-                       ui.pre(json.dumps(result.grade, ensure_ascii=False, indent=2)) if result.grade else
-                       ui.div("Grade is available after the run completes.", class_="muted"),
+                       ui.HTML(render_grade(result.grade)),
                        ui.div(summary, class_="muted"),
                        ui.div(f"Latency: {result.usage.get('latency_s')} s · Cost: {result.usage.get('cost_usd')}",
-                              class_="muted"))
+                              class_="muted"),
+                       ui.div(ui.input_checkbox("sim_trace_content", "Include prompts, tool arguments and results",
+                                                False),
+                              ui.download_button("sim_trace", "Download OpenTelemetry trace (OTLP JSON)",
+                                                 class_="btn-sm"),
+                              class_="mt-2"))
+
+    @render.download(filename=lambda: f"trace-{sim_view().run_id[:12]}.otlp.json" if sim_view() else "trace.json")
+    def sim_trace():
+        result = sim_view()
+        if not result:
+            return
+        _, run_input = SIM.store.get(result.run_id)
+        payload = to_otlp(result, SIM.registry.get(result.version_id), started_at=SIM.store.created_at(result.run_id),
+                          case_id=run_input.case_id, include_content=bool(input.sim_trace_content()))
+        yield json.dumps(payload, ensure_ascii=False, indent=2)
 
     @render.ui
     def sim_comparison():
@@ -1184,9 +1209,10 @@ def server(input, output, session):
         if not left or not right:
             return ui.div()
         a, b = SIM.registry.get(left.version_id), SIM.registry.get(right.version_id)
-        left_view = render_result(left, SIM.adapter(a).topology(a), a.implementation, sim_step())
+        left_view = render_result(left, SIM.adapter(a).topology(a), a.implementation, sim_step(),
+                                  capabilities=SIM.adapter(a).capabilities(a))
         right_view = render_result(right, SIM.adapter(b).topology(b), b.implementation, sim_compare_step(),
-                                   target="sim_compare_step_click")
+                                   target="sim_compare_step_click", capabilities=SIM.adapter(b).capabilities(b))
         right_detail = render_detail(right, sim_compare_step(), SIM.adapter(b).capabilities(b),
                                      target="sim_compare_step_click")
         return ui.card(ui.card_header("Version comparison"),

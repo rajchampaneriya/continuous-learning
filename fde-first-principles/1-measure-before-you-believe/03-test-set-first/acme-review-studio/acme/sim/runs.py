@@ -120,6 +120,13 @@ class RunStore:
             raise KeyError(f"Unknown run {run_id!r}")
         return RunResult.from_dict(json.loads(row["result"])), RunInput(**json.loads(row["input"]))
 
+    def created_at(self, run_id: str) -> datetime:
+        with self._connect() as db:
+            row = db.execute("SELECT created_at FROM runs WHERE id = ?", (run_id,)).fetchone()
+        if row is None:
+            raise KeyError(f"Unknown run {run_id!r}")
+        return datetime.fromisoformat(row["created_at"])
+
     def list(self, *, version_id: str | None = None, case_id: str | None = None,
              limit: int = 100) -> list[RunResult]:
         clauses, args = [], []

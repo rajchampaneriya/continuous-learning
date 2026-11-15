@@ -1,0 +1,9 @@
+name: team-offline
+label: 1.0.0
+implementation: multi_agent
+adapter: team
+inputs: [customer_id, message, portal, history]
+config:
+  provider: offline
+  model: rules
+  timeout_s: 180

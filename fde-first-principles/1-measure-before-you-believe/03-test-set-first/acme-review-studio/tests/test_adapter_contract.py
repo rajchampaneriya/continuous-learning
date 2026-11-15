@@ -21,6 +21,7 @@ MANIFESTS = {
     "lab-version-b": "version-b.yaml",
     "offline": "offline-direct.yaml",
     "http-json": "remote-agent.yaml",
+    "team": "team-offline.yaml",
 }
 scenarios("features/adapter_contract.feature")
 

@@ -2,6 +2,7 @@
 from .direct import AgentLoopAdapter, DirectAdapter, VersionBAdapter
 from .http import HttpAdapter
 from .orchestrated import DeclarativeAdapter, OrchestratedAdapter
+from .team import MultiAgentAdapter
 
 ADAPTERS = {
     "studio-langgraph": OrchestratedAdapter,
@@ -10,4 +11,5 @@ ADAPTERS = {
     "offline": DirectAdapter,
     "lab-version-b": VersionBAdapter,
     "http-json": HttpAdapter,
+    "team": MultiAgentAdapter,
 }

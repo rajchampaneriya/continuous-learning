@@ -36,9 +36,9 @@
     "semantic_hash": ""
   },
   "1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/ui_bits.py": {
-    "mtime": 1794738200.4043481,
-    "seen": 1794738673.0643551,
-    "ast_hash": "ca87b579ee7f0b8ef52e66f20f05ce2f",
+    "mtime": 1794742818.6948404,
+    "seen": 1794742984.304815,
+    "ast_hash": "ecbe2ac481a75e18e29c44331b0b31f5",
     "semantic_hash": ""
   },
   "1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/workflow.py": {
@@ -48,9 +48,9 @@
     "semantic_hash": ""
   },
   "1-measure-before-you-believe/03-test-set-first/acme-review-studio/app.py": {
-    "mtime": 1794738200.4094343,
-    "seen": 1794738673.06436,
-    "ast_hash": "7c0ec7f4807d4c171874feaf51b587b6",
+    "mtime": 1794742812.8333933,
+    "seen": 1794742984.304818,
+    "ast_hash": "284178c22efffa14c1d68383365615f0",
     "semantic_hash": ""
   },
   "1-measure-before-you-believe/03-test-set-first/acme-review-studio/import_cases.py": {
@@ -237,9 +237,9 @@
     "semantic_hash": ""
   },
   "lab/ontology.py": {
-    "mtime": 1794738343.7322953,
-    "seen": 1794738673.0644102,
-    "ast_hash": "165c17a8ca455c69b39ff8fb44a8e94e",
+    "mtime": 1794738735.3105628,
+    "seen": 1794738832.094871,
+    "ast_hash": "f0e2202004265b744f1bb104af7f8124",
     "semantic_hash": ""
   },
   "lab/version_b.py": {
@@ -303,9 +303,9 @@
     "semantic_hash": "67378347082c9ff7ec1e0d4d5abd1012"
   },
   "tests/test_ontology.py": {
-    "mtime": 1794738343.7341528,
-    "seen": 1794738673.064426,
-    "ast_hash": "bfa5849524df882ca61d1515c4d5a81e",
+    "mtime": 1794738735.312418,
+    "seen": 1794738832.094889,
+    "ast_hash": "37426d8063a855084cff82fdf4b7305c",
     "semantic_hash": ""
   },
   "tests/test_outage_scope.py": {
@@ -567,9 +567,9 @@
     "semantic_hash": ""
   },
   "1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/sim/render.py": {
-    "mtime": 1794301136.785117,
-    "seen": 1794738673.06435,
-    "ast_hash": "115948b5db3401aa9ef58e13c8b26e2c",
+    "mtime": 1794742800.9730158,
+    "seen": 1794742984.3048089,
+    "ast_hash": "ecf767ca5d238ed43737d464e2a2af12",
     "semantic_hash": ""
   },
   "1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/sim/runs.py": {
@@ -603,9 +603,9 @@
     "semantic_hash": ""
   },
   "1-measure-before-you-believe/03-test-set-first/acme-review-studio/tests/test_sim_render.py": {
-    "mtime": 1794301136.7949426,
-    "seen": 1794738673.06437,
-    "ast_hash": "13dd677255ef7692d4470b653189180b",
+    "mtime": 1794742844.2658684,
+    "seen": 1794742984.304831,
+    "ast_hash": "60e5d1a99e1586780ebaf7ac2b27e12a",
     "semantic_hash": ""
   },
   "1-measure-before-you-believe/03-test-set-first/acme-review-studio/tests/test_simulator.py": {
@@ -816,6 +816,12 @@
     "mtime": 1794737181.0281107,
     "seen": 1794738673.0644548,
     "ast_hash": "8380d741ae73ecbff94edfef007a5714",
+    "semantic_hash": ""
+  },
+  "1-measure-before-you-believe/03-test-set-first/acme-review-studio/tests/test_simulator_feature.py": {
+    "mtime": 1794742885.5404983,
+    "seen": 1794742984.3048341,
+    "ast_hash": "f025b052dbd9213ae719e28881310aa7",
     "semantic_hash": ""
   }
 }

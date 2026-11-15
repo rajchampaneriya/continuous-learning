@@ -207,6 +207,9 @@ body:has(#tab-nav-0.active)>.container-fluid{padding-left:0;padding-right:0}
 .sim-span.st-ok{border-left:4px solid var(--green)}
 .sim-tree ul{list-style:none;padding-left:18px;border-left:1px solid var(--line);margin:8px 0}
 .sim-tree li{margin:8px 0}.sim-compare pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:36em}
+.sim-timeline ol,.sim-tools{padding-left:18px;margin:8px 0}.sim-timeline li,.sim-tools li{margin:8px 0}
+.sim-tools{list-style:none;border-left:1px solid var(--line)}.sim-exchange code{overflow-wrap:anywhere}
+.sim-lanes th,.sim-lanes td{vertical-align:top;min-width:120px}.sim-lanes th{white-space:nowrap}
 .sim-comparison-views{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .sim-warning{border-left:4px solid var(--amber);background:#fdf3e1;padding:8px 12px;margin:8px 0}
 @media(max-width:767px){.sim-comparison-views{grid-template-columns:1fr}.sim-topology{flex-direction:column}}
