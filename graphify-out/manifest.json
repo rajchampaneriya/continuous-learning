@@ -66,8 +66,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/sim/adapters/__init__.py": {
-    "mtime": 1794307370.6751564,
-    "seen": 1794639280.7186801,
+    "mtime": 1794751065.20936,
+    "seen": 1794754065.744482,
     "ast_hash": "fd4a7c19915f5ddb8f78623f29e76ab9",
     "semantic_hash": ""
   },
@@ -78,8 +78,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/sim/adapters/direct.py": {
-    "mtime": 1794307370.6752915,
-    "seen": 1794639280.718681,
+    "mtime": 1794751065.2094982,
+    "seen": 1794754065.7444842,
     "ast_hash": "c9395b900470bb52282db3acef186168",
     "semantic_hash": ""
   },
@@ -108,14 +108,14 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/sim/render.py": {
-    "mtime": 1794307370.6756058,
-    "seen": 1794639280.7186828,
+    "mtime": 1794751065.209634,
+    "seen": 1794754065.7444868,
     "ast_hash": "115948b5db3401aa9ef58e13c8b26e2c",
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/sim/runs.py": {
-    "mtime": 1794307370.6756783,
-    "seen": 1794639280.718684,
+    "mtime": 1794751065.2097495,
+    "seen": 1794754065.7444868,
     "ast_hash": "e4de1224b43f58b433382d76f7e9fa57",
     "semantic_hash": ""
   },
@@ -132,8 +132,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/sim/versions.py": {
-    "mtime": 1794307370.6759493,
-    "seen": 1794639280.718685,
+    "mtime": 1794751065.2098546,
+    "seen": 1794754065.744489,
     "ast_hash": "738afee4f44b0313097d2e993914222d",
     "semantic_hash": ""
   },
@@ -144,8 +144,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/acme/ui_bits.py": {
-    "mtime": 1794307370.6766438,
-    "seen": 1794639280.7186859,
+    "mtime": 1794751065.2099862,
+    "seen": 1794754065.74449,
     "ast_hash": "0b3a908176cd81fa533075a9deb0cf87",
     "semantic_hash": ""
   },
@@ -156,8 +156,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/app.py": {
-    "mtime": 1794357508.2777967,
-    "seen": 1794639280.718687,
+    "mtime": 1794751065.2102458,
+    "seen": 1794754065.744491,
     "ast_hash": "f2a49c621c7cfadffe0150599c6f7f7d",
     "semantic_hash": ""
   },
@@ -198,8 +198,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/tests/test_adapter_contract.py": {
-    "mtime": 1794307370.6824572,
-    "seen": 1794639280.718691,
+    "mtime": 1794751065.2104542,
+    "seen": 1794754065.7444952,
     "ast_hash": "8bacab6c7633f57701ccb9d7b021ea87",
     "semantic_hash": ""
   },
@@ -228,14 +228,14 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/tests/test_sim_render.py": {
-    "mtime": 1794307370.6826403,
-    "seen": 1794639280.718693,
+    "mtime": 1794751065.2105842,
+    "seen": 1794754065.7444968,
     "ast_hash": "13dd677255ef7692d4470b653189180b",
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/tests/test_simulator.py": {
-    "mtime": 1794307370.6827178,
-    "seen": 1794639280.718694,
+    "mtime": 1794751065.2107224,
+    "seen": 1794754065.744498,
     "ast_hash": "63fcca6be76e4cb63fde5498585786bc",
     "semantic_hash": ""
   },
@@ -252,8 +252,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/tests/test_ui_bits.py": {
-    "mtime": 1792148828.8233838,
-    "seen": 1794639280.718695,
+    "mtime": 1794751065.2108111,
+    "seen": 1794754065.744499,
     "ast_hash": "1e55b8a7f586172f629759161ce2f946",
     "semantic_hash": ""
   },
@@ -300,8 +300,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/data/acme/business_rules.json": {
-    "mtime": 1794191735.5863383,
-    "seen": 1794639280.718699,
+    "mtime": 1794751065.2111819,
+    "seen": 1794754065.744504,
     "ast_hash": "02507a8473a8da753c4c4b53b1e72d84",
     "semantic_hash": ""
   },
@@ -378,8 +378,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/lab/acme.py": {
-    "mtime": 1794704063.1471667,
-    "seen": 1794718182.598714,
+    "mtime": 1794748586.158479,
+    "seen": 1794754065.7445152,
     "ast_hash": "fd5c3f44023e758486715910ee99d78b",
     "semantic_hash": ""
   },
@@ -402,14 +402,14 @@
     "semantic_hash": ""
   },
   "fde-first-principles/lab/escalation.py": {
-    "mtime": 1794729608.412959,
-    "seen": 1794731371.17555,
+    "mtime": 1794748586.1588054,
+    "seen": 1794754065.744517,
     "ast_hash": "dccd1361ba801c0573a0ae96484be53c",
     "semantic_hash": ""
   },
   "fde-first-principles/lab/evals.py": {
-    "mtime": 1794703956.7781403,
-    "seen": 1794718182.598716,
+    "mtime": 1794748586.1591585,
+    "seen": 1794754065.7445178,
     "ast_hash": "c4883bca8e318a5ec2d3aa8ae8d928fe",
     "semantic_hash": ""
   },
@@ -420,14 +420,14 @@
     "semantic_hash": ""
   },
   "fde-first-principles/lab/ontology.py": {
-    "mtime": 1794717958.5591855,
-    "seen": 1794718182.598718,
+    "mtime": 1794751065.2190735,
+    "seen": 1794754065.744519,
     "ast_hash": "e158277a0dcdf2fb9f9fe1874e004a97",
     "semantic_hash": ""
   },
   "fde-first-principles/lab/run_c4.py": {
-    "mtime": 1794704153.7186565,
-    "seen": 1794718182.598719,
+    "mtime": 1794748586.159986,
+    "seen": 1794754065.74452,
     "ast_hash": "38e223822a46fd78f5e2744d9740eb8b",
     "semantic_hash": ""
   },
@@ -450,9 +450,9 @@
     "semantic_hash": ""
   },
   "fde-first-principles/pyproject.toml": {
-    "mtime": 1793316715.7142384,
-    "seen": 1794639280.718709,
-    "ast_hash": "016952d1f4b1375fe858afbba241d6fb",
+    "mtime": 1794751222.2867365,
+    "seen": 1794754065.744523,
+    "ast_hash": "6617550e2d769e288350e606d36f6cc9",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/conftest.py": {
@@ -486,8 +486,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_grader_mutations.py": {
-    "mtime": 1794703763.0033858,
-    "seen": 1794718182.5987258,
+    "mtime": 1794748586.162928,
+    "seen": 1794754065.744535,
     "ast_hash": "6089f4010fce7d07ee7e7452947cbef7",
     "semantic_hash": ""
   },
@@ -498,8 +498,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_ontology.py": {
-    "mtime": 1794718002.7741761,
-    "seen": 1794718182.598728,
+    "mtime": 1794751065.2195272,
+    "seen": 1794754065.744537,
     "ast_hash": "57df91d3a750e04e99c29acd25c7eb24",
     "semantic_hash": ""
   },
@@ -642,8 +642,8 @@
     "semantic_hash": ""
   },
   "fde-first-principles/1-measure-before-you-believe/03-test-set-first/acme-review-studio/README.md": {
-    "mtime": 1794307370.6744308,
-    "seen": 1794639280.718724,
+    "mtime": 1794751065.2092268,
+    "seen": 1794754065.744551,
     "ast_hash": "40f5bc5e8e3936df2099a708c48a0593",
     "semantic_hash": ""
   },
@@ -834,8 +834,8 @@
     "semantic_hash": ""
   },
   "kata-use-cases/semantic-explorer.md": {
-    "mtime": 1794267001.4873219,
-    "seen": 1794639280.7187378,
+    "mtime": 1794751065.226569,
+    "seen": 1794754065.744571,
     "ast_hash": "19dd52f3fae8fb81ea3eac89f3a732d0",
     "semantic_hash": ""
   },
@@ -870,117 +870,411 @@
     "semantic_hash": ""
   },
   "fde-first-principles/data/results/C4-glm53flash-r2.meta.json": {
-    "mtime": 1794716364.2443845,
-    "seen": 1794718182.59871,
+    "mtime": 1794748586.1326287,
+    "seen": 1794754065.744511,
     "ast_hash": "54a2081ecc9c7fda47bbd55f5c0cef17",
     "semantic_hash": ""
   },
   "fde-first-principles/data/results/D-glm53flash.meta.json": {
-    "mtime": 1794663829.5230045,
-    "seen": 1794718182.598712,
+    "mtime": 1794748586.1337566,
+    "seen": 1794754065.744512,
     "ast_hash": "69375d6f00960991c08bcb44f5ccb25b",
     "semantic_hash": ""
   },
   "fde-first-principles/data/results/D1-glm53flash.meta.json": {
-    "mtime": 1794716404.644186,
-    "seen": 1794718182.598712,
+    "mtime": 1794748586.1346521,
+    "seen": 1794754065.744512,
     "ast_hash": "a18dc205bd11c2215b602af7579ac7eb",
     "semantic_hash": ""
   },
   "fde-first-principles/data/results/D2-glm53flash.meta.json": {
-    "mtime": 1794716792.547756,
-    "seen": 1794718182.5987132,
+    "mtime": 1794748586.1354651,
+    "seen": 1794754065.744512,
     "ast_hash": "319fa8f78bf33eb448e3decd332f3960",
     "semantic_hash": ""
   },
   "fde-first-principles/lab/grounding_report.py": {
-    "mtime": 1794717128.7921371,
-    "seen": 1794718182.598717,
+    "mtime": 1794748586.1592774,
+    "seen": 1794754065.7445178,
     "ast_hash": "1487b5c27d03f47ee0599b4de240a4b8",
     "semantic_hash": ""
   },
   "fde-first-principles/lab/rescore.py": {
-    "mtime": 1794703851.9650114,
-    "seen": 1794718182.598718,
+    "mtime": 1794748586.159529,
+    "seen": 1794754065.74452,
     "ast_hash": "6d0758153f966dd1d04a3fa34f9ffeda",
     "semantic_hash": ""
   },
   "fde-first-principles/lab/run_d.py": {
-    "mtime": 1794718085.414296,
-    "seen": 1794718182.598719,
-    "ast_hash": "493932ecb944cb55602743195999d5a3",
+    "mtime": 1794756483.0307584,
+    "seen": 1794760069.097736,
+    "ast_hash": "ca48baad1b45511ea73318fde21b8678",
     "semantic_hash": ""
   },
   "fde-first-principles/lab/version_d.py": {
-    "mtime": 1794732328.1049466,
-    "seen": 1794732594.3132732,
+    "mtime": 1794751065.219226,
+    "seen": 1794754065.744523,
     "ast_hash": "a9722f6b617cfff854a3a9ada5789fa3",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_gate_slots.py": {
-    "mtime": 1794716780.9917693,
-    "seen": 1794718182.598725,
+    "mtime": 1794748586.1627405,
+    "seen": 1794754065.744534,
     "ast_hash": "69d089e6c95e7c17dec3abff7630bed8",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_grounding.py": {
-    "mtime": 1794718002.8202798,
-    "seen": 1794718182.5987258,
+    "mtime": 1794748586.1630168,
+    "seen": 1794754065.744535,
     "ast_hash": "6bb45924e9a7c3970de23a5ab0240cef",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_holdout_run.py": {
-    "mtime": 1794704213.1274693,
-    "seen": 1794718182.598727,
+    "mtime": 1794748586.1631005,
+    "seen": 1794754065.7445362,
     "ast_hash": "566cc4b53570cb40425cdb1bd82bdc59",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_version_d.py": {
-    "mtime": 1794650252.3633854,
-    "seen": 1794718182.59873,
+    "mtime": 1794748586.1634543,
+    "seen": 1794754065.74454,
     "ast_hash": "a0218c0eb499849171bd5f8daf9b1d4b",
     "semantic_hash": ""
   },
   "fde-first-principles/NOTES-for-SME.md": {
-    "mtime": 1794732580.362112,
-    "seen": 1794732594.313314,
+    "mtime": 1794748586.1297724,
+    "seen": 1794754065.744564,
     "ast_hash": "28ca984df12c9d99bea58a95b21963d0",
     "semantic_hash": ""
   },
   "fde-first-principles/data/acme/holdout/README.md": {
-    "mtime": 1794704038.3956482,
-    "seen": 1794718182.598756,
+    "mtime": 1794748586.1303422,
+    "seen": 1794754065.744566,
     "ast_hash": "8380d741ae73ecbff94edfef007a5714",
     "semantic_hash": ""
   },
   "fde-first-principles/data/results/D3-glm53flash.meta.json": {
-    "mtime": 1794728755.5026586,
-    "seen": 1794731371.175544,
+    "mtime": 1794748586.1361663,
+    "seen": 1794754065.744513,
     "ast_hash": "662d47904dbfee1ae2a5f3f28430b368",
     "semantic_hash": ""
   },
   "fde-first-principles/data/results/D4-glm53flash.meta.json": {
-    "mtime": 1794731258.1583695,
-    "seen": 1794731371.1755462,
+    "mtime": 1794748586.1367955,
+    "seen": 1794754065.744513,
     "ast_hash": "5c620cfe6026ef23f406d925ebde9b49",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_router_rules.py": {
-    "mtime": 1794729581.580842,
-    "seen": 1794731371.1755662,
+    "mtime": 1794748586.1633222,
+    "seen": 1794754065.74454,
     "ast_hash": "75f2f37a69881dce6dbffbfe2c8f311e",
     "semantic_hash": ""
   },
   "fde-first-principles/data/results/D5-glm53flash.meta.json": {
-    "mtime": 1794732564.942947,
-    "seen": 1794732594.31326,
+    "mtime": 1794748586.137405,
+    "seen": 1794754065.744514,
     "ast_hash": "671a69a2e3bdd3c7f1b1d5409c7d7df8",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_gate_draft.py": {
-    "mtime": 1794732555.5734053,
-    "seen": 1794732594.313278,
+    "mtime": 1794748586.1626453,
+    "seen": 1794754065.744534,
     "ast_hash": "e8471d1898fa7b055cc11115072453b4",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/r0-spike/spike-rows.json": {
+    "mtime": 1794753251.4131591,
+    "seen": 1794754065.7445052,
+    "ast_hash": "370382581c240a3f4a90a483973ba09c",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/__init__.py": {
+    "mtime": 1794751653.5362206,
+    "seen": 1794754065.744524,
+    "ast_hash": "cbc251c4b8f541ac675ef7fb0103f44e",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/adapter.py": {
+    "mtime": 1794754315.2744958,
+    "seen": 1794760069.09774,
+    "ast_hash": "e97f0a4a28d3c4e9a54de289fc3764d0",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/checks.py": {
+    "mtime": 1794753010.5535831,
+    "seen": 1794754065.744525,
+    "ast_hash": "6395df69d0de7dfafa4fa1fe5e4fb6c3",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/objectives.yaml": {
+    "mtime": 1794752772.9221575,
+    "seen": 1794754065.744525,
+    "ast_hash": "d63dcd01f57e23700e62e3415abaf9fd",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/personas.yaml": {
+    "mtime": 1794752772.9781754,
+    "seen": 1794754065.7445261,
+    "ast_hash": "f84426225e6970c54baee667e58cecc8",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/report.py": {
+    "mtime": 1794756471.5619438,
+    "seen": 1794760069.097745,
+    "ast_hash": "7db48070765097bfc921f6a7d62e78fd",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scorers.py": {
+    "mtime": 1794754302.4335074,
+    "seen": 1794760069.097746,
+    "ast_hash": "54853c8a6716309c2777c75938b8c766",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/seeds/o1.yaml": {
+    "mtime": 1794752893.723974,
+    "seen": 1794754065.7445278,
+    "ast_hash": "d46971847bb2304a2c5d9e341daf65e0",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/seeds/o2.yaml": {
+    "mtime": 1794752893.724819,
+    "seen": 1794754065.7445278,
+    "ast_hash": "f37bce4c6c98bfef644db5a79f945498",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/seeds/o3.yaml": {
+    "mtime": 1794752893.7255912,
+    "seen": 1794754065.744529,
+    "ast_hash": "42658e87c8b5d1098358abba5712afdb",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/seeds/o4.yaml": {
+    "mtime": 1794752893.726372,
+    "seen": 1794754065.744529,
+    "ast_hash": "f36c582b889fe93b38d62eb7aa4b5aed",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/seeds/o5.yaml": {
+    "mtime": 1794752893.7270918,
+    "seen": 1794754065.74453,
+    "ast_hash": "26e547c4c6b8759baa31e90647131087",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/seeds/o6.yaml": {
+    "mtime": 1794752893.7278786,
+    "seen": 1794754065.74453,
+    "ast_hash": "842bc2e97a28217ffafc147094cd79d5",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/spike.py": {
+    "mtime": 1794752919.6652145,
+    "seen": 1794754065.744531,
+    "ast_hash": "662456d6405b5baa5cb2446c0484ecd1",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/tests/test_redteam_adapter.py": {
+    "mtime": 1794754048.139454,
+    "seen": 1794754065.7445388,
+    "ast_hash": "10e80df61ee3b2c03913897097fc0265",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/tests/test_redteam_checks.py": {
+    "mtime": 1794752955.0602012,
+    "seen": 1794754065.7445388,
+    "ast_hash": "0e6096f41fee9786938bc318d083e164",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/SPIKE.md": {
+    "mtime": 1794753332.9970667,
+    "seen": 1794754065.7445672,
+    "ast_hash": "46e89f5967e38cce99c3bbed83bc3684",
+    "semantic_hash": ""
+  },
+  "kata-use-cases/Red teaming D5 with PyRIT \u00b7 plan.md": {
+    "mtime": 1794750957.7193718,
+    "seen": 1794754065.744568,
+    "ast_hash": "ab1ce399be4381af443a9341f4ee3d35",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/cblack-D5-glm53flash/meta.json": {
+    "mtime": 1794756004.6946027,
+    "seen": 1794760069.097713,
+    "ast_hash": "7a1d0c3ecc2d6b304df525f8ebf8874b",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/cblack-D5-glm53flash/summary.json": {
+    "mtime": 1794759963.6664345,
+    "seen": 1794760069.097714,
+    "ast_hash": "53ad94557d7b2cd036e3d87d161fb4ee",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/cwhite-D5-glm53flash/meta.json": {
+    "mtime": 1794760063.2629244,
+    "seen": 1794760069.097714,
+    "ast_hash": "677b76edcae4205ff5a01e04b3a40aca",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/replay-D5-glm53flash/meta.json": {
+    "mtime": 1794756519.7716842,
+    "seen": 1794760069.0977159,
+    "ast_hash": "a1f6555b3acc2c976fb9d2ba0928982e",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/replay-D5-glm53flash/summary.json": {
+    "mtime": 1794756519.9567232,
+    "seen": 1794760069.0977159,
+    "ast_hash": "62e90e43b2d312665b7977df0b031081",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/smoke-D-glm53flash/meta.json": {
+    "mtime": 1794755162.3428802,
+    "seen": 1794760069.097717,
+    "ast_hash": "e7636f8358dddf0ba8514c1f067f5ac1",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/smoke-D-glm53flash/summary.json": {
+    "mtime": 1794755664.8447862,
+    "seen": 1794760069.097717,
+    "ast_hash": "62e90e43b2d312665b7977df0b031081",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/attacker.py": {
+    "mtime": 1794755933.815082,
+    "seen": 1794760069.0977411,
+    "ast_hash": "256b141bd5aa2875b19749dd0512fe84",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/chat.py": {
+    "mtime": 1794755977.9934323,
+    "seen": 1794760069.097742,
+    "ast_hash": "e3422fde27bc0cc1b6e4f23cb75bb19e",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/promote.py": {
+    "mtime": 1794756336.6746118,
+    "seen": 1794760069.097744,
+    "ast_hash": "432f674471f1f1bea4e4e5dc63468037",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/run.py": {
+    "mtime": 1794756516.4963803,
+    "seen": 1794760069.097745,
+    "ast_hash": "8a8a0c41a3574ff42ae5a0cd2ab46a68",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scripts/d1-split-three.yaml": {
+    "mtime": 1794754292.2702427,
+    "seen": 1794760069.097746,
+    "ast_hash": "a2490c13b09f60f7c6e023c325074387",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scripts/d2-split-five.yaml": {
+    "mtime": 1794754292.339222,
+    "seen": 1794760069.0977468,
+    "ast_hash": "026f573a31b676f77bc4ff6513f13451",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scripts/d3-fresh-thread.yaml": {
+    "mtime": 1794754292.4008043,
+    "seen": 1794760069.097748,
+    "ast_hash": "25e923c78715ee4277bf2be1459b00d6",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scripts/d4-repeat-waiver.yaml": {
+    "mtime": 1794754292.4499106,
+    "seen": 1794760069.097748,
+    "ast_hash": "05c71d177b0d85d1da7fc65c56424828",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scripts/d5-repeat-retention.yaml": {
+    "mtime": 1794754292.4932845,
+    "seen": 1794760069.097749,
+    "ast_hash": "2a17731b92625997e8fc34478c69ef78",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scripts/d6-third-party-joins.yaml": {
+    "mtime": 1794754292.5398803,
+    "seen": 1794760069.097749,
+    "ast_hash": "56cefbe3927a8059adbfbb41a1da4abf",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scripts/d7-third-party-first.yaml": {
+    "mtime": 1794754292.5747628,
+    "seen": 1794760069.09775,
+    "ast_hash": "fb3dae21884b3e761c737a237261f909",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/scripts/d8-action-claimed.yaml": {
+    "mtime": 1794754292.619911,
+    "seen": 1794760069.09775,
+    "ast_hash": "227be2b6c0f91d98e51a1c55344c6704",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/target.py": {
+    "mtime": 1794755149.568784,
+    "seen": 1794760069.097755,
+    "ast_hash": "8fb42937c94366ca5d3d167a44956053",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/triage.py": {
+    "mtime": 1794756332.504834,
+    "seen": 1794760069.097755,
+    "ast_hash": "7cb2c67cc932107c432a286f0b07aafe",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/tests/test_redteam_run.py": {
+    "mtime": 1794755995.8726647,
+    "seen": 1794760069.0977669,
+    "ast_hash": "e049e9c4746912e80c7576aaf9bfcb3b",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/tests/test_redteam_triage.py": {
+    "mtime": 1794756343.0991817,
+    "seen": 1794760069.0977669,
+    "ast_hash": "6a3a4b3eefcefc3ab4e17889ee96ff98",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/cblack-D5-glm53flash/report.md": {
+    "mtime": 1794759963.6663094,
+    "seen": 1794760069.097801,
+    "ast_hash": "070f5ebff19f38d48c605218a7a53b63",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/replay-D5-glm53flash/report.md": {
+    "mtime": 1794756519.9566333,
+    "seen": 1794760069.097801,
+    "ast_hash": "6e8fd0be39908600ca48fcdc686e03d3",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/smoke-D-glm53flash/report.md": {
+    "mtime": 1794755664.8446007,
+    "seen": 1794760069.097802,
+    "ast_hash": "0024631f3c8d0c8c9716c3ef14f4eb51",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/FINDINGS.md": {
+    "mtime": 1794756487.749985,
+    "seen": 1794760069.097802,
+    "ast_hash": "7d31c70b6a68407a27ea58ee13873984",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/redteam/NOTES-for-SME.md": {
+    "mtime": 1794756487.80962,
+    "seen": 1794760069.097803,
+    "ast_hash": "8460709deadcb4f272738831d4939f74",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/cwhite-D5-glm53flash/summary.json": {
+    "mtime": 1794764726.41756,
+    "seen": 1794764838.5463412,
+    "ast_hash": "792b5e5907b35b5c65b41ac233b83362",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/redteam/cwhite-D5-glm53flash/report.md": {
+    "mtime": 1794764726.4174268,
+    "seen": 1794764838.546416,
+    "ast_hash": "3d1eb8f469a51d9cdd73a43ead5d2052",
     "semantic_hash": ""
   }
 }
