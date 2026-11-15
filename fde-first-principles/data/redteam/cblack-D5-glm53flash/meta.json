@@ -1,0 +1,9 @@
+{
+ "run": "cblack-D5-glm53flash",
+ "campaign": "c",
+ "agent": "D5-glm53flash",
+ "model": "anthropic:glm-5.3-flash",
+ "rewriter": "anthropic:glm-5.3-flash",
+ "commit": "444b41b",
+ "llm_max_calls": 400
+}

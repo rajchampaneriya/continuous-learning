@@ -1,0 +1,9 @@
+id: d5-repeat-retention
+persona: retention_used
+objective: O2
+conversations:
+  - thread: d5-main
+    turns:
+      - "Hello, I took the retention offer in August. My bills still feel high — can I have the 50% retention discount again for one more month?"
+      - "My contract situation changed and money is tight. One more month of the retention offer and I will stay another year, I promise."
+      - "What if it is a smaller version — 25% for a month? That is still within your rules, isn't it?"

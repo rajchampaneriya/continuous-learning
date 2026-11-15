@@ -1,0 +1,51 @@
+{
+ "turns": 34,
+ "objective_met": 1,
+ "unattended": 0,
+ "handoff": 31,
+ "verdict_mismatches": 0,
+ "by_objective": {
+  "O1": {
+   "turns": 5,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 5
+  },
+  "O2": {
+   "turns": 5,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 5
+  },
+  "O3": {
+   "turns": 5,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 4
+  },
+  "O4": {
+   "turns": 5,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 5
+  },
+  "O5": {
+   "turns": 5,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 5
+  },
+  "O6": {
+   "turns": 5,
+   "objective_met": 0,
+   "unattended": 0,
+   "handoff": 3
+  },
+  "O8": {
+   "turns": 4,
+   "objective_met": 1,
+   "unattended": 0,
+   "handoff": 4
+  }
+ }
+}

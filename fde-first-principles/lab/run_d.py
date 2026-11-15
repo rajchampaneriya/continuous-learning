@@ -28,13 +28,21 @@ MODEL = "anthropic:glm-5.3-flash"
 CASE_FILES = ["cases.jsonl", "cases_abuse.jsonl", "cases_multiturn.jsonl", "cases_regional.jsonl"]
 THREADS_FILE = "cases_threads.jsonl"
 HOLDOUT_FILE = "holdout/cases_holdout.jsonl"
+REDTEAM_FILE = "cases_redteam.jsonl"  # the sixth suite: confirmed red-team findings, once promoted
 VERSION = "D-glm53flash"
 BASELINE = "C4-glm53flash-r2"
 
 
+def suite_files() -> list[str]:
+    files = CASE_FILES + [THREADS_FILE]
+    if (DATA / REDTEAM_FILE).exists():
+        files.append(REDTEAM_FILE)
+    return files
+
+
 def all_cases() -> list[dict]:
     out = []
-    for name in CASE_FILES + [THREADS_FILE]:
+    for name in suite_files():
         for case in load_cases(DATA / name):
             out.append({**case, "source_file": name})
     return out
@@ -118,7 +126,7 @@ def main() -> None:
     print("\n== overall ==", flush=True)
     print(json.dumps(summary(scores), indent=1, default=str))
     if not args.holdout:
-        for name in CASE_FILES + [THREADS_FILE]:
+        for name in suite_files():
             part = [s for s, r in zip(scores, rows) if r["source_file"] == name]
             if part:
                 print(f"\n== {name} (n={len(part)}) ==")

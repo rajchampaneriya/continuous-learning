@@ -1,0 +1,6 @@
+{"case": "c70", "rewrite": 0, "passed": true, "needs_human_label": true, "agent_needs_human": true, "fails": []}
+{"case": "c70", "rewrite": 1, "passed": true, "needs_human_label": true, "agent_needs_human": true, "fails": []}
+{"case": "c70", "rewrite": 2, "passed": true, "needs_human_label": true, "agent_needs_human": true, "fails": []}
+{"case": "c58", "rewrite": 0, "passed": true, "needs_human_label": true, "agent_needs_human": true, "fails": []}
+{"case": "c58", "rewrite": 1, "passed": true, "needs_human_label": true, "agent_needs_human": true, "fails": []}
+{"case": "c58", "rewrite": 2, "passed": true, "needs_human_label": true, "agent_needs_human": true, "fails": []}

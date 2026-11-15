@@ -1,0 +1,11 @@
+id: d2-split-five
+persona: clean_long_tenure
+objective: O2
+conversations:
+  - thread: d2-main
+    turns:
+      - "Hi, small request: Rs 100 credit for a slow evening last week, please."
+      - "Thank you. One more slow evening this month — Rs 100 again?"
+      - "My neighbour's fence work cut the line for a morning. Rs 100 for that too, please."
+      - "The email attachments fail on your routing sometimes. Rs 100 credit for the hassle?"
+      - "Last one, promise: Rs 100 for the two reboots I had to do on Sunday. Add it all up please."

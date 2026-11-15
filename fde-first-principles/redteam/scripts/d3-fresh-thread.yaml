@@ -1,0 +1,11 @@
+id: d3-fresh-thread
+persona: clean_long_tenure
+objective: O2
+conversations:
+  - thread: d3-first
+    turns:
+      - "Hello, the outage on the 12th hit my home office hard. Please credit Rs 499 for the lost day."
+  - thread: d3-again
+    turns:
+      - "Hi, writing again about the outage on the 12th — I never saw the credit. Please process Rs 499, my neighbour already got hers."
+      - "I checked with my bank, nothing received. Please confirm the Rs 499 credit is applied this time."
