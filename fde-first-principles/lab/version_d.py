@@ -36,9 +36,10 @@ from .acme import (DATA, RESULTS, INTENTS, conversation, customer_text, data_roo
                    kb_by_id, load_customers)
 from .acme_tools import escalate, get_article
 from .business_rules import load_business_rules
-from .escalation import amounts_asked_for
+from .escalation import SENTENCES, amounts_asked_for, percent_asks_in_rupees
 from .evals import amounts, policy_violations, score
 from .llm import chat, extract_json
+from .ontology import extract_concepts
 from .version_c3 import (
     TOOLS_C3,
     _envelope_brief,
@@ -104,7 +105,33 @@ def claim_amounts(text: str) -> List[int]:
     double payment (the amount is the claim, verb or no verb)."""
     if DOUBLE_PAY_CLAIM.search(text or ""):
         return amounts(text or "")
-    return amounts_asked_for(text or "", amounts)
+    asked = amounts_asked_for(text or "", amounts)
+    if asked:
+        return asked
+    # A regional-script ask has no English ask-verb for MONEY_REQUEST to find; a sentence with
+    # both a rupee amount and a money concept counts (the ontology knows the regional words).
+    return [a for s in SENTENCES.split(text or "")
+            if amounts(s) and any(c["term"] in MONEY_CONCEPTS for c in extract_concepts(s))
+            for a in amounts(s)]
+
+
+MONEY_CONCEPTS = {"credit", "refund", "discount", "concession", "late fee waiver",
+                  "outage credit", "double payment refund", "retention offer"}
+
+
+def money_asked(case: Dict[str, Any]) -> Tuple[int, int]:
+    """(flat rupees, percent-ask rupees) this email asks to receive.
+
+    Percent asks are priced on the plan (an in-sentence plan name wins). The retention exception:
+    a cancellation asking for the retention percent again is KB11's business, not money."""
+    words = customer_text(case)
+    rules = load_business_rules()
+    retention_pct = int(rules["offers"]["retention offer"]["discount_percent"])
+    plan = load_customers().get(case.get("customer_id", "").strip().upper(), {}).get("plan")
+    cancelling = "cancellation" in {c["term"] for c in extract_concepts(words)}
+    pct_rupees = sum(r for n, r in percent_asks_in_rupees(words, plan)
+                     if r and not (cancelling and n == retention_pct))
+    return sum(claim_amounts(words)), pct_rupees
 
 SYSTEM_D = f"""You are a support worker for Acme Fibre, a broadband company in Pune.
 The customer's record and a decision envelope are already in the prompt; never ask for them.
@@ -207,22 +234,34 @@ def route(case: Dict[str, Any],
     sources: List[str] = []
     path = "worker"
 
-    if store is not None:
-        tid = thread_of(case)
-        if store.is_open(tid):
-            envelope["escalation_triggers"] = envelope["escalation_triggers"] + [
-                {"code": "E3", "rule": "thread_with_human",
-                 "reason": "This thread is already with a person (an earlier turn escalated)."}]
-        else:
-            headroom = envelope["concession_headroom_rupees"]
-            words = customer_text(case)
-            claimed = sum(claim_amounts(words))
-            before = store.asked_so_far(tid)
-            if claimed + before > headroom and not envelope["offers"]["double payment refund"]["eligible"]:
-                envelope["escalation_triggers"].append(
-                    {"code": "E3", "rule": "money_above_headroom_ledger",
-                     "reason": f"Money claimed across this thread (₹{before} earlier + ₹{claimed} now) "
-                               f"exceeds the remaining 30-day headroom of ₹{headroom} (policy 3, 8)."})
+    if store is not None and store.is_open(thread_of(case)):
+        envelope["escalation_triggers"] = envelope["escalation_triggers"] + [
+            {"code": "E3", "rule": "thread_with_human",
+             "reason": "This thread is already with a person (an earlier turn escalated)."}]
+
+    # Router money rule (policy 3, 8): flat asks, regional asks and percent asks priced on the
+    # plan, plus anything asked earlier in this thread, against the headroom. The envelope's own
+    # E3 already covers the English flat ask; skip when it fired.
+    money_rules = {"money_above_headroom", "money_above_headroom_ledger", "percent_ask_above_headroom"}
+    if (not any(t["rule"] in money_rules for t in envelope["escalation_triggers"])
+            and not envelope["offers"]["double payment refund"]["eligible"]):
+        before = store.asked_so_far(thread_of(case)) if store is not None else 0
+        flat, pct = money_asked(case)
+        if flat + pct + before > envelope["concession_headroom_rupees"]:
+            parts = [f"₹{pct} of it a percent ask priced on the plan"] if pct else []
+            parts += [f"₹{before} asked earlier in this thread"] if before else []
+            detail = (" (" + ", ".join(parts) + ")") if parts else ""
+            envelope["escalation_triggers"].append(
+                {"code": "E3", "rule": "percent_ask_above_headroom" if pct else "money_above_headroom_ledger",
+                 "reason": f"Amount asked for (₹{flat + pct} in total{detail}) exceeds the remaining "
+                           f"30-day headroom of ₹{envelope['concession_headroom_rupees']} (policy 3, 8)."})
+
+    # Router E7: the ontology's human-request labels hear regional phrasings the English regex
+    # in escalation_triggers cannot.
+    if (not any(t["code"] == "E7" for t in envelope["escalation_triggers"])
+            and "human request" in {c["term"] for c in extract_concepts(customer_text(case))}):
+        envelope["escalation_triggers"].append(
+            {"code": "E7", "rule": "human_request", "reason": "Customer asks to talk to a person."})
 
     if envelope["escalation_triggers"]:
         triggers = envelope["escalation_triggers"]
@@ -478,7 +517,7 @@ def version_d(case: Dict[str, Any],
     output, trace = run_agent(case, temperature=temperature, run=run, rules=rules, store=store,
                               whole_kb=whole_kb)
     if store is not None:
-        store.record_asked(case, sum(claim_amounts(customer_text(case))))
+        store.record_asked(case, sum(money_asked(case)))
     return {
         **output,
         "steps": len(trace),

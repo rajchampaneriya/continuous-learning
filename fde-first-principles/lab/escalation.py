@@ -16,7 +16,7 @@ amounts, so the triggers can be tested without the ontology.
 from __future__ import annotations
 
 import re
-from typing import Any, Callable, Dict, Iterable, List
+from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
 _APOS = "['’]"
 
@@ -102,6 +102,47 @@ def amounts_asked_for(text: str, amounts: Callable[[str], List[int]]) -> List[in
     if not asks:
         return []
     return [a for s in asks for a in amounts(s)] or amounts(text)
+
+
+# The regional words for "discount", so "50% <discount word>" reads as a percent ask in any
+# suite language, not just English.
+_DISCOUNT_WORDS = ("सूट|छूट|રિયાયાત|છૂટ|ਛੂਟ|தள்ளுபடி|రియాయితి|తగ్గింపు|ರಿಯಾಯಿತಿ|ഇളവ്")
+# Policy 8: "50% off", "40 percent off", "half price" and their regional-script equivalents.
+PERCENT_ASK = re.compile(
+    r"(\d{1,3})\s*(?:%|per\s?cent)\s*(?:off|discount)"
+    rf"|(\d{{1,3}})\s*%\s*(?:{_DISCOUNT_WORDS})"
+    rf"|(?:{_DISCOUNT_WORDS})\s*(\d{{1,3}})\s*%"
+    r"|\bhalf\s+(?:price|off)\b",
+    re.IGNORECASE,
+)
+
+
+def percent_asks_in_rupees(text: str,
+                           plan_code: Optional[str] = None,
+                           *,
+                           price: Optional[Callable[[int, str], Optional[int]]] = None,
+                           plan_names: Optional[Dict[str, str]] = None) -> List[Tuple[int, Optional[int]]]:
+    """Every percent / half-price ask as (percent, rupees), priced with price(percent, plan).
+
+    An in-sentence plan name wins over `plan_code` (the customer's own plan). `price` defaults to
+    lab.ontology.price_discount_rupees — imported lazily because this module is otherwise
+    stdlib-only; tests pass their own pricer."""
+    if not text:
+        return []
+    if price is None or plan_names is None:
+        from .ontology import plans as _plans, price_discount_rupees as _price_discount_rupees
+        price = price or _price_discount_rupees
+        plan_names = plan_names or {code.casefold(): code for code in _plans()}
+    out: List[Tuple[int, Optional[int]]] = []
+    for sentence in SENTENCES.split(text):
+        for m in PERCENT_ASK.finditer(sentence):
+            digits = next((g for g in m.groups()[:3] if g), None)
+            percent = int(digits) if digits else 50  # "half price" / "half off"
+            named = next((code for key, code in plan_names.items()
+                          if re.search(rf"\b{re.escape(key)}\b", sentence, re.IGNORECASE)), None)
+            plan = named or plan_code
+            out.append((percent, price(percent, plan) if plan else None))
+    return out
 
 
 def _trigger(code: str, rule: str, reason: str) -> Dict[str, str]:

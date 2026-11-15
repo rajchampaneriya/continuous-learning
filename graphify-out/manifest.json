@@ -402,9 +402,9 @@
     "semantic_hash": ""
   },
   "fde-first-principles/lab/escalation.py": {
-    "mtime": 1794191735.5899358,
-    "seen": 1794639280.718706,
-    "ast_hash": "69a7178c40481a48625b31eb2f656c7f",
+    "mtime": 1794729608.412959,
+    "seen": 1794731371.17555,
+    "ast_hash": "dccd1361ba801c0573a0ae96484be53c",
     "semantic_hash": ""
   },
   "fde-first-principles/lab/evals.py": {
@@ -912,9 +912,9 @@
     "semantic_hash": ""
   },
   "fde-first-principles/lab/version_d.py": {
-    "mtime": 1794718076.5730288,
-    "seen": 1794718182.598722,
-    "ast_hash": "018e865e628d2514928b0b88b14e55f9",
+    "mtime": 1794729640.384559,
+    "seen": 1794731371.1755562,
+    "ast_hash": "dc1da3357dece168c01874007e83d286",
     "semantic_hash": ""
   },
   "fde-first-principles/tests/test_gate_slots.py": {
@@ -942,15 +942,33 @@
     "semantic_hash": ""
   },
   "fde-first-principles/NOTES-for-SME.md": {
-    "mtime": 1794718021.6395485,
-    "seen": 1794718182.598754,
-    "ast_hash": "2d6730d5b727573ee956a747c92bf3fa",
+    "mtime": 1794731359.8868759,
+    "seen": 1794731371.175594,
+    "ast_hash": "7699d881188c80b2530b105a8ee2a0bf",
     "semantic_hash": ""
   },
   "fde-first-principles/data/acme/holdout/README.md": {
     "mtime": 1794704038.3956482,
     "seen": 1794718182.598756,
     "ast_hash": "8380d741ae73ecbff94edfef007a5714",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/results/D3-glm53flash.meta.json": {
+    "mtime": 1794728755.5026586,
+    "seen": 1794731371.175544,
+    "ast_hash": "662d47904dbfee1ae2a5f3f28430b368",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/data/results/D4-glm53flash.meta.json": {
+    "mtime": 1794731258.1583695,
+    "seen": 1794731371.1755462,
+    "ast_hash": "5c620cfe6026ef23f406d925ebde9b49",
+    "semantic_hash": ""
+  },
+  "fde-first-principles/tests/test_router_rules.py": {
+    "mtime": 1794729581.580842,
+    "seen": 1794731371.1755662,
+    "ast_hash": "75f2f37a69881dce6dbffbfe2c8f311e",
     "semantic_hash": ""
   }
 }

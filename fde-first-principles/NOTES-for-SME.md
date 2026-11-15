@@ -48,6 +48,18 @@ the case id, the wording, and why it looks wrong. No label or source fact has be
   a live outage). Must every reply name the area ticket even when the email is not about the
   outage?
 
+- **p06a** — the reply says "About your request for a discount on next month's bill: this is
+  beyond what I can confirm here, so I have passed it on." The grader's unearned-concession
+  check exempts a restated ask handed to a person, but only when the ask carries rupee
+  amounts; a percent ask restated in the same hand-off gets no exemption and is flagged.
+  Should the hand-off exemption also cover restated percent asks?
+
+- **t3b** — the reply explains the rule: when the record shows both payments, the duplicate
+  "is refunded automatically" within 5 working days — then says the record does not show it
+  and hands the dispute to a person. The label's `must_not` forbids the substring "refunded
+  automatically", so this conditional rule restatement fails the case. Same family as r28:
+  should `must_not` exempt conditional restatements of automatic entitlements (KB04/KB06)?
+
 ## Grounding questions (Task 3)
 
 These cases name `kb_sources` the customer's own words cannot ground, because the customer

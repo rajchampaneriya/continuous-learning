@@ -464,7 +464,7 @@ acme:HumanRequest a owl:Class ;
         "real person"@en , "real human"@en , "human agent"@en , "real agent"@en , "customer representative"@en ,
         "talk to a manager"@en , "call me back"@en , "call back"@en , "human se baat"@hi-Latn , "aadmi se baat"@hi-Latn ,
         "kisi insaan se"@hi-Latn , "kisi senior se"@hi-Latn , "senior se baat"@hi-Latn , "kisi aadmi se"@hi-Latn ,
-        "आदमी से बात"@hi , "इंसान से बात"@hi , "माणूस बोलू"@mr , "व्यक्तीशी बोलणं"@mr ,
+        "आदमी से बात"@hi , "इंसान से बात"@hi , "माणूस बोलू"@mr , "व्यक्तीशी बोलणं"@mr , "व्यक्तीशी बोल"@mr ,
         "மனிதருடன் பேச"@ta , "மனிதரிடம் பேச"@ta , "நேரடியாக பேச"@ta , "మనిషితో మాట్లాడ"@te , "ಮಾನವರೊಂದಿಗೆ ಮಾತನಾಡ"@kn ,
         "മനുഷ്യനുമായി സംസാരിക്ക"@ml , "માણસ સાથે વાત"@gu , "ਇਨਸਾਨ ਨਾਲ ਗੱਲ"@pa ;
     skos:definition "The customer asks to talk to a person: a human, a real agent, a manager or a call back instead of the assistant." ;
