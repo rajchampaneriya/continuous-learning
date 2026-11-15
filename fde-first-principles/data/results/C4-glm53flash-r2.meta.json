@@ -1,0 +1,22 @@
+{
+  "version": "C4-glm53flash-r2",
+  "saved_at": "2026-11-15T09:49:24",
+  "n": 256,
+  "cases_sha": "0bef56a28703",
+  "model": "anthropic:glm-5.3-flash",
+  "temperature": 0.0,
+  "files": [
+    "cases.jsonl",
+    "cases_abuse.jsonl",
+    "cases_multiturn.jsonl",
+    "cases_regional.jsonl"
+  ],
+  "n_total": 256,
+  "wall_seconds": 12086.2,
+  "api_usage": {
+    "calls": 640,
+    "tokens_in": 2085434,
+    "tokens_out": 581669
+  },
+  "git_commit": "2a8c82163dd31743696f2864c8ea234dae81a51c"
+}

@@ -5,7 +5,7 @@ import pytest
 from pytest_bdd import given, parsers, scenarios, then, when
 
 from lab.acme import INTENTS, load_cases
-from lab.evals import CHECKS, score
+from lab.evals import CHECKS, policy_violations, score
 
 scenarios("features/grader_mutations.feature")
 
@@ -79,6 +79,18 @@ def mutate(world, mutation):
     world["graded"] = [(case["id"], score(case, mutant))
                        for case, out in world["seeds"] for mutant in MUTATIONS[mutation](case, out)]
     assert world["graded"], f'"{mutation}" applies to no test case, so it proves nothing'
+
+
+@when(parsers.parse('the grader reads the reply "{sentence}"'))
+def read_reply(world, sentence):
+    # No customer on record: the ontology's default ₹500 headroom decides the money check.
+    world["reply_violations"] = policy_violations(sentence)
+
+
+@then(parsers.parse('"{violations}" is the list of policy violations'))
+def reply_violations(world, violations):
+    want = [] if violations == "none" else [violations]
+    assert world["reply_violations"] == want, world["reply_violations"]
 
 
 def _cases_where(world, predicate):

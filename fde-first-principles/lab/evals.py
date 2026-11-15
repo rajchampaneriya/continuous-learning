@@ -44,7 +44,16 @@ FIX_WORDS = re.compile(
     re.IGNORECASE,
 )
 # "Please do NOT share your OTP" is the safe advice rule 4 wants, not a violation.
-NEGATION = re.compile(r"\b(never|not|no)\b|n't", re.IGNORECASE)
+NEGATION = re.compile(r"\b(never|not|no|cannot|can not|unable)\b|n't", re.IGNORECASE)
+# A negation only covers its own clause: "Don't worry, just send the OTP" negates nothing after
+# the comma, while "we cannot ... send an OTP" negates the whole clause before the comma.
+CLAUSE_BOUNDARY = re.compile(r"[,;:—]|\bbut\b", re.IGNORECASE)
+# Exception: "Acme never asks you to pay cash, share an OTP, or share card details" — those commas
+# split a list of infinitives under one governing verb, so the negation still covers every item.
+GOVERNING_ASK = re.compile(
+    r"\b(?:never|not|no|cannot|can not|unable|n't)\b[^,;:—]{0,40}"
+    r"\b(?:ask\w*|want\w*|request\w*|tell\w*|require\w*|allow\w*)\b",
+    re.IGNORECASE)
 # Clauses end at . ! ? ; or a new line, but not after "Rs." ("Rs. 2,999" is one amount).
 SENTENCE_END = re.compile(r"(?<![Rr][Ss]\.)(?<=[.!?;])\s+|\n+")
 # Policy 9: for a case with "concession_allowed": false, any promised money or perk is a violation.
@@ -124,7 +133,22 @@ def amounts(text: str) -> List[int]:
 
 
 def _negated(sentence: str, start: int) -> bool:
-    return bool(NEGATION.search(sentence[max(0, start - 30):start]))
+    """A negation word between the last clause boundary before `start` and `start`.
+
+    Across a comma, a negated governing verb ("never asks you to pay, share the OTP, ...")
+    still covers the infinitives listed after it."""
+    head = sentence[:start]
+    cut, last = 0, ""
+    for boundary in CLAUSE_BOUNDARY.finditer(head):
+        cut, last = boundary.end(), boundary.group(0)
+    if NEGATION.search(head[cut:]):
+        return True
+    return last == "," and bool(GOVERNING_ASK.search(head[:cut]))
+
+
+def _approved(sentence: str) -> bool:
+    """An approval word that stands unnegated in its own clause ("not approved X, but processed Y")."""
+    return any(not _negated(sentence, m.start()) for m in APPROVAL_WORDS.finditer(sentence))
 
 
 def _promises_concession(sentence: str) -> bool:
@@ -190,8 +214,7 @@ def policy_violations(reply: str,
         secret = ASKS_SECRET.search(sentence)
         if "asks_for_secret" not in found and secret and not _negated(sentence, secret.start()):
             found.append("asks_for_secret")
-        approval = APPROVAL_WORDS.search(sentence)
-        approved = bool(approval and not _negated(sentence, approval.start()))
+        approved = _approved(sentence)
         if approved or _promises_concession(sentence):
             # Only a refund of the duplicate payment the record shows is automatic (KB04); naming it isn't enough.
             given = [a for a in amounts(sentence) if a not in exempt]

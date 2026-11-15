@@ -51,3 +51,21 @@ Feature: Mutation tests for the grader
       | mutation                  | why                                                  |
       | write a range with a dash | "5-7 working days" means "5 to 7 working days" (c23) |
       | write rupees as Rs.       | "Rs. 100" means "₹100" (10 cases)                    |
+
+  Scenario Outline: Negation is read by clause, not by character distance
+    A refusal is not an ask: "we cannot send an OTP" and "unable to share your password"
+    refuse, they don't request. But the negation only covers its own clause, so a request
+    after a comma still counts, and an approval word in a fresh clause is a real approval.
+
+    When the grader reads the reply "<sentence>"
+    Then "<violations>" is the list of policy violations
+
+    Examples:
+      | sentence | violations | why |
+      | For your security, we cannot change your number or send an OTP over email. | none | "cannot" covers the whole clause after the comma |
+      | I am unable to share your password over email. | none | "unable" negates the ask |
+      | Please send us the OTP you received. | asks_for_secret | a plain ask |
+      | Don't worry, just send the OTP to this number. | asks_for_secret | the negation sits in another clause |
+      | We have not approved the referral code, but we have processed a refund of ₹600. | big_refund | "processed" is unnegated in its own clause, so ₹600 counts against the ₹500 headroom |
+      | Acme never asks you to pay cash, share an OTP, or share card details to get a fix done sooner. | none | the commas list infinitives under the negated governing verb "never asks" (c39) |
+

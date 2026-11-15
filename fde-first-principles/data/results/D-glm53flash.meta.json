@@ -1,0 +1,35 @@
+{
+  "version": "D-glm53flash",
+  "saved_at": "2026-11-14T19:13:49",
+  "n": 263,
+  "cases_sha": "0bef56a28703",
+  "model": "anthropic:glm-5.3-flash",
+  "temperature": 0.0,
+  "files": [
+    "cases.jsonl",
+    "cases_abuse.jsonl",
+    "cases_multiturn.jsonl",
+    "cases_regional.jsonl",
+    "cases_threads.jsonl"
+  ],
+  "n_total": 263,
+  "wall_seconds": 12032.4,
+  "api_usage": {
+    "calls": 461,
+    "tokens_in": 1411440,
+    "tokens_out": 614676
+  },
+  "watchdog": {
+    "baseline": "C4-glm53flash",
+    "flips": [
+      "c20",
+      "c68",
+      "p06a",
+      "p28a",
+      "p33a",
+      "r28",
+      "r37"
+    ],
+    "gate": "blocked"
+  }
+}

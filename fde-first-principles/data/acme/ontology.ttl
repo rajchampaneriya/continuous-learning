@@ -156,6 +156,7 @@ acme:Concession a owl:Class ;
     skos:scopeNote "Counts toward the concession limit unless it is automatic." ;
     acme:countsTowardLimit true ;
     acme:source "policy 8" ;
+    acme:documentedIn acme:KB04 ;
     acme:enforcesRule acme:PolicyRule3 , acme:PolicyRule8 ;
     acme:ownedBy acme:Owner_BillingOps ;
     acme:lifecycleStatus "active" .
@@ -163,7 +164,10 @@ acme:Concession a owl:Class ;
 acme:Refund a owl:Class ;
     rdfs:subClassOf acme:Concession ;
     skos:prefLabel "refund"@en ;
-    skos:altLabel "paisa wapas"@hi-Latn , "पैसा वापस"@hi , "पैसे परत"@mr , "paise parat"@mr-Latn ;
+    skos:altLabel "paisa wapas"@hi-Latn , "पैसा वापस"@hi , "पैसे परत"@mr , "paise parat"@mr-Latn ,
+        "money back"@en , "refund chahiye"@hi-Latn , "refunded"@en , "refunds"@en , "wapas"@hi-Latn ,
+        "parat dya"@mr-Latn , "फरक परत"@mr , "பணம் திரும்ப"@ta , "திருப்பி"@ta , "డబ్బు వెనక్కి"@te , "ಹಣ ವಾಪಸ್"@kn ,
+        "പണം തിരികെ"@ml , "પૈસા પાછા"@gu , "ਪੈਸੇ ਵਾਪਸ"@pa ;
     skos:definition "Money paid back to the customer." ;
     acme:source "KB04" ;
     acme:documentedIn acme:KB04 ;
@@ -172,7 +176,10 @@ acme:Refund a owl:Class ;
 acme:DoublePaymentRefund a owl:Class ;
     rdfs:subClassOf acme:Refund ;
     skos:prefLabel "double payment refund"@en ;
-    skos:altLabel "paid twice"@en , "duplicate payment"@en ;
+    skos:altLabel "paid twice"@en , "duplicate payment"@en , "charged twice"@en , "double charged"@en ,
+        "charged two times"@en , "two payments"@en , "both times"@en , "extra payment"@en ,
+        "दो बार पैसे"@hi , "दोनदा बिल"@mr , "दोनदा"@mr , "do baar payment"@hi-Latn , "do baar"@hi-Latn ,
+        "दोन वेळा"@mr , "don vela"@mr-Latn , "இரண்டு முறை"@ta ;
     skos:definition "The automatic refund of a payment the record shows twice, within 5 to 7 working days. Only when the record shows both payments." ;
     acme:countsTowardLimit false ;
     acme:source "KB04, policy 8" ;
@@ -183,7 +190,7 @@ acme:DoublePaymentRefund a owl:Class ;
 acme:Credit a owl:Class ;
     rdfs:subClassOf acme:Concession ;
     skos:prefLabel "credit"@en ;
-    skos:altLabel "क्रेडिट"@hi , "क्रेडिट"@mr , "ਕ੍ਰੈਡਿਟ"@pa ;
+    skos:altLabel "क्रेडिट"@hi , "क्रेडिट"@mr , "ਕ੍ਰੈਡਿਟ"@pa , "waive"@en , "waived"@en , "add ₹"@en , "maaf"@hi-Latn , "माफ"@hi ;
     skos:definition "An amount taken off a future bill." ;
     acme:source "KB04" ;
     acme:documentedIn acme:KB04 ;
@@ -192,6 +199,8 @@ acme:Credit a owl:Class ;
 acme:OutageCredit a owl:Class ;
     rdfs:subClassOf acme:Credit ;
     skos:prefLabel "outage credit"@en ;
+    skos:altLabel "credit for the outage"@en , "outage compensation"@en , "compensation for the outage"@en ,
+        "downtime credit"@en , "credit for the downtime"@en , "credit for every day"@en ;
     skos:definition "One day's charge for every day without service, added to the next bill automatically when an outage on record lasts more than 24 hours. The customer doesn't need to ask." ;
     acme:countsTowardLimit false ;
     acme:source "KB06, policy 8" ;
@@ -205,11 +214,14 @@ acme:Outage a owl:Class ;
     skos:altLabel "no internet"@en , "internet down"@en , "internet is down"@en , "down since"@en , "still down"@en ,
         "internet stopped"@en , "stopped working"@en , "not working"@en , "internet dead"@en , "no connection"@en ,
         "net band"@hi-Latn , "net nahi chal raha"@hi-Latn , "net nahi"@hi-Latn , "net gaya"@hi-Latn , "internet band"@hi-Latn ,
+        "internet not working"@en , "network down"@en , "wifi down"@en , "wifi not working"@en , "connection down"@en ,
         "नेट बंद"@hi , "इंटरनेट बंद"@mr , "बंद पडल"@mr , "ਨੈੱਟ ਬੰਦ"@pa , "పనిచేయడం లేదు"@te ,
+        "नेट चालत नाही"@mr , "इंटरनेट चालत नाही"@mr , "நெட் இல்ல"@ta , "இணையம் இல்லை"@ta , "નેટ બંધ"@gu ,
+        "నెట్ లేదు"@te , "ನೆಟ್ ಇಲ್ಲ"@kn , "ಸಂಪರ್ಕ ಇಲ್ಲ"@kn , "നെറ്റ് ഇല്ല"@ml , "ਨੈੱਟ ਬੰਦ ਹੈ"@pa ,
         "ഇന്റർനെറ്റ് ഇല്ല"@ml , "ഔട്ടേജ്"@ml ;
     skos:definition "The customer reports that their service is down. If the record shows an outage in their area, share its ticket and status (KB05). If it shows none, the fault is probably on their own line: give the first checks, restarting the router first (KB07), and offer a free technician visit if that doesn't fix it (KB08). Either way you can answer it yourself; it needs a person only when the envelope lists an escalation trigger. Mention an area outage only when the customer reports their service is down (policy 12)." ;
-    acme:source "KB05, KB07, KB08, policy 2 and 12" ;
-    acme:documentedIn acme:KB05 , acme:KB07 , acme:KB08 ;
+    acme:source "KB05, KB06, KB07, KB08, policy 2 and 12" ;
+    acme:documentedIn acme:KB05 , acme:KB06 , acme:KB07 , acme:KB08 ;
     acme:enforcesRule acme:PolicyRule2 , acme:PolicyRule12 ;
     acme:ownedBy acme:Owner_NetworkOps ;
     acme:lifecycleStatus "active" .
@@ -227,9 +239,10 @@ acme:LateFeeWaiver a owl:Class ;
 acme:Discount a owl:Class ;
     rdfs:subClassOf acme:Concession ;
     skos:prefLabel "discount"@en ;
-    skos:altLabel "छूट"@hi , "सूट"@mr , "ರಿಯಾಯಿತಿ"@kn ;
+    skos:altLabel "छूट"@hi , "सूट"@mr , "ರಿಯಾಯಿತಿ"@kn , "% off"@en , "months free"@en , "month free"@en , "free month"@en ;
     skos:definition "A reduced price. Its rupee value counts toward the limit: ₹200 off is ₹200. The retention offer is the exception (policy 13)." ;
-    acme:source "policy 8" ;
+    acme:source "policy 8, KB04" ;
+    acme:documentedIn acme:KB04 ;
     acme:enforcesRule acme:PolicyRule8 ;
     acme:lifecycleStatus "active" .
 
@@ -293,7 +306,15 @@ acme:AccountAction a owl:Class ;
 acme:CancelAction a owl:Class ;
     rdfs:subClassOf acme:AccountAction ;
     skos:prefLabel "cancellation"@en ;
-    skos:altLabel "cancel connection"@en , "close connection"@en , "कनेक्शन बंद"@hi , "कनेक्शन बंद करायचं"@mr ;
+    skos:altLabel "cancel connection"@en , "close connection"@en , "cancel my plan"@en , "disconnect"@en ,
+        "surrender the connection"@en , "want to cancel"@en , "stop the connection"@en , "cancellation"@en ,
+        "cancel"@en , "cancelling"@en , "canceling"@en , "cancelled"@en , "canceled"@en , "close my account"@en , "terminate"@en ,
+        "porting out"@en , "port out"@en , "റദ്ദാക്ക"@ml ,
+        "cancel kar do"@hi-Latn , "connection band"@hi-Latn , "connection cancel"@hi-Latn ,
+        "कनेक्शन बंद"@hi , "कनेक्शन बंद करायचं"@mr , "कनेक्शन कैंसिल"@hi , "कनेक्शन रद्द"@hi , "रद्द कर"@hi ,
+        "जोडणी बंद"@mr , "जोडणी काढा"@mr , "இணைப்பை ரத்து"@ta , "கனெக்ஷன் ரத்து"@ta , "કનેક્શન બંધ"@gu ,
+        "જોડાણ બંધ"@gu , "కనెక్షన్ రద్దు"@te , "కనెక్షన్ క్యాన్సిల్"@te , "ಕನೆಕ್ಷನ್ ರದ್ದು"@kn ,
+        "ಸಂಪರ್ಕ ರದ್ದು"@kn , "കണക്ഷൻ റദ്ദ്"@ml , "കണക്ഷൻ നിർത്തണം"@ml , "ਕੁਨੈਕਸ਼ਨ ਬੰਦ"@pa , "ਕੁਨੈਕਸ਼ਨ ਰੱਦ"@pa ;
     skos:definition "Closing an Acme Fibre connection with 30 days of notice and free router collection from home." ;
     acme:source "KB10, policy 11" ;
     acme:documentedIn acme:KB10 , acme:KB11 ;
@@ -302,7 +323,12 @@ acme:CancelAction a owl:Class ;
 acme:ShiftAction a owl:Class ;
     rdfs:subClassOf acme:AccountAction ;
     skos:prefLabel "connection shift"@en ;
-    skos:altLabel "shift connection"@en , "relocation"@en ;
+    skos:altLabel "shift connection"@en , "relocation"@en , "shifting"@en , "moving"@en , "moving house"@en ,
+        "moving home"@en , "shift"@en , "new address"@en , "transfer the connection"@en , "shift to a new place"@en ,
+        "जोडणी हलवा"@mr , "शिफ्ट"@mr , "नवीन पत्ता"@mr , "कनेक्शन शिफ्ट"@hi , "शिफ्टिंग"@hi , "नए पते"@hi ,
+        "shifting kar"@hi-Latn , "இணைப்பை மாற்ற"@ta , "ஷிப்ட்"@ta , "જોડાણ ખસેડ"@gu , "શિફ્ટ"@gu , "રહેવા જઈએ"@gu ,
+        "కనెక్షన్ మార్చు"@te , "షిఫ్ట్"@te , "మారుతున్న"@te , "మార్చ"@te , "ಸಂಪರ್ಕ ಬದಲಾಯಿಸಿ"@kn , "ಶಿಫ್ಟ್"@kn , "ഷിഫ്റ്റ്"@ml ,
+        "മാറ്റണം"@ml , "ਸ਼ਿਫਟ"@pa , "transfer the account"@en ;
     skos:definition "Moving an existing connection to a new address. Free within Pune service areas (within 48 hours); outside Pune requires cancellation with 30 days of notice." ;
     acme:source "KB12, policy 11" ;
     acme:documentedIn acme:KB12 , acme:KB10 ;
@@ -312,7 +338,10 @@ acme:ShiftAction a owl:Class ;
 acme:PlanChangeAction a owl:Class ;
     rdfs:subClassOf acme:AccountAction ;
     skos:prefLabel "plan change"@en ;
-    skos:altLabel "upgrade"@en , "downgrade"@en ;
+    skos:altLabel "upgrade"@en , "downgrade"@en , "change my plan"@en , "change the plan"@en , "plan change"@en ,
+        "switch my plan"@en , "upgraded"@en , "upgrading"@en , "downgraded"@en , "downgrading"@en ,
+        "अपग्रेड"@hi , "प्लान बदल"@hi , "प्लान बदला"@mr , "अपग्रेड"@mr , "அப்கிரேடு"@ta , "અપગ્રેડ"@gu ,
+        "అప్‌గ్రేడ్"@te , "ಅಪ್‌ಗ್ರೇಡ್"@kn , "അപ്ഗ്രേഡ്"@ml , "ਅੱਪਗ੍ਰੇਡ"@pa ;
     skos:definition "Switching between Basic, Plus and Pro plans. Upgrades activate within 1 hour (pro-rata); downgrades start next billing cycle." ;
     acme:source "KB09, policy 11" ;
     acme:documentedIn acme:KB09 ;
@@ -328,11 +357,153 @@ acme:ContactChangeAction a owl:Class ;
     acme:enforcesRule acme:PolicyRule11 ;
     acme:lifecycleStatus "active" .
 
+# --- Service & Support Topics (grounding: every KB article reachable from customer words) ---
+
+acme:Bill a owl:Class ;
+    skos:prefLabel "bill"@en ;
+    skos:altLabel "billing"@en , "billing cycle"@en , "bill cycle"@en , "due date"@en , "monthly bill"@en ,
+        "amount due"@en , "due"@en , "बिल"@hi , "बिलिंग"@hi , "बिल"@mr , "baaki"@hi-Latn , "બિલ"@gu , "பில்"@ta ,
+        "బిల్లు"@te , "ಬಿಲ್"@kn , "ബിൽ"@ml , "ബാക്കി"@ml , "ਬਿੱਲ"@pa ;
+    skos:definition "The monthly Acme Fibre bill: generated on the 1st, due by the 10th, visible in the Acme app under Billing, charged in advance." ;
+    acme:source "KB01" ;
+    acme:documentedIn acme:KB01 ;
+    acme:ownedBy acme:Owner_BillingOps ;
+    acme:lifecycleStatus "active" .
+
+acme:LateFee a owl:Class ;
+    skos:prefLabel "late fee"@en ;
+    skos:altLabel "late payment fee"@en , "late charge"@en , "late payment"@en , "delay fee"@en , "late"@en ,
+        "₹100"@en , "लेट फी"@hi , "लेट फी"@mr , "उशीरचा फी"@mr , "उशीर"@mr , "லேட் ஃபீ"@ta , "લેટ ફી"@gu , "లేట్ ఫీ"@te ,
+        "ಲೇಟ್ ಫೀ"@kn , "ലേറ്റ് ഫീ"@ml , "ਲੇਟ ਫੀਸ"@pa , "late fee lagi"@hi-Latn , "late ho gaya"@hi-Latn ;
+    skos:definition "The ₹100 fee added to the next bill when a bill is unpaid after the 10th, charged once per month. Waivable once a year at 13+ months tenure." ;
+    acme:source "KB02" ;
+    acme:documentedIn acme:KB02 ;
+    acme:ownedBy acme:Owner_BillingOps ;
+    acme:lifecycleStatus "active" .
+
+acme:PaymentMethod a owl:Class ;
+    skos:prefLabel "payment method"@en ;
+    skos:altLabel "payment methods"@en , "autopay"@en , "auto pay"@en , "upi"@en , "debit card"@en ,
+        "credit card"@en , "net banking"@en , "card number"@en , "card details"@en , "payment option"@en , "card"@en ,
+        "through a link"@en , "bhar dunga"@hi-Latn , "கார்டு"@ta , "പണമടയ്ക്ക"@ml ,
+        "यूपीआई"@hi , "ऑटोपे"@hi , "யுபிஐ"@ta , "યુપીઆઈ"@gu , "యుపిఐ"@te , "ಯುಪಿಐ"@kn , "യുപിഐ"@ml , "ਯੂਪੀਆਈ"@pa ;
+    skos:definition "Ways to pay: UPI, debit card, credit card or net banking in the Acme app, or AutoPay. Acme never asks for card numbers or OTPs over phone, email or chat." ;
+    acme:source "KB03" ;
+    acme:documentedIn acme:KB03 ;
+    acme:ownedBy acme:Owner_BillingOps ;
+    acme:lifecycleStatus "active" .
+
+acme:SlowSpeed a owl:Class ;
+    skos:prefLabel "slow speed"@en ;
+    skos:altLabel "slow internet"@en , "internet slow"@en , "slow"@en , "slower"@en , "speed issue"@en ,
+        "speed problem"@en , "slow connection"@en , "lag"@en , "lagging"@en , "ping"@en , "low speed"@en ,
+        "very slow"@en , "speed drops"@en , "mbps"@en , "terrible"@en , "kharab"@hi-Latn , "speed kharab"@hi-Latn ,
+        "स्पीड"@mr , "net slow"@hi-Latn , "नेट स्लो"@hi , "इंटरनेट स्लो"@hi ,
+        "धीमा"@hi , "धीमे"@hi , "हळू"@mr , "नेट हळू"@mr , "इंटरनेट हळू"@mr , "நெட் ஸ்லோ"@ta , "வேகம் குறைவு"@ta , "மெதுவாக"@ta ,
+        "નેટ સ્લો"@gu , "ધીમું"@gu , "నెట్ స్లో"@te , "వేగం తక్కువ"@te , "ನೆಟ್ ಸ್ಲೋ"@kn , "ನೆಟ್ ನಿಧಾನ"@kn , "ಸ್ಪೀಡ್"@kn ,
+        "നെറ്റ് സ്ലോ"@ml , "നെറ്റ് പതുക്കെ"@ml , "സ്പീഡ്"@ml , "ਨੈੱਟ ਸਲੋਅ"@pa , "ਹੌਲੀ"@pa ;
+    skos:definition "The connection works but is slow. First checks: restart the router (30 seconds off), check cables, test speed on a cable at fast.com, move closer for Wi-Fi. Below half plan speed on cable after a restart means a technician visit." ;
+    acme:source "KB07, KB08" ;
+    acme:documentedIn acme:KB07 , acme:KB08 ;
+    acme:ownedBy acme:Owner_NetworkOps ;
+    acme:lifecycleStatus "active" .
+
+acme:TechnicianVisit a owl:Class ;
+    skos:prefLabel "technician visit"@en ;
+    skos:altLabel "technician"@en , "engineer visit"@en , "engineer home"@en , "field engineer"@en ,
+        "on cable"@en , "cable connection"@en ,
+        "टेक्निशियन"@hi , "इंजीनियर"@hi , "तंत्रज्ञ"@mr , "தொழில்நுட்ப வல்லுநர்"@ta , "டெக்னீஷியன்"@ta ,
+        "ટેકનિશિયન"@gu , "టెక్నీషియన్"@te , "ತಂತ್ರಜ್ಞ"@kn , "ടെക്നീഷ്യൻ"@ml , "ਤਕਨੀਸ਼ੀਅਨ"@pa ;
+    skos:definition "A free technician visit booked when cable speed stays below half the plan speed after a restart, or the internet is still down with no outage on record. Happens within 2 working days." ;
+    acme:source "KB08" ;
+    acme:documentedIn acme:KB08 ;
+    acme:ownedBy acme:Owner_NetworkOps ;
+    acme:lifecycleStatus "active" .
+
+acme:RouterPassword a owl:Class ;
+    skos:prefLabel "router password"@en ;
+    skos:altLabel "wifi password"@en , "wi-fi password"@en , "password"@en , "router login"@en ,
+        "192.168.1.1"@en , "वायफाय पासवर्ड"@hi , "पासवर्ड बदल"@hi , "वायफाय पासवर्ड"@mr , "पासवर्ड बदला"@mr , "പാസ്"@ml ,
+        "வைஃபை கடவுச்சொல்"@ta , "વાઇફાય પાસવર્ડ"@gu , "వైఫై పాస్‌వర్డ్"@te , "ವೈಫೈ ಪಾಸ್‌ವರ್ಡ್"@kn ,
+        "വൈഫൈ പാസ്‌വേഡ്"@ml , "ਵਾਈਫਾਈ ਪਾਸਵਰਡ"@pa ;
+    skos:definition "Changing the Wi-Fi password: in the Acme app under Wi-Fi settings, or at 192.168.1.1 with the router sticker details. Never ask the customer to share their password." ;
+    acme:source "KB13" ;
+    acme:documentedIn acme:KB13 ;
+    acme:ownedBy acme:Owner_NetworkOps ;
+    acme:lifecycleStatus "active" .
+
+acme:NewConnection a owl:Class ;
+    skos:prefLabel "new connection"@en ;
+    skos:altLabel "new installation"@en , "install a new connection"@en , "get a new connection"@en ,
+        "new customer"@en , "new-customer"@en , "new owner"@en , "buyer"@en ,
+        "नई कनेक्शन"@hi , "नवीन जोडणी"@mr , "புதிய இணைப்பு"@ta , "નવું જોડાણ"@gu , "కొత్త కనెక్షన్"@te ,
+        "ಹೊಸ ಸಂಪರ್ಕ"@kn , "പുതിയ കണക്ഷൻ"@ml , "ਨਵਾਂ ਕੁਨੈਕਸ਼ਨ"@pa ;
+    skos:definition "A fresh Acme Fibre installation, done within 48 hours after document checks (address proof and photo ID)." ;
+    acme:source "KB14" ;
+    acme:documentedIn acme:KB14 ;
+    acme:ownedBy acme:Owner_NetworkOps ;
+    acme:lifecycleStatus "active" .
+
+acme:AccountSecurity a owl:Class ;
+    skos:prefLabel "account security"@en ;
+    skos:altLabel "otp"@en , "one time password"@en , "phishing"@en , "phishing email"@en , "fraud"@en ,
+        "fraud attempt"@en , "scam"@en , "scam call"@en , "suspicious email"@en , "suspicious call"@en ,
+        "share otp"@en , "suspended"@en , "kyc"@en , "without my knowledge"@en , "didn't request"@en ,
+        "never made"@en , "is it real"@en , "is it genuine"@en , "cash"@en , "kiya hi nahi"@hi-Latn , "నగదు"@te ,
+        "ओटीपी"@hi , "ओटीपी"@mr , "फ्रॉड"@hi , "फ्रॉड"@mr , "फिशिंग"@hi , "धोखा"@hi ,
+        "மோசடி"@ta , "మోసం"@te , "ವಂಚನೆ"@kn , "തട്ടിപ്പ്"@ml , "છેતરપીઠ"@gu , "ਧੋਖਾ"@pa ;
+    skos:definition "Protecting the account: Acme staff never ask for OTPs, passwords or full card numbers. A reported OTP or phishing attempt is noted, escalated as possible fraud, and the customer is told to use only the Acme app or official channels." ;
+    acme:source "KB15, KB16" ;
+    acme:documentedIn acme:KB15 , acme:KB16 ;
+    acme:ownedBy acme:Owner_TrustAndSafety ;
+    acme:lifecycleStatus "active" .
+
+acme:HumanRequest a owl:Class ;
+    skos:prefLabel "human request"@en ;
+    skos:altLabel "talk to a human"@en , "talk to a person"@en , "speak to a human"@en , "speak to a person"@en ,
+        "real person"@en , "real human"@en , "human agent"@en , "real agent"@en , "customer representative"@en ,
+        "talk to a manager"@en , "call me back"@en , "call back"@en , "human se baat"@hi-Latn , "aadmi se baat"@hi-Latn ,
+        "kisi insaan se"@hi-Latn , "kisi senior se"@hi-Latn , "senior se baat"@hi-Latn , "kisi aadmi se"@hi-Latn ,
+        "आदमी से बात"@hi , "इंसान से बात"@hi , "माणूस बोलू"@mr , "व्यक्तीशी बोलणं"@mr , "व्यक्तीशी बोल"@mr ,
+        "மனிதருடன் பேச"@ta , "மனிதரிடம் பேச"@ta , "நேரடியாக பேச"@ta , "మనిషితో మాట్లాడ"@te , "ಮಾನವರೊಂದಿಗೆ ಮಾತನಾಡ"@kn ,
+        "മനുഷ്യനുമായി സംസാരിക്ക"@ml , "માણસ સાથે વાત"@gu , "ਇਨਸਾਨ ਨਾਲ ਗੱਲ"@pa ;
+    skos:definition "The customer asks to talk to a person: a human, a real agent, a manager or a call back instead of the assistant." ;
+    acme:source "KB16" ;
+    acme:documentedIn acme:KB16 ;
+    acme:ownedBy acme:Owner_TrustAndSafety ;
+    acme:lifecycleStatus "active" .
+
+acme:LegalThreat a owl:Class ;
+    skos:prefLabel "legal threat"@en ;
+    skos:altLabel "legal action"@en , "legal notice"@en , "consumer court"@en , "consumer forum"@en ,
+        "go to court"@en , "take legal"@en , "sue"@en , "lawyer"@en , "trai"@en ,
+        "लीगल नोटिस"@hi , "लीगल"@hi , "अदालत"@hi , "कोर्ट"@hi , "उपभोक्ता अदालत"@hi ,
+        "उपभोक्ता फोरम"@hi , "कोर्टात"@mr , "न्यायालयात"@mr , "उपभोक्ता न्यायालय"@mr , "நுகர்வோர் நீதிமன்றம்"@ta ,
+        "కోర్టు"@te , "ಕೋರ್ಟ್"@kn , "കോടതി"@ml , "કોર્ટ"@gu , "ਕੋਰਟ"@pa ;
+    skos:definition "The customer threatens legal action or mentions a consumer court. Escalate to a human (KB16); a representative then calls the customer." ;
+    acme:source "KB16" ;
+    acme:documentedIn acme:KB16 ;
+    acme:ownedBy acme:Owner_TrustAndSafety ;
+    acme:lifecycleStatus "active" .
+
+acme:ComplaintFatigue a owl:Class ;
+    skos:prefLabel "complaint fatigue"@en ;
+    skos:altLabel "complained many times"@en , "complained multiple times"@en , "same problem again"@en ,
+        "again and again"@en , "third time"@en , "third complaint"@en , "another provider"@en , "leave acme"@en ,
+        "final warning"@en , "fed up"@en , "sick of this"@en , "teesri baar"@hi-Latn , "chauthi baar"@hi-Latn ,
+        "तिसरी"@mr , "तिसरा"@mr , "बारबार तक्रार"@mr , "बार-बार"@mr , "बारबार शिकायत"@hi , "बार-बार"@hi , "மீண்டும் மீண்டும்"@ta ,
+        "વારંવાર"@gu , "మళ్ళీ మళ్ళీ"@te , "ಮತ್ತೆ ಮತ್ತೆ"@kn , "വീണ്ടും വീണ്ടും"@ml , "ਵਾਰ-ਵਾਰ"@pa ;
+    skos:definition "The customer says they have complained repeatedly about the same problem. Escalate to a human (KB16)." ;
+    acme:source "KB16" ;
+    acme:documentedIn acme:KB16 ;
+    acme:ownedBy acme:Owner_TrustAndSafety ;
+    acme:lifecycleStatus "active" .
+
 # --- Catalog & Geography Domain Nodes -------------------------------------------------------
 
 acme:Plan a owl:Class ;
     skos:prefLabel "broadband plan"@en ;
-    skos:altLabel "plan"@en , "प्लान"@hi ;
+    skos:altLabel "plan"@en , "प्लान"@hi , "basic"@en , "plus"@en , "pro"@en , "1 gbps"@en , "300 mbps"@en , "100 mbps"@en ;
     skos:definition "An Acme Fibre home broadband tier with a monthly rupee price and speed in Mbps (Basic ₹699, Plus ₹999, Pro ₹1,499)." ;
     acme:source "KB09" ;
     acme:documentedIn acme:KB09 ;

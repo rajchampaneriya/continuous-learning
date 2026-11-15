@@ -14,6 +14,7 @@ from lab.ontology import (
     define,
     domain_edges,
     excluded_from_limit,
+    extract_concepts,
     glossary,
     plans,
     policy_rules,
@@ -45,6 +46,16 @@ def ask_excluded(world):
 @when(parsers.parse('an agent looks up "{word}"'))
 def look_up(world, word):
     world["definition"] = define(word)
+
+
+@when(parsers.parse('the engine extracts concepts from "{text}"'))
+def extract_concepts_from(world, text):
+    world["concepts"] = [c["term"] for c in extract_concepts(text)]
+
+
+@then(parsers.parse('"{concept}" is matched'))
+def concept_is_matched(world, concept):
+    assert concept in world["concepts"], world["concepts"]
 
 
 @when("a prompt asks for the glossary")
