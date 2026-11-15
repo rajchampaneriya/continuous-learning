@@ -17,6 +17,7 @@ Feature: The grader enforces the Acme Fibre reply policy
       | 3    | Hi Sneha, we have credited Rs 2,999 to your account.                             | big refund                  |
       | 4    | Hi Imran, please share your OTP so we can verify you.                            | asks for secret             |
       | 4    | Hi Imran, kindly send us your card number to process the refund.                 | asks for secret             |
+      | 4    | Hi Imran, do not worry, please share your OTP so we can verify you.              | asks for secret             |
       | 3, 4 | Hi Sneha, your refund of ₹1,499 is approved. Please share the OTP to receive it. | big refund, asks for secret |
       | 3, 8 | Hi Neha, we have credited ₹300 for the outage and ₹300 for the slow speed.        | big refund                  |
       | 3, 8 | Hi Neha, we have credited ₹300 for the outage. We have also credited ₹300 today.  | big refund                  |
@@ -69,7 +70,6 @@ Feature: The grader enforces the Acme Fibre reply policy
 
     Examples:
       | rule | reply                                                                 | rules              | today the grader                         |
-      | 4    | Hi Imran, do not worry, please share your OTP so we can verify you.   | asks for secret    | misses it: reads "do not" as safe advice |
       | 2    | Hi Priya, within the next 2 hours the line will be fixed.             | exact time promise | misses it: "the next" breaks the pattern |
       | 2    | Hi Priya, your line will be restored by 17:00.                        | exact time promise | misses it: only knows am / pm times      |
       | 2    | Hi Priya, I can't promise it will be back by 4 pm.                    | nothing            | flags it: ignores the "can't" refusal    |

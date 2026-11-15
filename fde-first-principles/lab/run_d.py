@@ -19,7 +19,7 @@ import json
 import statistics
 import time
 
-from .acme import DATA, RESULTS, load_cases, save_results
+from .acme import DATA, RESULTS, data_root, fingerprint, git_commit, load_cases, save_results
 from .evals import score, summary
 from .llm import api_usage, use
 from .version_d import ThreadStore, version_d, watchdog
@@ -27,8 +27,9 @@ from .version_d import ThreadStore, version_d, watchdog
 MODEL = "anthropic:glm-5.3-flash"
 CASE_FILES = ["cases.jsonl", "cases_abuse.jsonl", "cases_multiturn.jsonl", "cases_regional.jsonl"]
 THREADS_FILE = "cases_threads.jsonl"
+HOLDOUT_FILE = "holdout/cases_holdout.jsonl"
 VERSION = "D-glm53flash"
-BASELINE = "C4-glm53flash"
+BASELINE = "C4-glm53flash-r2"
 
 
 def all_cases() -> list[dict]:
@@ -71,16 +72,29 @@ def main() -> None:
     ap.add_argument("--only", type=str, default=None, help="run one case id and print the reply")
     ap.add_argument("--version", type=str, default=VERSION, help="results file name")
     ap.add_argument("--baseline", type=str, default=BASELINE, help="C4 run to pair against")
+    ap.add_argument("--holdout", action="store_true",
+                    help="run only the person-written holdout file; prints the aggregate summary only")
     args = ap.parse_args()
 
-    cases = all_cases()
-    if args.only:
-        cases = [c for c in cases if c["id"] == args.only]
-    elif args.limit:
-        cases = cases[: args.limit]
+    holdout_path = data_root() / HOLDOUT_FILE
+    if args.holdout:
+        if not holdout_path.exists():
+            print("holdout not found")
+            return
+        version = f"{args.version}-holdout"
+        cases = [{**c, "source_file": HOLDOUT_FILE} for c in load_cases(holdout_path)]
+        if args.limit:
+            cases = cases[: args.limit]
+    else:
+        version = args.version
+        cases = all_cases()
+        if args.only:
+            cases = [c for c in cases if c["id"] == args.only]
+        elif args.limit:
+            cases = cases[: args.limit]
 
     use(MODEL)
-    store = ThreadStore(log_path=RESULTS / f"{args.version}-threads.jsonl")
+    store = ThreadStore(log_path=RESULTS / f"{version}-threads.jsonl")
     rows: list[dict] = []
     started = time.time()
     for i, case in enumerate(cases, 1):
@@ -89,10 +103,11 @@ def main() -> None:
         s = score(case, row)
         rows.append({"case": case["id"], "source_file": case["source_file"],
                      "customer_id": case["customer_id"], **row})
-        print(f"[{i}/{len(cases)}] {case['id']} ({case['source_file']}, {row.get('path')}) "
-              f"{'PASS' if s['passed'] else 'FAIL ' + ','.join(k for k in ('intent_ok','facts_ok','policy_ok','human_ok') if not s[k])}"
-              f" {row['seconds']:.0f}s", flush=True)
-        if args.only:
+        if not args.holdout:
+            print(f"[{i}/{len(cases)}] {case['id']} ({case['source_file']}, {row.get('path')}) "
+                  f"{'PASS' if s['passed'] else 'FAIL ' + ','.join(k for k in ('intent_ok','facts_ok','policy_ok','human_ok') if not s[k])}"
+                  f" {row['seconds']:.0f}s", flush=True)
+        if args.only and not args.holdout:
             print(json.dumps({k: row.get(k) for k in ("intent", "reply", "needs_human", "offers_filled",
                                                       "path", "escalation_sources")}, indent=2,
                              ensure_ascii=False))
@@ -100,24 +115,29 @@ def main() -> None:
     scores = [score(next(c for c in cases if c["id"] == r["case"]), r) for r in rows]
     print("\n== overall ==", flush=True)
     print(json.dumps(summary(scores), indent=1, default=str))
-    for name in CASE_FILES + [THREADS_FILE]:
-        part = [s for s, r in zip(scores, rows) if r["source_file"] == name]
-        if part:
-            print(f"\n== {name} (n={len(part)}) ==")
-            print(json.dumps(summary(part), indent=1, default=str))
+    if not args.holdout:
+        for name in CASE_FILES + [THREADS_FILE]:
+            part = [s for s, r in zip(scores, rows) if r["source_file"] == name]
+            if part:
+                print(f"\n== {name} (n={len(part)}) ==")
+                print(json.dumps(summary(part), indent=1, default=str))
 
-    print("\n== paired vs C4 ==")
-    print(json.dumps(paired_metrics(rows, args.baseline), indent=1))
+        print("\n== paired vs C4 ==")
+        print(json.dumps(paired_metrics(rows, args.baseline), indent=1))
 
-    gate = watchdog(rows, {c["id"]: c for c in cases}, baseline=args.baseline)
-    print("\n== watchdog (flip gate; safe-in-C4 cases D must not break) ==")
-    print(json.dumps(gate, indent=1))
+    gate = watchdog(rows, {c["id"]: c for c in cases}, baseline=args.baseline) \
+        if not args.holdout else {"baseline": args.baseline, "flips": [], "gate": "skipped"}
+    if not args.holdout:
+        print("\n== watchdog (flip gate; safe-in-C4 cases D must not break) ==")
+        print(json.dumps(gate, indent=1))
 
-    path = save_results(args.version, rows, meta={
-        "model": MODEL, "temperature": 0.0, "files": CASE_FILES + [THREADS_FILE],
-        "n_total": len(rows), "wall_seconds": round(time.time() - started, 1),
-        "api_usage": api_usage(), "watchdog": gate,
-    })
+    meta = {"model": MODEL, "temperature": 0.0,
+            "files": [HOLDOUT_FILE] if args.holdout else CASE_FILES + [THREADS_FILE],
+            "n_total": len(rows), "wall_seconds": round(time.time() - started, 1),
+            "api_usage": api_usage(), "git_commit": git_commit(), "watchdog": gate}
+    if args.holdout:
+        meta["holdout_sha"] = fingerprint(holdout_path.read_text(encoding="utf-8"))
+    path = save_results(version, rows, meta=meta)
     print(f"\nsaved {len(rows)} rows -> {path}")
 
 

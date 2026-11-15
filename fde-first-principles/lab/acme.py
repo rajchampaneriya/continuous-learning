@@ -8,6 +8,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import subprocess
 from contextlib import contextmanager
 from contextvars import ContextVar
 from datetime import datetime
@@ -165,6 +166,15 @@ def customer_card(customer: Dict) -> str:
 def fingerprint(text: str) -> str:
     """Short sha256 of a prompt or file, so two runs can be matched to what produced them."""
     return hashlib.sha256(text.encode("utf-8")).hexdigest()[:12]
+
+
+def git_commit() -> str:
+    """The commit a run was made at, for its meta (empty when git is unavailable)."""
+    try:
+        return subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True,
+                              text=True, check=True).stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return ""
 
 
 def save_results(version: str, rows: List[Dict], meta: Optional[Dict] = None) -> Path:

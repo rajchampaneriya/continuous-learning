@@ -274,7 +274,7 @@ def fill_offers(reply: str,
         elif status == "offer" and name == "retention offer":
             pct = rules["offers"]["retention offer"]["discount_percent"]
             plan = customer.get("plan", "your")
-            sentence = f"As our retention offer, you get {pct}% off your {plan} plan for the next 30 days (KB11)."
+            sentence = f"As our retention offer, you get {pct}% off your {plan} plan for one month (KB11)."
         elif status == "automatic" and name == "double payment refund":
             sentence = (f"Your duplicate payment of ₹{amount} will be refunded within "
                         f"{rules['offers']['double payment refund']['sla_working_days']} working days (KB04).")
