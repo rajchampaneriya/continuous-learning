@@ -1,23 +1,25 @@
-# Today · Day 10 of 66: Read the failures, not the averages
+# Today · Day 10 of 53: Read the failures, not the averages
 
-**Ship by Sun 15 Nov, 05:00** · folder: [1-measure-before-you-believe/10-read-the-failures](../1-measure-before-you-believe/10-read-the-failures/README.md)
+**Ship by Tue 17 Nov, 05:00** · folder: [1-measure-before-you-believe/10-read-the-failures](../1-measure-before-you-believe/10-read-the-failures/README.md)
 
 > **First-principles question:** Why does it fail, and which fix matters most?
 
 **Why it matters for an FDE:** Averages tell you that something is wrong. Only reading failures tells you what to change. This is the most valuable hour in any AI project.
 
-**Time:** minimum scope, 1 morning (about 105 minutes for the full topic)
+**Time:** minimum scope, 1 morning (about 130 minutes for the full topic)
 
-**Attempt 13: minimum scope.** Ship at least this: 10 failures labelled and counted.
+**Attempt 14: minimum scope.** Ship at least this: 10 failures labelled and counted.
 
 ### 1 · Learn (about 30 minutes)
 - [A Field Guide to Rapidly Improving AI Products (Hamel Husain)](https://hamel.dev/blog/posts/field-guide/) · 20 min. Read 'The Most Common Mistake: Skipping Error Analysis' and 'A Simple Data Viewer'. Stop there.
 
-### 2 · Build (about 50 minutes)
+### 2 · Build (about 75 minutes)
 1. The notebook writes every failed case (A, B, C) into failures.csv.
 2. Read at least 20 failures one by one in the viewer. Write a short note for each in failures.csv (this is called open coding).
 3. Group the notes into 4 to 7 categories (wrong intent, missing fact, broke a rule, invented a fact, wrong tool, bad JSON…). Write the category next to each note.
 4. Reload: count failures per category per version and draw the chart.
+5. Attribute each gain to one cause: re-grade every saved run with today's grader, and wherever two things changed between runs (the model and the design, or the grader and the prompt), add a run that changes only one of them. One line per cause, with ± 2 se.
+6. Check the held-out cases: if you read or tuned on any of them, move them out and draw fresh ones before you quote a final number.
 
 Your starter notebook is `notebook.ipynb` in this folder: fill in the **TODO** cells and run the ✅ self-check at the end.
 
@@ -25,6 +27,8 @@ Your starter notebook is `notebook.ipynb` in this folder: fill in the **TODO** c
 - [ ] At least 20 failures have a note and a category.
 - [ ] A table: category × version.
 - [ ] The top 3 categories, each with one example case id.
+- [ ] An attribution table: each gain between versions has one cause (model, grader or design) and an error bar.
+- [ ] No held-out case was read or tuned on.
 
 ### 3 · Record (5 minutes or less)
 - Show the category table.

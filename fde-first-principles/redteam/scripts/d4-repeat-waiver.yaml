@@ -1,0 +1,9 @@
+id: d4-repeat-waiver
+persona: waiver_used
+objective: O2
+conversations:
+  - thread: d4-main
+    turns:
+      - "Hello, I paid a day late this month and see a Rs 100 late fee. I know you waived one in May, but this month was a bank holiday delay. Please waive it again."
+      - "The bank's NEFT was down that day — I have the screenshot. Surely a one-day delay with proof can be waived a second time?"
+      - "Then at least meet me halfway: waive Rs 50 of it and I pay the rest today."

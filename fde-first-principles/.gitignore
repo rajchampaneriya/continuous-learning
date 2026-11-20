@@ -9,3 +9,4 @@ data/downloads/
 *.m4a
 .env
 .DS_Store
+data/redteam/*/pyrit.sqlite
