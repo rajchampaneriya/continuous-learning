@@ -1,0 +1,619 @@
+<mxfile host="65bd71144e">
+    <diagram id="k1" name="1 · What do we actually know?">
+        <mxGraphModel dx="1600" dy="2475" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1000" background="#FFFFFF" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="k1-1" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=22;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;" value="Iteration 2 · Step 1: What do we actually know about ACMEFibre?" vertex="1">
+                    <mxGeometry height="56" width="1620" x="40" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-2" parent="1" style="fillColor=#F5F5F5;strokeColor=none;fontColor=#222222;fontSize=13;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;spacingRight=16;" value="Every claim needs a source before it can go into a business case. The PRD is a &lt;b&gt;build spec&lt;/b&gt;: it never mentions ACMEFibre, a stakeholder, a cost or a pain point. Every business number we have appears &lt;b&gt;only&lt;/b&gt; on page 0 of the v1 diagram, with no source." vertex="1">
+                    <mxGeometry height="50" width="1620" x="40" y="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-3" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="Stated in the PRD&lt;br&gt;&lt;span style=&#39;font-size:11px;font-weight:normal&#39;&gt;Describes the build, not the client&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="50" width="390" x="40" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-4" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Evidence types&lt;/b&gt;&lt;br&gt;PDF invoices &amp;amp; POs · goods receipts · delivery/receipt photos · mixed packets" vertex="1">
+                    <mxGeometry height="52" width="390" x="40" y="222" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-5" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Three outcomes&lt;/b&gt;&lt;br&gt;ready_for_approval · needs_review · reject, with cited evidence" vertex="1">
+                    <mxGeometry height="52" width="390" x="40" y="282" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-6" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Human approval stays with the business&lt;/b&gt;&lt;br&gt;&amp;quot;Financial validation and human approval remain application responsibilities&amp;quot;" vertex="1">
+                    <mxGeometry height="52" width="390" x="40" y="342" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-7" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Model confidence cannot authorise approval&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="40" y="402" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-8" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Payment/posting is simulated&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="40" y="446" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-9" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Evidence is access-restricted&lt;/b&gt;&lt;br&gt;access filters, denied-access check" vertex="1">
+                    <mxGeometry height="52" width="390" x="40" y="490" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-10" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Synthetic, labelled data only&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="40" y="550" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-11" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="Asserted on v1 page 0&lt;br&gt;&lt;span style=&#39;font-size:11px;font-weight:normal&#39;&gt;No source: confirm or drop&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="50" width="390" x="450" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-12" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;AP team of 11 staff&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="450" y="222" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-13" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;3,800 supplier invoices / month&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="450" y="266" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-14" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Average 4 days per invoice&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="450" y="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-15" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;£38k/yr late-payment penalties&lt;/b&gt;&lt;br&gt;on 2% of invoices" vertex="1">
+                    <mxGeometry height="52" width="390" x="450" y="354" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-16" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;1–2 duplicate payments / quarter&lt;/b&gt;&lt;br&gt;≈ £9k each" vertex="1">
+                    <mxGeometry height="52" width="390" x="450" y="414" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-17" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;≈ 6.5 FTE spent purely on matching&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="450" y="474" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-18" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Audit findings every year&lt;/b&gt;&lt;br&gt;&amp;quot;zero evidence trail&amp;quot;" vertex="1">
+                    <mxGeometry height="52" width="390" x="450" y="518" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-19" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Target: 6.5 FTE → ≈ 1 FTE of review&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="450" y="578" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-20" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;English only · GBP / EUR&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="450" y="622" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-21" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Decision ≤ 90 s, 99% within SLO&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="450" y="666" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-22" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="Our arithmetic&lt;br&gt;&lt;span style=&#39;font-size:11px;font-weight:normal&#39;&gt;Only as good as the amber inputs&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="50" width="390" x="860" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-23" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Touch time ≈ 17 min per invoice&lt;/b&gt;&lt;br&gt;3,800 ÷ (6.5 FTE × ~21 days × 7.5 h)" vertex="1">
+                    <mxGeometry height="52" width="390" x="860" y="222" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-24" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Elapsed time = 4 days&lt;/b&gt;&lt;br&gt;so touch time is &amp;lt; 1% of elapsed time. &lt;b&gt;Most of the 4 days is waiting.&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="52" width="390" x="860" y="282" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-25" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;≈ £42 per late invoice&lt;/b&gt;&lt;br&gt;912 late invoices/yr → looks like a fixed per-invoice charge, not interest" vertex="1">
+                    <mxGeometry height="52" width="390" x="860" y="342" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-26" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Duplicates ≈ £36–72k/yr gross&lt;/b&gt;&lt;br&gt;before any recovery from suppliers" vertex="1">
+                    <mxGeometry height="52" width="390" x="860" y="402" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-27" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;6.5 → 1 FTE implies ≈ 85% no-touch&lt;/b&gt;&lt;br&gt;needs a needs_review rate we don&#39;t have" vertex="1">
+                    <mxGeometry height="52" width="390" x="860" y="462" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-28" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="Unknown: must ask&lt;br&gt;&lt;span style=&#39;font-size:11px;font-weight:normal&#39;&gt;Each one can change the problem&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="50" width="390" x="1270" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-29" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Who is the sponsor?&lt;/b&gt;&lt;br&gt;What decision are they trying to make?" vertex="1">
+                    <mxGeometry height="52" width="390" x="1270" y="222" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-30" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;What share of invoices have a PO?&lt;/b&gt;&lt;br&gt;non-PO and service invoices fall outside a 3-way match" vertex="1">
+                    <mxGeometry height="52" width="390" x="1270" y="282" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-31" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;How are goods receipts recorded today?&lt;/b&gt;&lt;br&gt;ERP · phone photo · not at all" vertex="1">
+                    <mxGeometry height="52" width="390" x="1270" y="342" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-32" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Where do the 4 days go?&lt;/b&gt;&lt;br&gt;per-stage timestamps" vertex="1">
+                    <mxGeometry height="52" width="390" x="1270" y="402" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-33" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Payment terms &amp;amp; payment-run cadence&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="1270" y="462" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-34" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Root cause of the duplicate payments&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="1270" y="506" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-35" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;What exactly did the auditors flag?&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="1270" y="550" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-36" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Who sets match tolerances, and who may reject?&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="1270" y="594" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-37" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Which ERP, and which approval controls?&lt;/b&gt;&lt;br&gt;delegation of authority · segregation of duties" vertex="1">
+                    <mxGeometry height="52" width="390" x="1270" y="638" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-38" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Is penalty cost owned by AP, Treasury or the CFO?&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="36" width="390" x="1270" y="698" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-39" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=13;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;spacingRight=16;" value="&lt;b&gt;Rule for this iteration:&lt;/b&gt; amber cards stay out of any value claim until ACMEFibre confirms them. Blue cards inherit their uncertainty. The single most important blue card is &lt;b&gt;touch ≈ 17 min vs elapsed = 4 days&lt;/b&gt;. If it holds, ACMEFibre&#39;s problem is mostly &lt;i&gt;waiting&lt;/i&gt;, not &lt;i&gt;matching&lt;/i&gt;." vertex="1">
+                    <mxGeometry height="56" width="1620" x="40" y="860" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-40" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="40" y="940" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-41" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Stated in a source (PRD)" vertex="1">
+                    <mxGeometry height="22" width="190" x="72" y="938" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-42" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="270" y="940" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-43" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Asserted on v1 diagram, no source" vertex="1">
+                    <mxGeometry height="22" width="190" x="302" y="938" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-44" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="500" y="940" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-45" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Our inference / arithmetic" vertex="1">
+                    <mxGeometry height="22" width="190" x="532" y="938" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-46" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="730" y="940" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1-47" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Unknown: ask the client" vertex="1">
+                    <mxGeometry height="22" width="190" x="762" y="938" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="k2" name="2 · S: who has which problem?">
+        <mxGraphModel dx="1647" dy="963" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1000" background="#FFFFFF" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="k2-1" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=22;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;" value="Step 2 · SCOPE-D S: Actor → Problem → Outcome (re-opened)" vertex="1">
+                    <mxGeometry height="56" width="1620" x="40" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-2" parent="1" style="fillColor=#F5F5F5;strokeColor=none;fontColor=#222222;fontSize=13;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;spacingRight=16;" value="v1 put &lt;i&gt;the organisation&lt;/i&gt; in the Actor box and assumed one problem. SCOPE-D asks for &lt;b&gt;one&lt;/b&gt; actor, &lt;b&gt;one&lt;/b&gt; problem and &lt;b&gt;one&lt;/b&gt; outcome. We have three candidate problems, and different people feel each one." vertex="1">
+                    <mxGeometry height="50" width="1620" x="40" y="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-3" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="ACTOR: who feels it, who pays for it" vertex="1">
+                    <mxGeometry height="36" width="440" x="40" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-4" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="PROBLEM: competing hypotheses" vertex="1">
+                    <mxGeometry height="36" width="520" x="560" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-5" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="OUTCOME: what would prove it improved" vertex="1">
+                    <mxGeometry height="36" width="500" x="1160" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-6" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Feel the friction every day&lt;/b&gt;&lt;br&gt;AP clerks: hunt for evidence, compare by eye&lt;br&gt;Warehouse staff: get chased for receipts&lt;br&gt;Buyers: get queried about prices" vertex="1">
+                    <mxGeometry height="110" width="440" x="40" y="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-7" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Bear the consequences&lt;/b&gt;&lt;br&gt;Finance controller / CFO: penalties, cash leakage&lt;br&gt;Suppliers: paid late, chase payment&lt;br&gt;Auditors: no trail, raise findings" vertex="1">
+                    <mxGeometry height="110" width="440" x="40" y="340" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-8" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Decides to invest: ?&lt;/b&gt;&lt;br&gt;Not named anywhere. Their priority decides which problem is &amp;quot;the&amp;quot; problem." vertex="1">
+                    <mxGeometry height="90" width="440" x="40" y="468" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-9" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;H1 · Effort&lt;/b&gt;&lt;br&gt;Matching is manual labour: ≈ 6.5 FTE comparing documents by eye.&lt;br&gt;&lt;i&gt;Implicit thesis of the PRD and the v1 value story.&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="110" width="520" x="560" y="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-10" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;H2 · Latency&lt;/b&gt;&lt;br&gt;Evidence (especially goods receipts) arrives late or scattered, so invoices wait, some miss terms, and penalties follow.&lt;br&gt;&lt;i&gt;Suggested by touch ≈ 17 min vs 4 days elapsed.&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="120" width="520" x="560" y="340" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-11" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;H3 · Control&lt;/b&gt;&lt;br&gt;Payments go out without provable reasoning, which leads to duplicates and audit findings.&lt;br&gt;&lt;i&gt;Closest to v1&#39;s reframe: &amp;quot;proving payability with evidence&amp;quot;.&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="110" width="520" x="560" y="478" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-12" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Touch minutes per invoice · FTE hours on matching&lt;/b&gt;&lt;br&gt;Baseline: ? (time study or sample)" vertex="1">
+                    <mxGeometry height="110" width="500" x="1160" y="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-13" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Elapsed days, receipt → approval · % paid late · penalty £&lt;/b&gt;&lt;br&gt;Baseline: ? (ERP timestamps)" vertex="1">
+                    <mxGeometry height="120" width="500" x="1160" y="340" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-14" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Duplicate payments/yr · audit findings · % payments with recorded evidence&lt;/b&gt;&lt;br&gt;Baseline: ? (audit report, payment history)" vertex="1">
+                    <mxGeometry height="110" width="500" x="1160" y="478" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-15" edge="1" parent="1" source="k2-6" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k2-9" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-16" edge="1" parent="1" source="k2-6" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k2-10" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-17" edge="1" parent="1" source="k2-7" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k2-10" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-18" edge="1" parent="1" source="k2-7" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k2-11" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-19" edge="1" parent="1" source="k2-9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k2-12" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-20" edge="1" parent="1" source="k2-10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k2-13" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-21" edge="1" parent="1" source="k2-11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k2-14" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-22" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=12;spacingRight=12;dashed=0;strokeWidth=2;" value="&lt;b&gt;Keep from v1:&lt;/b&gt; &amp;quot;The problem is not reading invoices. It is proving payability with evidence, at volume, when the evidence is a blurry photo.&amp;quot;&lt;br&gt;This is a strong reframe, but it describes &lt;b&gt;H3&lt;/b&gt;. The v1 value story (6.5 → 1 FTE) is mostly argued from &lt;b&gt;H1&lt;/b&gt;. Pick one problem as primary, or agree the order." vertex="1">
+                    <mxGeometry height="90" width="1040" x="40" y="620" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-23" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=12;spacingRight=12;dashed=0;strokeWidth=2;" value="&lt;b&gt;Why it matters for C (scope):&lt;/b&gt;&lt;br&gt;H1 → automate the per-invoice match&lt;br&gt;H2 → fix how evidence is captured and moves&lt;br&gt;H3 → record decisions and check for duplicates across invoices&lt;br&gt;These are three different builds." vertex="1">
+                    <mxGeometry height="130" width="500" x="1160" y="620" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-24" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=13;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;spacingRight=16;" value="&lt;b&gt;Discovery question #1, for the sponsor:&lt;/b&gt; &amp;quot;If we could move only one of these numbers in 6 months (FTE hours, % paid late, duplicate/audit exposure), which one would you pay for?&amp;quot;" vertex="1">
+                    <mxGeometry height="50" width="1620" x="40" y="800" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-25" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="40" y="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-26" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Stated in a source (PRD)" vertex="1">
+                    <mxGeometry height="22" width="190" x="72" y="878" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-27" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="270" y="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-28" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Asserted on v1 diagram, no source" vertex="1">
+                    <mxGeometry height="22" width="190" x="302" y="878" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-29" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="500" y="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-30" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Our inference / arithmetic" vertex="1">
+                    <mxGeometry height="22" width="190" x="532" y="878" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-31" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="730" y="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2-32" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Unknown: ask the client" vertex="1">
+                    <mxGeometry height="22" width="190" x="762" y="878" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="k3" name="3 · P (as-is): invoice → payment today">
+        <mxGraphModel dx="1883" dy="1100" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1760" pageHeight="1160" background="#FFFFFF" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="k3-1" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=22;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;" value="Step 3 · SCOPE-D P, applied to the current state: how does an invoice become a payment today?" vertex="1">
+                    <mxGeometry height="56" width="1680" x="40" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-2" parent="1" style="fillColor=#F5F5F5;strokeColor=none;fontColor=#222222;fontSize=13;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;spacingRight=16;" value="v1 went from O straight to E (Azure components) and never drew how the work happens today. Every step below is a &lt;b&gt;hypothesis&lt;/b&gt; (dashed) to walk through with an AP clerk. The red markers show where we think time, money or control is lost." vertex="1">
+                    <mxGeometry height="50" width="1680" x="40" y="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-3" parent="1" style="fillColor=#FAFAFA;strokeColor=#DDDDDD;rounded=0;html=1;" value="" vertex="1">
+                    <mxGeometry height="90" width="1680" x="40" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-4" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;" value="Supplier" vertex="1">
+                    <mxGeometry height="90" width="130" x="40" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-5" parent="1" style="fillColor=#FAFAFA;strokeColor=#DDDDDD;rounded=0;html=1;" value="" vertex="1">
+                    <mxGeometry height="90" width="1680" x="40" y="256" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-6" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;" value="Purchasing" vertex="1">
+                    <mxGeometry height="90" width="130" x="40" y="256" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-7" parent="1" style="fillColor=#FAFAFA;strokeColor=#DDDDDD;rounded=0;html=1;" value="" vertex="1">
+                    <mxGeometry height="110" width="1680" x="40" y="352" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-8" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;" value="Warehouse" vertex="1">
+                    <mxGeometry height="110" width="130" x="40" y="352" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-9" parent="1" style="fillColor=#FAFAFA;strokeColor=#DDDDDD;rounded=0;html=1;" value="" vertex="1">
+                    <mxGeometry height="200" width="1680" x="40" y="468" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-10" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;" value="AP Clerk" vertex="1">
+                    <mxGeometry height="200" width="130" x="40" y="468" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-11" parent="1" style="fillColor=#FAFAFA;strokeColor=#DDDDDD;rounded=0;html=1;" value="" vertex="1">
+                    <mxGeometry height="90" width="1680" x="40" y="674" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-12" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;" value="AP Approver" vertex="1">
+                    <mxGeometry height="90" width="130" x="40" y="674" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-13" parent="1" style="fillColor=#FAFAFA;strokeColor=#DDDDDD;rounded=0;html=1;" value="" vertex="1">
+                    <mxGeometry height="90" width="1680" x="40" y="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-14" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;" value="Payment run" vertex="1">
+                    <mxGeometry height="90" width="130" x="40" y="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-15" parent="1" style="fillColor=#FAFAFA;strokeColor=#DDDDDD;rounded=0;html=1;" value="" vertex="1">
+                    <mxGeometry height="90" width="1680" x="40" y="866" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-16" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;" value="Auditor" vertex="1">
+                    <mxGeometry height="90" width="130" x="40" y="866" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-17" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Send invoice&lt;br&gt;&lt;span style=&#39;font-size:10px&#39;&gt;email PDF · post · re-send&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="56" width="150" x="300" y="177" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-18" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Raise PO" vertex="1">
+                    <mxGeometry height="56" width="130" x="200" y="273" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-19" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Goods arrive" vertex="1">
+                    <mxGeometry height="56" width="130" x="300" y="379" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-20" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Receipt recorded?&lt;br&gt;&lt;span style=&#39;font-size:10px&#39;&gt;ERP · phone photo · not at all&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="56" width="170" x="480" y="379" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-21" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Log invoice" vertex="1">
+                    <mxGeometry height="56" width="130" x="480" y="498" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-22" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Find PO" vertex="1">
+                    <mxGeometry height="56" width="130" x="660" y="498" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-23" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Find goods receipt" vertex="1">
+                    <mxGeometry height="56" width="150" x="840" y="498" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-24" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Compare qty · price · totals&lt;br&gt;&lt;span style=&#39;font-size:10px&#39;&gt;by eye&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="56" width="170" x="1040" y="498" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-25" parent="1" style="rhombus;fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;whiteSpace=wrap;html=1;" value="Match?" vertex="1">
+                    <mxGeometry height="80" width="100" x="1260" y="486" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-26" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Query buyer / warehouse / supplier, then wait" vertex="1">
+                    <mxGeometry height="56" width="200" x="1040" y="598" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-27" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Approve" vertex="1">
+                    <mxGeometry height="56" width="130" x="1260" y="691" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-28" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Pay on next run" vertex="1">
+                    <mxGeometry height="56" width="150" x="1400" y="787" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-29" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="Sample: &amp;quot;why was this paid?&amp;quot;" vertex="1">
+                    <mxGeometry height="56" width="170" x="1400" y="883" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-30" edge="1" parent="1" source="k3-17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k3-21" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-31" edge="1" parent="1" source="k3-19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k3-20" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-32" edge="1" parent="1" source="k3-21" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k3-22" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-33" edge="1" parent="1" source="k3-22" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k3-23" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-34" edge="1" parent="1" source="k3-23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k3-24" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-35" edge="1" parent="1" source="k3-24" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k3-25" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-36" edge="1" parent="1" source="k3-25" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k3-27" value="yes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-37" edge="1" parent="1" source="k3-27" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;" target="k3-28" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-38" edge="1" parent="1" source="k3-25" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#555555;endArrow=block;endFill=1;fontSize=11;fontColor=#555555;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k3-26" value="no">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-39" edge="1" parent="1" source="k3-26" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#999999;dashed=1;endArrow=open;fontSize=11;fontColor=#777777;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" target="k3-24" value="resolved">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-40" edge="1" parent="1" source="k3-18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#999999;dashed=1;endArrow=open;fontSize=11;fontColor=#777777;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="k3-22" value="reference">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-41" edge="1" parent="1" source="k3-20" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#999999;dashed=1;endArrow=open;fontSize=11;fontColor=#777777;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k3-23" value="evidence">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-42" edge="1" parent="1" source="k3-23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#999999;dashed=1;endArrow=open;fontSize=11;fontColor=#777777;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="k3-20" value="chase">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-43" edge="1" parent="1" source="k3-28" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#999999;dashed=1;endArrow=open;fontSize=11;fontColor=#777777;" target="k3-29" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-44" parent="1" style="ellipse;fillColor=#C62828;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;html=1;" value="F1" vertex="1">
+                    <mxGeometry height="24" width="24" x="808" y="608" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-45" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#8E0000;fontSize=11;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=8;spacingRight=6;" value="Evidence isn&#39;t where the clerk is: chase the warehouse &lt;i&gt;(v1 p0, unsourced)&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="46" width="190" x="836" y="618" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-46" parent="1" style="ellipse;fillColor=#C62828;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;html=1;" value="F2" vertex="1">
+                    <mxGeometry height="24" width="24" x="658" y="362" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-47" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#8E0000;fontSize=11;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=8;spacingRight=6;" value="Receipt may never reach a system, so photos stay on phones &lt;i&gt;(hypothesis)&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="46" width="260" x="686" y="372" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-48" parent="1" style="ellipse;fillColor=#C62828;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;html=1;" value="F3" vertex="1">
+                    <mxGeometry height="24" width="24" x="1248" y="588" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-49" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#8E0000;fontSize=11;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=8;spacingRight=6;" value="Exception loop: who owns it, how long does it sit? &lt;i&gt;(unknown)&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="46" width="260" x="1276" y="598" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-50" parent="1" style="ellipse;fillColor=#C62828;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;html=1;" value="F4" vertex="1">
+                    <mxGeometry height="24" width="24" x="458" y="167" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-51" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#8E0000;fontSize=11;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=8;spacingRight=6;" value="Same invoice can arrive twice by different channels, which leads to duplicates &lt;i&gt;(hypothesis)&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="56" width="300" x="486" y="177" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-52" parent="1" style="ellipse;fillColor=#C62828;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;html=1;" value="F5" vertex="1">
+                    <mxGeometry height="24" width="24" x="1428" y="478" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-53" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#8E0000;fontSize=11;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=8;spacingRight=6;" value="Judgement by eye, reasoning not recorded, so audit findings follow &lt;i&gt;(v1 p0)&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="56" width="250" x="1456" y="488" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-54" parent="1" style="ellipse;fillColor=#C62828;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;html=1;" value="F6" vertex="1">
+                    <mxGeometry height="24" width="24" x="1564" y="768" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-55" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#8E0000;fontSize=11;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=8;spacingRight=6;" value="Run cadence vs payment terms, so penalties follow &lt;i&gt;(unknown)&lt;/i&gt;" vertex="1">
+                    <mxGeometry height="74" width="128" x="1592" y="778" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-56" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=13;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;spacingRight=16;" value="&lt;b&gt;Where do the 4 days go?&lt;/b&gt; If touch time is ≈ 17 min (our inference), almost all of the 4 days is &lt;b&gt;waiting&lt;/b&gt;: for the receipt (F1/F2), in the exception loop (F3), or for the payment run (F6). A faster matching engine won&#39;t move elapsed time if the wait happens &lt;i&gt;before&lt;/i&gt; the evidence exists. &lt;b&gt;Ask for timestamps&lt;/b&gt; for invoice received → PO found → receipt found → decision → approved → paid." vertex="1">
+                    <mxGeometry height="66" width="1680" x="40" y="985" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-57" parent="1" style="fillColor=#FFFFFF;strokeColor=#555555;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=12;whiteSpace=wrap;html=1;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="40" y="1075" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-58" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Hypothesised step (validate with a clerk)" vertex="1">
+                    <mxGeometry height="22" width="190" x="72" y="1073" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-59" parent="1" style="ellipse;fillColor=#C62828;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1;html=1;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="270" y="1075" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-60" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Friction point" vertex="1">
+                    <mxGeometry height="22" width="190" x="302" y="1073" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-61" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#8E0000;fontSize=11;rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;spacingLeft=8;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="500" y="1075" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3-62" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="What is lost there, and its source" vertex="1">
+                    <mxGeometry height="22" width="190" x="532" y="1073" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="k4" name="4 · Symptoms vs candidate causes">
+        <mxGraphModel dx="1647" dy="963" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1060" background="#FFFFFF" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="k4-1" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=22;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;" value="Step 4 · Symptoms vs candidate root causes: what would a per-invoice match actually fix?" vertex="1">
+                    <mxGeometry height="56" width="1620" x="40" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-2" parent="1" style="fillColor=#F5F5F5;strokeColor=none;fontColor=#222222;fontSize=13;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;spacingRight=16;" value="v1 lists symptoms (penalties, duplicates, effort, audit findings) and goes straight to a decision engine. Here we separate &lt;b&gt;what we see&lt;/b&gt; from &lt;b&gt;what might cause it&lt;/b&gt;, then check honestly whether the PRD&#39;s build touches each cause." vertex="1">
+                    <mxGeometry height="50" width="1620" x="40" y="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-3" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="SYMPTOMS (v1 p0, unsourced)" vertex="1">
+                    <mxGeometry height="36" width="320" x="40" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-4" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="CANDIDATE ROOT CAUSES (hypotheses)" vertex="1">
+                    <mxGeometry height="36" width="560" x="460" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-5" parent="1" style="fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=14;fontStyle=1;rounded=0;whiteSpace=wrap;html=1;align=center;" value="DOES &amp;quot;AUTOMATE THE PER-INVOICE MATCH&amp;quot; FIX IT?" vertex="1">
+                    <mxGeometry height="36" width="560" x="1100" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-6" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;C1 · Goods receipts aren&#39;t captured in a system, or are captured late&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="64" width="560" x="460" y="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-7" parent="1" style="fillColor=#F5F5F5;strokeColor=#555555;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Partly&lt;/b&gt;: It can &lt;i&gt;read&lt;/i&gt; a phone photo, but it can&#39;t make a receipt exist sooner." vertex="1">
+                    <mxGeometry height="64" width="560" x="1100" y="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-8" edge="1" parent="1" source="k4-6" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k4-7" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-9" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;C2 · Discrepancies start upstream: price changes not on the PO, partial deliveries&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="64" width="560" x="460" y="294" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-10" parent="1" style="fillColor=#F5F5F5;strokeColor=#555555;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Partly&lt;/b&gt;: It &lt;i&gt;detects&lt;/i&gt; mismatches but doesn&#39;t prevent them. v1 models 1 invoice : 1 PO : 1 receipt, while partial deliveries are many-to-many." vertex="1">
+                    <mxGeometry height="64" width="560" x="1100" y="294" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-11" edge="1" parent="1" source="k4-9" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k4-10" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-12" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;C3 · The same invoice enters twice (PDF + photo, re-send), with no check across invoices&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="64" width="560" x="460" y="376" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-13" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;No, as specified&lt;/b&gt;: The PRD&#39;s &amp;quot;duplicate prevention&amp;quot; means a &lt;b&gt;replayed tool request&lt;/b&gt;. A supplier re-sending INV-1187 as a photo is a &lt;i&gt;new&lt;/i&gt; request." vertex="1">
+                    <mxGeometry height="64" width="560" x="1100" y="376" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-14" edge="1" parent="1" source="k4-12" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k4-13" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-15" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;C4 · Matching is done by eye and the reasoning is never recorded&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="64" width="560" x="460" y="458" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-16" parent="1" style="fillColor=#E8F5E9;strokeColor=#2E7D32;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Yes&lt;/b&gt;: This is the PRD&#39;s strength: cited evidence, deterministic checks, audit state." vertex="1">
+                    <mxGeometry height="64" width="560" x="1100" y="458" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-17" edge="1" parent="1" source="k4-15" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k4-16" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-18" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;C5 · Exceptions have no owner or queue, so the long tail sits for weeks&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="64" width="560" x="460" y="540" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-19" parent="1" style="fillColor=#F5F5F5;strokeColor=#555555;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;Partly&lt;/b&gt;: It opens a review case. Resolving it is still human, cross-team work." vertex="1">
+                    <mxGeometry height="64" width="560" x="1100" y="540" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-20" edge="1" parent="1" source="k4-18" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k4-19" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-21" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;C6 · Payment-run cadence doesn&#39;t match payment terms&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="64" width="560" x="460" y="622" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-22" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="&lt;b&gt;No&lt;/b&gt;: Outside the build entirely. It&#39;s a finance policy." vertex="1">
+                    <mxGeometry height="64" width="560" x="1100" y="622" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-23" edge="1" parent="1" source="k4-21" style="html=1;strokeColor=#BBBBBB;endArrow=none;" target="k4-22" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-24" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="Late-payment penalties&lt;br&gt;&lt;span style=&#39;font-size:11px&#39;&gt;£38k/yr&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="60" width="320" x="40" y="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-25" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="Duplicate payments&lt;br&gt;&lt;span style=&#39;font-size:11px&#39;&gt;1–2 / quarter&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="60" width="320" x="40" y="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-26" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="Manual matching effort&lt;br&gt;&lt;span style=&#39;font-size:11px&#39;&gt;≈ 6.5 FTE&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="60" width="320" x="40" y="448" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-27" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="Audit findings&lt;br&gt;&lt;span style=&#39;font-size:11px&#39;&gt;every year&lt;/span&gt;" vertex="1">
+                    <mxGeometry height="60" width="320" x="40" y="566" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-28" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="4-day cycle time" vertex="1">
+                    <mxGeometry height="60" width="320" x="40" y="684" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-29" edge="1" parent="1" source="k4-6" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-24" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-30" edge="1" parent="1" source="k4-18" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-24" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-31" edge="1" parent="1" source="k4-21" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-24" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-32" edge="1" parent="1" source="k4-12" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-25" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-33" edge="1" parent="1" source="k4-15" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-26" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-34" edge="1" parent="1" source="k4-9" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-26" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-35" edge="1" parent="1" source="k4-6" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-26" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-36" edge="1" parent="1" source="k4-15" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-27" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-37" edge="1" parent="1" source="k4-12" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-27" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-38" edge="1" parent="1" source="k4-6" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-28" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-39" edge="1" parent="1" source="k4-18" style="curved=1;html=1;strokeColor=#888888;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="k4-28" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-40" parent="1" style="fillColor=#000000;strokeColor=none;fontColor=#FFFFFF;fontSize=13;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=16;spacingRight=16;" value="&lt;b&gt;The uncomfortable read:&lt;/b&gt; the build clearly fixes C4 (traceability, and so audit findings), and helps with effort. The two biggest numbers in the v1 value story, &lt;b&gt;penalties&lt;/b&gt; and &lt;b&gt;duplicates&lt;/b&gt;, mostly trace to C1, C3, C5 and C6, which a per-invoice decision engine touches only partly or not at all.&lt;br&gt;That isn&#39;t a reason to drop the build. It&#39;s a reason to &lt;b&gt;claim only the value it can prove&lt;/b&gt;, or to widen scope on purpose (for example, a duplicate check across invoices)." vertex="1">
+                    <mxGeometry height="84" width="1620" x="40" y="790" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-41" parent="1" style="fillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="40" y="905" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-42" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Stated in a source (PRD)" vertex="1">
+                    <mxGeometry height="22" width="190" x="72" y="903" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-43" parent="1" style="fillColor=#FFF4E0;strokeColor=#C77700;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="270" y="905" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-44" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Asserted on v1 diagram, no source" vertex="1">
+                    <mxGeometry height="22" width="190" x="302" y="903" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-45" parent="1" style="fillColor=#EAF1FD;strokeColor=#1A56DB;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="500" y="905" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-46" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Our inference / arithmetic" vertex="1">
+                    <mxGeometry height="22" width="190" x="532" y="903" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-47" parent="1" style="fillColor=#F5F5F5;strokeColor=#888888;dashed=1;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="730" y="905" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-48" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Unknown: ask the client" vertex="1">
+                    <mxGeometry height="22" width="190" x="762" y="903" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-49" parent="1" style="fillColor=#E8F5E9;strokeColor=#2E7D32;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="960" y="905" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-50" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Addressed" vertex="1">
+                    <mxGeometry height="22" width="190" x="992" y="903" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-51" parent="1" style="fillColor=#F5F5F5;strokeColor=#555555;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="1190" y="905" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-52" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Partly" vertex="1">
+                    <mxGeometry height="22" width="190" x="1222" y="903" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-53" parent="1" style="fillColor=#FDECEC;strokeColor=#C62828;fontColor=#000000;fontSize=12;rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=6;" value="" vertex="1">
+                    <mxGeometry height="18" width="26" x="1420" y="905" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4-54" parent="1" style="fillColor=none;strokeColor=none;fontColor=#333333;fontSize=11;html=1;align=left;" value="Not addressed" vertex="1">
+                    <mxGeometry height="22" width="190" x="1452" y="903" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
