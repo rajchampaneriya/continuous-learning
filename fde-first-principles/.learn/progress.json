@@ -5,10 +5,10 @@
   "current": {
     "topic_id": "p1-10",
     "folder": "1-measure-before-you-believe/10-read-the-failures",
-    "dropped_on": "2026-11-24",
-    "seen_on": "2026-11-24",
-    "deadline": "2026-11-25T05:00",
-    "attempt": 21,
+    "dropped_on": "2026-11-25",
+    "seen_on": "2026-11-25",
+    "deadline": "2026-11-26T05:00",
+    "attempt": 22,
     "mornings": 1,
     "starter_hashes": {
       "notebook.ipynb": "0d6a1daa06c67e0df7db909905ae85c299259635f5c859b4a87f68d4088feac5"
@@ -273,6 +273,13 @@
       "topic_id": "p1-10",
       "dropped_on": "2026-11-23",
       "attempt": 20,
+      "mornings": 1,
+      "status": "missed"
+    },
+    {
+      "topic_id": "p1-10",
+      "dropped_on": "2026-11-24",
+      "attempt": 21,
       "mornings": 1,
       "status": "missed"
     }
