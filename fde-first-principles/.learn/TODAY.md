@@ -1,6 +1,6 @@
 # Today · Day 10 of 53: Read the failures, not the averages
 
-**Ship by Sat 28 Nov, 05:00** · folder: [1-measure-before-you-believe/10-read-the-failures](../1-measure-before-you-believe/10-read-the-failures/README.md)
+**Ship by Sun 29 Nov, 05:00** · folder: [1-measure-before-you-believe/10-read-the-failures](../1-measure-before-you-believe/10-read-the-failures/README.md)
 
 > **First-principles question:** Why does it fail, and which fix matters most?
 
@@ -8,7 +8,7 @@
 
 **Time:** minimum scope, 1 morning (about 130 minutes for the full topic)
 
-**Attempt 24: minimum scope.** Ship at least this: 10 failures labelled and counted.
+**Attempt 25: minimum scope.** Ship at least this: 10 failures labelled and counted.
 
 ### 1 · Learn (about 30 minutes)
 - [A Field Guide to Rapidly Improving AI Products (Hamel Husain)](https://hamel.dev/blog/posts/field-guide/) · 20 min. Read 'The Most Common Mistake: Skipping Error Analysis' and 'A Simple Data Viewer'. Stop there.
